@@ -1,0 +1,20 @@
+{
+    "conversations": [
+        {
+            "role": "system",
+            "content": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\n##Instruction:\nstore_product contains tables such as district.\nTable district has columns such as district_id, district_name, headquartered_city, city_population, city_area."
+        },
+        {
+            "role": "user",
+            "content": "What is the name of the district with the most residents?"
+        },
+        {
+            "role": "assistant",
+            "content": "SELECT district_name\nFROM district\nORDER BY city_population DESC\nLIMIT 1;"
+        },
+        {
+            "role": "result",
+            "content": "SELECT district_name\nFROM district\nORDER BY city_population DESC\nLIMIT 1;"
+        }
+    ]
+}

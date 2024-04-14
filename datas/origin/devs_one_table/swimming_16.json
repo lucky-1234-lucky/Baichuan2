@@ -1,0 +1,165 @@
+{
+    "sql": [
+        {
+            "event": "CREATE TABLE `event` (\n  `id` int(11) NOT NULL,\n  `name` text,\n  `stadium_id` int(11) DEFAULT NULL,\n  `year` text,\n  PRIMARY KEY (`id`),\n  KEY `stadium_id` (`stadium_id`),\n  CONSTRAINT `event_ibfk_1` FOREIGN KEY (`stadium_id`) REFERENCES `stadium` (`id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8",
+            "fileds": {
+                "field": [
+                    [
+                        "id",
+                        "int",
+                        "PRIMARY KEY"
+                    ],
+                    [
+                        "name",
+                        "text,"
+                    ],
+                    [
+                        "stadium_id",
+                        "int"
+                    ],
+                    [
+                        "year",
+                        "text,"
+                    ]
+                ],
+                "foreign_key": [
+                    [
+                        "stadium_id",
+                        "stadium",
+                        "id"
+                    ]
+                ]
+            }
+        },
+        {
+            "record": "CREATE TABLE `record` (\n  `id` int(11) DEFAULT NULL,\n  `result` text,\n  `swimmer_id` int(11) NOT NULL,\n  `event_id` int(11) NOT NULL,\n  PRIMARY KEY (`swimmer_id`,`event_id`),\n  KEY `event_id` (`event_id`),\n  CONSTRAINT `record_ibfk_1` FOREIGN KEY (`event_id`) REFERENCES `event` (`id`),\n  CONSTRAINT `record_ibfk_2` FOREIGN KEY (`swimmer_id`) REFERENCES `swimmer` (`id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8",
+            "fileds": {
+                "field": [
+                    [
+                        "id",
+                        "int"
+                    ],
+                    [
+                        "result",
+                        "text,"
+                    ],
+                    [
+                        "swimmer_id",
+                        "int",
+                        "PRIMARY KEY"
+                    ],
+                    [
+                        "event_id",
+                        "int",
+                        "PRIMARY KEY"
+                    ]
+                ],
+                "foreign_key": [
+                    [
+                        "event_id",
+                        "event",
+                        "id"
+                    ],
+                    [
+                        "swimmer_id",
+                        "swimmer",
+                        "id"
+                    ]
+                ]
+            }
+        },
+        {
+            "stadium": "CREATE TABLE `stadium` (\n  `id` int(11) NOT NULL,\n  `name` text,\n  `capacity` int(11) DEFAULT NULL,\n  `city` text,\n  `country` text,\n  `opening_year` int(11) DEFAULT NULL,\n  PRIMARY KEY (`id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8",
+            "fileds": {
+                "field": [
+                    [
+                        "id",
+                        "int",
+                        "PRIMARY KEY"
+                    ],
+                    [
+                        "name",
+                        "text,"
+                    ],
+                    [
+                        "capacity",
+                        "int"
+                    ],
+                    [
+                        "city",
+                        "text,"
+                    ],
+                    [
+                        "country",
+                        "text,"
+                    ],
+                    [
+                        "opening_year",
+                        "int"
+                    ]
+                ],
+                "foreign_key": []
+            }
+        },
+        {
+            "swimmer": "CREATE TABLE `swimmer` (\n  `id` int(11) NOT NULL,\n  `name` text,\n  `nationality` text,\n  `meter_100` double DEFAULT NULL,\n  `meter_200` text,\n  `meter_300` text,\n  `meter_400` text,\n  `meter_500` text,\n  `meter_600` text,\n  `meter_700` text,\n  `time` text,\n  PRIMARY KEY (`id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8",
+            "fileds": {
+                "field": [
+                    [
+                        "id",
+                        "int",
+                        "PRIMARY KEY"
+                    ],
+                    [
+                        "name",
+                        "text,"
+                    ],
+                    [
+                        "nationality",
+                        "text,"
+                    ],
+                    [
+                        "meter_100",
+                        "double"
+                    ],
+                    [
+                        "meter_200",
+                        "text,"
+                    ],
+                    [
+                        "meter_300",
+                        "text,"
+                    ],
+                    [
+                        "meter_400",
+                        "text,"
+                    ],
+                    [
+                        "meter_500",
+                        "text,"
+                    ],
+                    [
+                        "meter_600",
+                        "text,"
+                    ],
+                    [
+                        "meter_700",
+                        "text,"
+                    ],
+                    [
+                        "time",
+                        "text,"
+                    ]
+                ],
+                "foreign_key": []
+            }
+        }
+    ],
+    "input": "Find the names of stadiums whose capacity is smaller than the average capacity.",
+    "response": "select name from stadium where capacity < (select avg(capacity) from stadium);",
+    "insert": [],
+    "table_names": [
+        "stadium"
+    ],
+    "database": "swimming"
+}

@@ -1,0 +1,20 @@
+{
+    "conversations": [
+        {
+            "role": "system",
+            "content": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\n##Instruction:\ncre_doc_template_mgt contains tables such as templates, documents.\nTable documents has columns such as document_id, template_id, document_name, document_description, other_details, where template_id is the primary key.\nTable templates has columns such as template_id, version_number, template_type_code, date_effective_from, date_effective_to, template_details, where template_type_code is the primary key.\nThe template_id of templates is the foreign key of template_id of documents.\nThe template_type_code of ref_template_types is the foreign key of template_type_code of templates."
+        },
+        {
+            "role": "user",
+            "content": "Return the id and type code of the template that is used for the greatest number of documents."
+        },
+        {
+            "role": "assistant",
+            "content": "select t1.template_id , t2.template_type_code from documents as t1 join templates as t2 on t1.template_id = t2.template_id group by t1.template_id order by count(*) desc limit 1;"
+        },
+        {
+            "role": "result",
+            "content": "SELECT t.template_id, rt.template_type_code \nFROM templates AS t \nJOIN documents AS d ON t.template_id = d.template_id \nJOIN ref_template_types AS rt ON t.template_type_code = rt.template_type_code \nGROUP BY t.template_id, rt.template_type_code \nHAVING COUNT(d.document_id) = (\n    SELECT MAX(COUNT(document_id)) \n    FROM documents \n    WHERE template_id = t.template_id\n);"
+        }
+    ]
+}

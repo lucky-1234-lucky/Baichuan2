@@ -1,0 +1,107 @@
+{
+    "sql": [
+        {
+            "enzyme": "CREATE TABLE `enzyme` (\n  `id` int(11) NOT NULL,\n  `name` text,\n  `location` text,\n  `product` text,\n  `chromosome` text,\n  `omim` int(11) DEFAULT NULL,\n  `porphyria` text,\n  PRIMARY KEY (`id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8",
+            "fileds": {
+                "field": [
+                    [
+                        "id",
+                        "int",
+                        "PRIMARY KEY"
+                    ],
+                    [
+                        "name",
+                        "text,"
+                    ],
+                    [
+                        "location",
+                        "text,"
+                    ],
+                    [
+                        "product",
+                        "text,"
+                    ],
+                    [
+                        "chromosome",
+                        "text,"
+                    ],
+                    [
+                        "omim",
+                        "int"
+                    ],
+                    [
+                        "porphyria",
+                        "text,"
+                    ]
+                ],
+                "foreign_key": []
+            }
+        },
+        {
+            "medicine": "CREATE TABLE `medicine` (\n  `id` int(11) NOT NULL,\n  `name` text,\n  `trade_name` text,\n  `fda_approved` text,\n  PRIMARY KEY (`id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8",
+            "fileds": {
+                "field": [
+                    [
+                        "id",
+                        "int",
+                        "PRIMARY KEY"
+                    ],
+                    [
+                        "name",
+                        "text,"
+                    ],
+                    [
+                        "trade_name",
+                        "text,"
+                    ],
+                    [
+                        "fda_approved",
+                        "text,"
+                    ]
+                ],
+                "foreign_key": []
+            }
+        },
+        {
+            "medicine_enzyme_interaction": "CREATE TABLE `medicine_enzyme_interaction` (\n  `enzyme_id` int(11) NOT NULL,\n  `medicine_id` int(11) NOT NULL,\n  `interaction_type` text,\n  PRIMARY KEY (`enzyme_id`,`medicine_id`),\n  KEY `medicine_id` (`medicine_id`),\n  CONSTRAINT `medicine_enzyme_interaction_ibfk_1` FOREIGN KEY (`enzyme_id`) REFERENCES `enzyme` (`id`),\n  CONSTRAINT `medicine_enzyme_interaction_ibfk_2` FOREIGN KEY (`medicine_id`) REFERENCES `medicine` (`id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8",
+            "fileds": {
+                "field": [
+                    [
+                        "enzyme_id",
+                        "int",
+                        "PRIMARY KEY"
+                    ],
+                    [
+                        "medicine_id",
+                        "int",
+                        "PRIMARY KEY"
+                    ],
+                    [
+                        "interaction_type",
+                        "text,"
+                    ]
+                ],
+                "foreign_key": [
+                    [
+                        "enzyme_id",
+                        "enzyme",
+                        "id"
+                    ],
+                    [
+                        "medicine_id",
+                        "medicine",
+                        "id"
+                    ]
+                ]
+            }
+        }
+    ],
+    "input": "What are the ids and trade names of the medicine that can interact with at least 3 enzymes?",
+    "response": "select t1.id , t1.trade_name from medicine as t1 join medicine_enzyme_interaction as t2 on t2.medicine_id = t1.id group by t1.id having count(*) >= 3;",
+    "insert": [],
+    "table_names": [
+        "medicine_enzyme_interaction",
+        "medicine"
+    ],
+    "database": "medicine_enzyme_interaction"
+}

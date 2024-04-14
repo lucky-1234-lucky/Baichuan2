@@ -1,0 +1,20 @@
+{
+    "conversations": [
+        {
+            "role": "system",
+            "content": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\n##Instruction:\ntracking_orders contains tables such as orders.\nTable orders has columns such as order_id, customer_id, order_status, date_order_placed, order_details, where customer_id is the primary key.\nThe customer_id of customers is the foreign key of customer_id of orders."
+        },
+        {
+            "role": "user",
+            "content": "Find the order id and customer id associated with the oldest order."
+        },
+        {
+            "role": "assistant",
+            "content": "select order_id , customer_id from orders order by date_order_placed limit 1;"
+        },
+        {
+            "role": "result",
+            "content": "SELECT order_id, customer_id FROM orders ORDER BY date_order_placed ASC LIMIT 1;"
+        }
+    ]
+}

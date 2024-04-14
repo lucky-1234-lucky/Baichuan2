@@ -1,0 +1,501 @@
+{
+    "sql": [
+        {
+            "accounts": "CREATE TABLE `accounts` (\n  `account_id` int(11) NOT NULL,\n  `customer_id` int(11) NOT NULL,\n  `date_account_opened` datetime DEFAULT NULL,\n  `account_name` varchar(50) DEFAULT NULL,\n  `other_account_details` varchar(255) DEFAULT NULL,\n  PRIMARY KEY (`account_id`),\n  KEY `customer_id` (`customer_id`),\n  CONSTRAINT `accounts_ibfk_1` FOREIGN KEY (`customer_id`) REFERENCES `customers` (`customer_id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8",
+            "fileds": {
+                "field": [
+                    [
+                        "account_id",
+                        "int",
+                        "PRIMARY KEY"
+                    ],
+                    [
+                        "customer_id",
+                        "int"
+                    ],
+                    [
+                        "date_account_opened",
+                        "datetime"
+                    ],
+                    [
+                        "account_name",
+                        "varchar"
+                    ],
+                    [
+                        "other_account_details",
+                        "varchar"
+                    ]
+                ],
+                "foreign_key": [
+                    [
+                        "customer_id",
+                        "customers",
+                        "customer_id"
+                    ]
+                ]
+            }
+        },
+        {
+            "customers": "CREATE TABLE `customers` (\n  `customer_id` int(11) NOT NULL,\n  `customer_first_name` varchar(50) DEFAULT NULL,\n  `customer_middle_initial` varchar(1) DEFAULT NULL,\n  `customer_last_name` varchar(50) DEFAULT NULL,\n  `gender` varchar(1) DEFAULT NULL,\n  `email_address` varchar(255) DEFAULT NULL,\n  `login_name` varchar(80) DEFAULT NULL,\n  `login_password` varchar(20) DEFAULT NULL,\n  `phone_number` varchar(255) DEFAULT NULL,\n  `town_city` varchar(50) DEFAULT NULL,\n  `state_county_province` varchar(50) DEFAULT NULL,\n  `country` varchar(50) DEFAULT NULL,\n  PRIMARY KEY (`customer_id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8",
+            "fileds": {
+                "field": [
+                    [
+                        "customer_id",
+                        "int",
+                        "PRIMARY KEY"
+                    ],
+                    [
+                        "customer_first_name",
+                        "varchar"
+                    ],
+                    [
+                        "customer_middle_initial",
+                        "varchar"
+                    ],
+                    [
+                        "customer_last_name",
+                        "varchar"
+                    ],
+                    [
+                        "gender",
+                        "varchar"
+                    ],
+                    [
+                        "email_address",
+                        "varchar"
+                    ],
+                    [
+                        "login_name",
+                        "varchar"
+                    ],
+                    [
+                        "login_password",
+                        "varchar"
+                    ],
+                    [
+                        "phone_number",
+                        "varchar"
+                    ],
+                    [
+                        "town_city",
+                        "varchar"
+                    ],
+                    [
+                        "state_county_province",
+                        "varchar"
+                    ],
+                    [
+                        "country",
+                        "varchar"
+                    ]
+                ],
+                "foreign_key": []
+            }
+        },
+        {
+            "financial_transactions": "CREATE TABLE `financial_transactions` (\n  `transaction_id` int(11) NOT NULL,\n  `account_id` int(11) NOT NULL,\n  `invoice_number` int(11) DEFAULT NULL,\n  `transaction_type` varchar(15) NOT NULL,\n  `transaction_date` datetime DEFAULT NULL,\n  `transaction_amount` decimal(19,4) DEFAULT NULL,\n  `transaction_comment` varchar(255) DEFAULT NULL,\n  `other_transaction_details` varchar(255) DEFAULT NULL,\n  KEY `invoice_number` (`invoice_number`),\n  KEY `account_id` (`account_id`),\n  CONSTRAINT `financial_transactions_ibfk_1` FOREIGN KEY (`invoice_number`) REFERENCES `invoices` (`invoice_number`),\n  CONSTRAINT `financial_transactions_ibfk_2` FOREIGN KEY (`account_id`) REFERENCES `accounts` (`account_id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8",
+            "fileds": {
+                "field": [
+                    [
+                        "transaction_id",
+                        "int"
+                    ],
+                    [
+                        "account_id",
+                        "int"
+                    ],
+                    [
+                        "invoice_number",
+                        "int"
+                    ],
+                    [
+                        "transaction_type",
+                        "varchar"
+                    ],
+                    [
+                        "transaction_date",
+                        "datetime"
+                    ],
+                    [
+                        "transaction_amount",
+                        "decimal"
+                    ],
+                    [
+                        "transaction_comment",
+                        "varchar"
+                    ],
+                    [
+                        "other_transaction_details",
+                        "varchar"
+                    ]
+                ],
+                "foreign_key": [
+                    [
+                        "invoice_number",
+                        "invoices",
+                        "invoice_number"
+                    ],
+                    [
+                        "account_id",
+                        "accounts",
+                        "account_id"
+                    ]
+                ]
+            }
+        },
+        {
+            "invoice_line_items": "CREATE TABLE `invoice_line_items` (\n  `order_item_id` int(11) NOT NULL,\n  `invoice_number` int(11) NOT NULL,\n  `product_id` int(11) NOT NULL,\n  `product_title` varchar(80) DEFAULT NULL,\n  `product_quantity` varchar(50) DEFAULT NULL,\n  `product_price` decimal(19,4) DEFAULT NULL,\n  `derived_product_cost` decimal(19,4) DEFAULT NULL,\n  `derived_vat_payable` decimal(19,4) DEFAULT NULL,\n  `derived_total_cost` decimal(19,4) DEFAULT NULL,\n  KEY `order_item_id` (`order_item_id`),\n  KEY `invoice_number` (`invoice_number`),\n  KEY `product_id` (`product_id`),\n  CONSTRAINT `invoice_line_items_ibfk_1` FOREIGN KEY (`order_item_id`) REFERENCES `order_items` (`order_item_id`),\n  CONSTRAINT `invoice_line_items_ibfk_2` FOREIGN KEY (`invoice_number`) REFERENCES `invoices` (`invoice_number`),\n  CONSTRAINT `invoice_line_items_ibfk_3` FOREIGN KEY (`product_id`) REFERENCES `products` (`product_id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8",
+            "fileds": {
+                "field": [
+                    [
+                        "order_item_id",
+                        "int"
+                    ],
+                    [
+                        "invoice_number",
+                        "int"
+                    ],
+                    [
+                        "product_id",
+                        "int"
+                    ],
+                    [
+                        "product_title",
+                        "varchar"
+                    ],
+                    [
+                        "product_quantity",
+                        "varchar"
+                    ],
+                    [
+                        "product_price",
+                        "decimal"
+                    ],
+                    [
+                        "derived_product_cost",
+                        "decimal"
+                    ],
+                    [
+                        "derived_vat_payable",
+                        "decimal"
+                    ],
+                    [
+                        "derived_total_cost",
+                        "decimal"
+                    ]
+                ],
+                "foreign_key": [
+                    [
+                        "order_item_id",
+                        "order_items",
+                        "order_item_id"
+                    ],
+                    [
+                        "invoice_number",
+                        "invoices",
+                        "invoice_number"
+                    ],
+                    [
+                        "product_id",
+                        "products",
+                        "product_id"
+                    ]
+                ]
+            }
+        },
+        {
+            "invoices": "CREATE TABLE `invoices` (\n  `invoice_number` int(11) NOT NULL,\n  `order_id` int(11) NOT NULL,\n  `invoice_date` datetime DEFAULT NULL,\n  PRIMARY KEY (`invoice_number`),\n  KEY `order_id` (`order_id`),\n  CONSTRAINT `invoices_ibfk_1` FOREIGN KEY (`order_id`) REFERENCES `orders` (`order_id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8",
+            "fileds": {
+                "field": [
+                    [
+                        "invoice_number",
+                        "int",
+                        "PRIMARY KEY"
+                    ],
+                    [
+                        "order_id",
+                        "int"
+                    ],
+                    [
+                        "invoice_date",
+                        "datetime"
+                    ]
+                ],
+                "foreign_key": [
+                    [
+                        "order_id",
+                        "orders",
+                        "order_id"
+                    ]
+                ]
+            }
+        },
+        {
+            "order_items": "CREATE TABLE `order_items` (\n  `order_item_id` int(11) NOT NULL,\n  `order_id` int(11) NOT NULL,\n  `product_id` int(11) NOT NULL,\n  `product_quantity` varchar(50) DEFAULT NULL,\n  `other_order_item_details` varchar(255) DEFAULT NULL,\n  PRIMARY KEY (`order_item_id`),\n  KEY `product_id` (`product_id`),\n  KEY `order_id` (`order_id`),\n  CONSTRAINT `order_items_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `products` (`product_id`),\n  CONSTRAINT `order_items_ibfk_2` FOREIGN KEY (`order_id`) REFERENCES `orders` (`order_id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8",
+            "fileds": {
+                "field": [
+                    [
+                        "order_item_id",
+                        "int",
+                        "PRIMARY KEY"
+                    ],
+                    [
+                        "order_id",
+                        "int"
+                    ],
+                    [
+                        "product_id",
+                        "int"
+                    ],
+                    [
+                        "product_quantity",
+                        "varchar"
+                    ],
+                    [
+                        "other_order_item_details",
+                        "varchar"
+                    ]
+                ],
+                "foreign_key": [
+                    [
+                        "product_id",
+                        "products",
+                        "product_id"
+                    ],
+                    [
+                        "order_id",
+                        "orders",
+                        "order_id"
+                    ]
+                ]
+            }
+        },
+        {
+            "orders": "CREATE TABLE `orders` (\n  `order_id` int(11) NOT NULL,\n  `customer_id` int(11) NOT NULL,\n  `date_order_placed` datetime NOT NULL,\n  `order_details` varchar(255) DEFAULT NULL,\n  PRIMARY KEY (`order_id`),\n  KEY `customer_id` (`customer_id`),\n  CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`customer_id`) REFERENCES `customers` (`customer_id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8",
+            "fileds": {
+                "field": [
+                    [
+                        "order_id",
+                        "int",
+                        "PRIMARY KEY"
+                    ],
+                    [
+                        "customer_id",
+                        "int"
+                    ],
+                    [
+                        "date_order_placed",
+                        "datetime"
+                    ],
+                    [
+                        "order_details",
+                        "varchar"
+                    ]
+                ],
+                "foreign_key": [
+                    [
+                        "customer_id",
+                        "customers",
+                        "customer_id"
+                    ]
+                ]
+            }
+        },
+        {
+            "product_categories": "CREATE TABLE `product_categories` (\n  `production_type_code` varchar(15) NOT NULL,\n  `product_type_description` varchar(80) DEFAULT NULL,\n  `vat_rating` decimal(19,4) DEFAULT NULL,\n  PRIMARY KEY (`production_type_code`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8",
+            "fileds": {
+                "field": [
+                    [
+                        "production_type_code",
+                        "varchar",
+                        "PRIMARY KEY"
+                    ],
+                    [
+                        "product_type_description",
+                        "varchar"
+                    ],
+                    [
+                        "vat_rating",
+                        "decimal"
+                    ]
+                ],
+                "foreign_key": []
+            }
+        },
+        {
+            "products": "CREATE TABLE `products` (\n  `product_id` int(11) NOT NULL,\n  `parent_product_id` int(11) DEFAULT NULL,\n  `production_type_code` varchar(15) NOT NULL,\n  `unit_price` decimal(19,4) DEFAULT NULL,\n  `product_name` varchar(80) DEFAULT NULL,\n  `product_color` varchar(20) DEFAULT NULL,\n  `product_size` varchar(20) DEFAULT NULL,\n  PRIMARY KEY (`product_id`),\n  KEY `production_type_code` (`production_type_code`),\n  CONSTRAINT `products_ibfk_1` FOREIGN KEY (`production_type_code`) REFERENCES `product_categories` (`production_type_code`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8",
+            "fileds": {
+                "field": [
+                    [
+                        "product_id",
+                        "int",
+                        "PRIMARY KEY"
+                    ],
+                    [
+                        "parent_product_id",
+                        "int"
+                    ],
+                    [
+                        "production_type_code",
+                        "varchar"
+                    ],
+                    [
+                        "unit_price",
+                        "decimal"
+                    ],
+                    [
+                        "product_name",
+                        "varchar"
+                    ],
+                    [
+                        "product_color",
+                        "varchar"
+                    ],
+                    [
+                        "product_size",
+                        "varchar"
+                    ]
+                ],
+                "foreign_key": [
+                    [
+                        "production_type_code",
+                        "product_categories",
+                        "production_type_code"
+                    ]
+                ]
+            }
+        }
+    ],
+    "input": "Count the number of financial transactions that correspond to each account id.",
+    "response": "select count(*) , account_id from financial_transactions;",
+    "insert": [
+        "INSERT INTO customers (`customer_id`, `customer_first_name`, `customer_middle_initial`, `customer_last_name`, `gender`, `email_address`, `login_name`, `login_password`, `phone_number`, `town_city`, `state_county_province`, `country`) VALUES (1, 'dee', 'a', 'larkin', '1', 'thora.torphy@example.org', 'xhartmann', '77789d292604ea04406f', '241.796.1219x37862', 'north nellie', 'westvirginia', 'usa');",
+        "INSERT INTO customers (`customer_id`, `customer_first_name`, `customer_middle_initial`, `customer_last_name`, `gender`, `email_address`, `login_name`, `login_password`, `phone_number`, `town_city`, `state_county_province`, `country`) VALUES (2, 'brennon', 'h', 'weimann', '0', 'roosevelt.collier@example.org', 'shayne.lesch', 'ce97a3e4539347daab96', ' (943) 219-4234x415', 'south isabell', 'oklahoma', 'usa');",
+        "INSERT INTO customers (`customer_id`, `customer_first_name`, `customer_middle_initial`, `customer_last_name`, `gender`, `email_address`, `login_name`, `login_password`, `phone_number`, `town_city`, `state_county_province`, `country`) VALUES (3, 'joesph', 'k', 'schaefer', '0', 'homenick.ambrose@example.net', 'feeney.lauriane', 'a6c7a7064c36b038d402', ' (488) 524-5345', 'new nikolas', 'arkansas', 'usa');",
+        "INSERT INTO customers (`customer_id`, `customer_first_name`, `customer_middle_initial`, `customer_last_name`, `gender`, `email_address`, `login_name`, `login_password`, `phone_number`, `town_city`, `state_county_province`, `country`) VALUES (4, 'zita', 'l', 'trantow', '0', 'destinee06@example.com', 'rubye.padberg', 'eb32d2933362d38faff7', ' (193) 465-6674x4952', 'ellaburgh', 'colorado', 'usa');",
+        "INSERT INTO customers (`customer_id`, `customer_first_name`, `customer_middle_initial`, `customer_last_name`, `gender`, `email_address`, `login_name`, `login_password`, `phone_number`, `town_city`, `state_county_province`, `country`) VALUES (5, 'murl', 'b', 'shanahan', '1', 'jovani64@example.com', 'jankunding', '398c1603aec3e9de2684', '1-546-447-9843x13741', 'north helmerbury', 'idaho', 'usa');",
+        "INSERT INTO customers (`customer_id`, `customer_first_name`, `customer_middle_initial`, `customer_last_name`, `gender`, `email_address`, `login_name`, `login_password`, `phone_number`, `town_city`, `state_county_province`, `country`) VALUES (6, 'vesta', 'e', 'leuschke', '1', 'philip94@example.org', 'zdeckow', 'bdbc3c18cf28303c4f6a', '+69 (0) 7149212554', 'north devonte', 'mississippi', 'usa');",
+        "INSERT INTO customers (`customer_id`, `customer_first_name`, `customer_middle_initial`, `customer_last_name`, `gender`, `email_address`, `login_name`, `login_password`, `phone_number`, `town_city`, `state_county_province`, `country`) VALUES (7, 'dangelo', 'm', 'spinka', '1', 'zullrich@example.net', 'camilla.dubuque', '180a37476c537e78d3de', '1-904-787-7320', 'west khaliltown', 'kansas', 'usa');",
+        "INSERT INTO customers (`customer_id`, `customer_first_name`, `customer_middle_initial`, `customer_last_name`, `gender`, `email_address`, `login_name`, `login_password`, `phone_number`, `town_city`, `state_county_province`, `country`) VALUES (8, 'meaghan', 'm', 'keeling', '0', 'pyundt@example.org', 'lowe.wilber', 'e67856613cd71f1b2884', '06015518212', 'kenshire', 'mississippi', 'usa');",
+        "INSERT INTO customers (`customer_id`, `customer_first_name`, `customer_middle_initial`, `customer_last_name`, `gender`, `email_address`, `login_name`, `login_password`, `phone_number`, `town_city`, `state_county_province`, `country`) VALUES (9, 'abbey', 'b', 'ruecker', '0', 'anastacio45@example.org', 'dubuque.gina', 'd7629de5171fe29106c8', '1-344-593-4896x425', 'bruenchester', 'california', 'usa');",
+        "INSERT INTO customers (`customer_id`, `customer_first_name`, `customer_middle_initial`, `customer_last_name`, `gender`, `email_address`, `login_name`, `login_password`, `phone_number`, `town_city`, `state_county_province`, `country`) VALUES (10, 'devin', 'v', 'glover', '0', 'udeckow@example.com', 'ypowlowski', '604f9062a5a0de83ef9d', '197-955-3766', 'lake eusebiomouth', 'florida', 'usa');",
+        "INSERT INTO customers (`customer_id`, `customer_first_name`, `customer_middle_initial`, `customer_last_name`, `gender`, `email_address`, `login_name`, `login_password`, `phone_number`, `town_city`, `state_county_province`, `country`) VALUES (11, 'neoma', 'g', 'hauck', '1', 'michel92@example.org', 'ahmad.hagenes', '035f2ba1e2a675c4f426', '+95 (0) 1523064649', 'new rachellefort', 'alabama', 'usa');",
+        "INSERT INTO customers (`customer_id`, `customer_first_name`, `customer_middle_initial`, `customer_last_name`, `gender`, `email_address`, `login_name`, `login_password`, `phone_number`, `town_city`, `state_county_province`, `country`) VALUES (12, 'jensen', 'm', 'muller', '0', 'lew.nicolas@example.org', 'pbecker', '5fe7c12dc3176ddf67c4', ' (650) 406-8761', 'carleefort', 'montana', 'usa');",
+        "INSERT INTO customers (`customer_id`, `customer_first_name`, `customer_middle_initial`, `customer_last_name`, `gender`, `email_address`, `login_name`, `login_password`, `phone_number`, `town_city`, `state_county_province`, `country`) VALUES (13, 'kieran', 'a', 'auer', '0', 'nnolan@example.org', 'sophia97', 'd4ade599672bccdabeee', ' (157) 046-6255x98627', 'lake freemanville', 'kentucky', 'usa');",
+        "INSERT INTO customers (`customer_id`, `customer_first_name`, `customer_middle_initial`, `customer_last_name`, `gender`, `email_address`, `login_name`, `login_password`, `phone_number`, `town_city`, `state_county_province`, `country`) VALUES (14, 'percival', 'b', 'kessler', '1', 'jacobi.shanon@example.org', 'lucy.jast', '178613c20728eec256db', ' (791) 562-7792x45732', 'port hollie', 'louisiana', 'usa');",
+        "INSERT INTO customers (`customer_id`, `customer_first_name`, `customer_middle_initial`, `customer_last_name`, `gender`, `email_address`, `login_name`, `login_password`, `phone_number`, `town_city`, `state_county_province`, `country`) VALUES (15, 'ruby', 'k', 'boyle', '0', 'gwolff@example.net', 'dthiel', 'eff2c0dbf972481ba23c', '1-546-302-5676', 'east stephaniafort', 'southdakota', 'usa');",
+        "INSERT INTO orders (`order_id`, `customer_id`, `date_order_placed`, `order_details`) VALUES (1, 12, '2012-06-27 20:49:56', null);",
+        "INSERT INTO orders (`order_id`, `customer_id`, `date_order_placed`, `order_details`) VALUES (2, 12, '2012-08-25 07:51:54', null);",
+        "INSERT INTO orders (`order_id`, `customer_id`, `date_order_placed`, `order_details`) VALUES (3, 8, '2017-11-05 15:32:38', null);",
+        "INSERT INTO orders (`order_id`, `customer_id`, `date_order_placed`, `order_details`) VALUES (4, 5, '2017-11-27 21:50:58', null);",
+        "INSERT INTO orders (`order_id`, `customer_id`, `date_order_placed`, `order_details`) VALUES (5, 15, '2015-05-17 03:05:32', null);",
+        "INSERT INTO orders (`order_id`, `customer_id`, `date_order_placed`, `order_details`) VALUES (6, 5, '2015-11-25 22:55:41', null);",
+        "INSERT INTO orders (`order_id`, `customer_id`, `date_order_placed`, `order_details`) VALUES (7, 3, '2016-04-15 03:33:59', null);",
+        "INSERT INTO orders (`order_id`, `customer_id`, `date_order_placed`, `order_details`) VALUES (8, 3, '2010-01-28 03:43:26', null);",
+        "INSERT INTO orders (`order_id`, `customer_id`, `date_order_placed`, `order_details`) VALUES (9, 2, '2017-03-08 05:42:10', null);",
+        "INSERT INTO orders (`order_id`, `customer_id`, `date_order_placed`, `order_details`) VALUES (10, 11, '2017-12-04 02:59:10', null);",
+        "INSERT INTO orders (`order_id`, `customer_id`, `date_order_placed`, `order_details`) VALUES (11, 14, '2010-10-22 06:45:16', null);",
+        "INSERT INTO orders (`order_id`, `customer_id`, `date_order_placed`, `order_details`) VALUES (12, 1, '2017-05-24 19:26:44', null);",
+        "INSERT INTO orders (`order_id`, `customer_id`, `date_order_placed`, `order_details`) VALUES (13, 10, '2015-08-06 22:40:40', null);",
+        "INSERT INTO orders (`order_id`, `customer_id`, `date_order_placed`, `order_details`) VALUES (14, 10, '2017-10-29 04:20:08', null);",
+        "INSERT INTO orders (`order_id`, `customer_id`, `date_order_placed`, `order_details`) VALUES (15, 6, '2013-10-25 17:40:25', null);",
+        "INSERT INTO invoices (`invoice_number`, `order_id`, `invoice_date`) VALUES (1, 9, '2018-03-01 16:40:48');",
+        "INSERT INTO invoices (`invoice_number`, `order_id`, `invoice_date`) VALUES (2, 9, '2018-03-20 00:21:41');",
+        "INSERT INTO invoices (`invoice_number`, `order_id`, `invoice_date`) VALUES (3, 3, '2018-03-05 08:47:33');",
+        "INSERT INTO invoices (`invoice_number`, `order_id`, `invoice_date`) VALUES (4, 9, '2018-02-28 19:01:06');",
+        "INSERT INTO invoices (`invoice_number`, `order_id`, `invoice_date`) VALUES (5, 13, '2018-03-07 02:04:32');",
+        "INSERT INTO invoices (`invoice_number`, `order_id`, `invoice_date`) VALUES (6, 8, '2018-03-16 21:57:43');",
+        "INSERT INTO invoices (`invoice_number`, `order_id`, `invoice_date`) VALUES (7, 10, '2018-03-13 07:27:38');",
+        "INSERT INTO invoices (`invoice_number`, `order_id`, `invoice_date`) VALUES (8, 10, '2018-03-19 17:06:30');",
+        "INSERT INTO invoices (`invoice_number`, `order_id`, `invoice_date`) VALUES (9, 12, '2018-03-16 11:01:06');",
+        "INSERT INTO invoices (`invoice_number`, `order_id`, `invoice_date`) VALUES (10, 11, '2018-03-01 01:44:08');",
+        "INSERT INTO invoices (`invoice_number`, `order_id`, `invoice_date`) VALUES (11, 5, '2018-03-23 04:59:28');",
+        "INSERT INTO invoices (`invoice_number`, `order_id`, `invoice_date`) VALUES (12, 3, '2018-03-15 21:24:13');",
+        "INSERT INTO invoices (`invoice_number`, `order_id`, `invoice_date`) VALUES (13, 3, '2018-03-03 20:44:06');",
+        "INSERT INTO invoices (`invoice_number`, `order_id`, `invoice_date`) VALUES (14, 4, '2018-03-19 22:38:10');",
+        "INSERT INTO invoices (`invoice_number`, `order_id`, `invoice_date`) VALUES (15, 14, '2018-03-15 09:38:49');",
+        "INSERT INTO accounts (`account_id`, `customer_id`, `date_account_opened`, `account_name`, `other_account_details`) VALUES (1, 8, '2016-07-30 22:22:24', '900', 'regular');",
+        "INSERT INTO accounts (`account_id`, `customer_id`, `date_account_opened`, `account_name`, `other_account_details`) VALUES (2, 3, '2017-05-29 16:45:17', '520', 'vip');",
+        "INSERT INTO accounts (`account_id`, `customer_id`, `date_account_opened`, `account_name`, `other_account_details`) VALUES (3, 8, '2012-05-04 18:50:32', '323', 'regular');",
+        "INSERT INTO accounts (`account_id`, `customer_id`, `date_account_opened`, `account_name`, `other_account_details`) VALUES (4, 15, '2011-03-29 15:06:59', '390', 'vip');",
+        "INSERT INTO accounts (`account_id`, `customer_id`, `date_account_opened`, `account_name`, `other_account_details`) VALUES (5, 15, '2014-08-11 18:15:14', '935', 'regular');",
+        "INSERT INTO accounts (`account_id`, `customer_id`, `date_account_opened`, `account_name`, `other_account_details`) VALUES (6, 12, '2014-05-30 12:16:52', '371', 'regular');",
+        "INSERT INTO accounts (`account_id`, `customer_id`, `date_account_opened`, `account_name`, `other_account_details`) VALUES (7, 13, '2015-11-03 08:04:15', '398', 'vip');",
+        "INSERT INTO accounts (`account_id`, `customer_id`, `date_account_opened`, `account_name`, `other_account_details`) VALUES (8, 9, '2009-06-13 11:41:52', '710', 'regular');",
+        "INSERT INTO accounts (`account_id`, `customer_id`, `date_account_opened`, `account_name`, `other_account_details`) VALUES (9, 8, '2010-10-22 13:33:45', '337', 'regular');",
+        "INSERT INTO accounts (`account_id`, `customer_id`, `date_account_opened`, `account_name`, `other_account_details`) VALUES (10, 15, '2016-04-25 21:49:17', '429', 'vip');",
+        "INSERT INTO accounts (`account_id`, `customer_id`, `date_account_opened`, `account_name`, `other_account_details`) VALUES (11, 13, '2012-07-09 23:40:15', '191', 'vip');",
+        "INSERT INTO accounts (`account_id`, `customer_id`, `date_account_opened`, `account_name`, `other_account_details`) VALUES (12, 8, '2015-02-02 09:47:08', '601', 'regular');",
+        "INSERT INTO accounts (`account_id`, `customer_id`, `date_account_opened`, `account_name`, `other_account_details`) VALUES (13, 13, '2010-06-16 09:35:00', '272', 'regular');",
+        "INSERT INTO accounts (`account_id`, `customer_id`, `date_account_opened`, `account_name`, `other_account_details`) VALUES (14, 13, '2014-12-28 07:29:42', '861', 'vip');",
+        "INSERT INTO accounts (`account_id`, `customer_id`, `date_account_opened`, `account_name`, `other_account_details`) VALUES (15, 6, '2008-05-04 22:15:56', '662', 'vip');",
+        "INSERT INTO product_categories (`production_type_code`, `product_type_description`, `vat_rating`) VALUES ('food', 'food', '15.8400');",
+        "INSERT INTO product_categories (`production_type_code`, `product_type_description`, `vat_rating`) VALUES ('dvds', 'dvd products', '11.4000');",
+        "INSERT INTO product_categories (`production_type_code`, `product_type_description`, `vat_rating`) VALUES ('books', 'books', '13.9500');",
+        "INSERT INTO product_categories (`production_type_code`, `product_type_description`, `vat_rating`) VALUES ('electronics', 'electrical devices', '17.9000');",
+        "INSERT INTO products (`product_id`, `parent_product_id`, `production_type_code`, `unit_price`, `product_name`, `product_color`, `product_size`) VALUES (1, 4, 'food', '617.9500', 'coffee bean', 'red', 'medium');",
+        "INSERT INTO products (`product_id`, `parent_product_id`, `production_type_code`, `unit_price`, `product_name`, `product_color`, `product_size`) VALUES (2, 4, 'books', '558.4900', 'learning french', 'yellow', 'medium');",
+        "INSERT INTO products (`product_id`, `parent_product_id`, `production_type_code`, `unit_price`, `product_name`, `product_color`, `product_size`) VALUES (3, 8, 'electronics', '563.5800', 'fans', 'black', 'medium');",
+        "INSERT INTO products (`product_id`, `parent_product_id`, `production_type_code`, `unit_price`, `product_name`, `product_color`, `product_size`) VALUES (4, 8, 'electronics', '985.7800', 'hard drive', 'black', 'small');",
+        "INSERT INTO products (`product_id`, `parent_product_id`, `production_type_code`, `unit_price`, `product_name`, `product_color`, `product_size`) VALUES (5, 7, 'dvds', '682.0600', 'arts', 'yellow', 'small');",
+        "INSERT INTO products (`product_id`, `parent_product_id`, `production_type_code`, `unit_price`, `product_name`, `product_color`, `product_size`) VALUES (6, 7, 'books', '469.7100', 'art history', 'yellow', 'small');",
+        "INSERT INTO products (`product_id`, `parent_product_id`, `production_type_code`, `unit_price`, `product_name`, `product_color`, `product_size`) VALUES (7, 5, 'books', '409.8300', 'learning english', 'red', 'large');",
+        "INSERT INTO products (`product_id`, `parent_product_id`, `production_type_code`, `unit_price`, `product_name`, `product_color`, `product_size`) VALUES (8, 1, 'books', '49.6200', 'menus', 'black', 'small');",
+        "INSERT INTO products (`product_id`, `parent_product_id`, `production_type_code`, `unit_price`, `product_name`, `product_color`, `product_size`) VALUES (9, 8, 'food', '694.3100', 'beer menus', 'black', 'small');",
+        "INSERT INTO products (`product_id`, `parent_product_id`, `production_type_code`, `unit_price`, `product_name`, `product_color`, `product_size`) VALUES (10, 9, 'electronics', '937.8500', 'tv', 'red', 'medium');",
+        "INSERT INTO products (`product_id`, `parent_product_id`, `production_type_code`, `unit_price`, `product_name`, `product_color`, `product_size`) VALUES (11, 8, 'dvds', '52.8800', 'harry potter 1', 'black', 'small');",
+        "INSERT INTO products (`product_id`, `parent_product_id`, `production_type_code`, `unit_price`, `product_name`, `product_color`, `product_size`) VALUES (12, 1, 'dvds', '729.0900', 'harry potter 2', 'red', 'medium');",
+        "INSERT INTO products (`product_id`, `parent_product_id`, `production_type_code`, `unit_price`, `product_name`, `product_color`, `product_size`) VALUES (13, 6, 'food', '639.7600', 'chocolate', 'yellow', 'small');",
+        "INSERT INTO products (`product_id`, `parent_product_id`, `production_type_code`, `unit_price`, `product_name`, `product_color`, `product_size`) VALUES (14, 1, 'dvds', '469.8700', 'harry potter 3', 'yellow', 'small');",
+        "INSERT INTO products (`product_id`, `parent_product_id`, `production_type_code`, `unit_price`, `product_name`, `product_color`, `product_size`) VALUES (15, 2, 'dvds', '82.9600', 'harry potter 4', 'yellow', 'large');",
+        "INSERT INTO financial_transactions (`transaction_id`, `account_id`, `invoice_number`, `transaction_type`, `transaction_date`, `transaction_amount`) VALUES (1, 13, 12, 'payment', '2018-03-15 21:13:57', '613.9600');",
+        "INSERT INTO financial_transactions (`transaction_id`, `account_id`, `invoice_number`, `transaction_type`, `transaction_date`, `transaction_amount`) VALUES (2, 9, 1, 'payment', '2018-03-13 13:27:46', '368.4600');",
+        "INSERT INTO financial_transactions (`transaction_id`, `account_id`, `invoice_number`, `transaction_type`, `transaction_date`, `transaction_amount`) VALUES (3, 6, 1, 'refund', '2018-03-03 01:50:25', '1598.2500');",
+        "INSERT INTO financial_transactions (`transaction_id`, `account_id`, `invoice_number`, `transaction_type`, `transaction_date`, `transaction_amount`) VALUES (4, 9, 12, 'payment', '2018-03-10 13:46:48', '540.7300');",
+        "INSERT INTO financial_transactions (`transaction_id`, `account_id`, `invoice_number`, `transaction_type`, `transaction_date`, `transaction_amount`) VALUES (5, 9, 2, 'payment', '2018-03-23 04:56:12', '1214.2200');",
+        "INSERT INTO financial_transactions (`transaction_id`, `account_id`, `invoice_number`, `transaction_type`, `transaction_date`, `transaction_amount`) VALUES (6, 12, 3, 'refund', '2018-03-22 21:58:37', '1903.4100');",
+        "INSERT INTO financial_transactions (`transaction_id`, `account_id`, `invoice_number`, `transaction_type`, `transaction_date`, `transaction_amount`) VALUES (7, 13, 14, 'payment', '2018-03-12 03:06:52', '1585.0300');",
+        "INSERT INTO financial_transactions (`transaction_id`, `account_id`, `invoice_number`, `transaction_type`, `transaction_date`, `transaction_amount`) VALUES (8, 14, 15, 'payment', '2018-03-11 21:57:47', '1425.4100');",
+        "INSERT INTO financial_transactions (`transaction_id`, `account_id`, `invoice_number`, `transaction_type`, `transaction_date`, `transaction_amount`) VALUES (9, 8, 12, 'payment', '2018-03-07 04:32:54', '1517.7700');",
+        "INSERT INTO financial_transactions (`transaction_id`, `account_id`, `invoice_number`, `transaction_type`, `transaction_date`, `transaction_amount`) VALUES (10, 6, 15, 'payment', '2018-03-14 19:09:07', '1477.5700');",
+        "INSERT INTO financial_transactions (`transaction_id`, `account_id`, `invoice_number`, `transaction_type`, `transaction_date`, `transaction_amount`) VALUES (11, 6, 13, 'refund', '2018-03-12 22:51:05', '1567.6400');",
+        "INSERT INTO financial_transactions (`transaction_id`, `account_id`, `invoice_number`, `transaction_type`, `transaction_date`, `transaction_amount`) VALUES (12, 9, 6, 'refund', '2018-03-05 19:55:23', '1781.2400');",
+        "INSERT INTO financial_transactions (`transaction_id`, `account_id`, `invoice_number`, `transaction_type`, `transaction_date`, `transaction_amount`) VALUES (13, 13, 12, 'refund', '2018-03-24 12:05:11', '899.8700');",
+        "INSERT INTO financial_transactions (`transaction_id`, `account_id`, `invoice_number`, `transaction_type`, `transaction_date`, `transaction_amount`) VALUES (14, 11, 5, 'refund', '2018-03-13 03:51:59', '1462.6200');",
+        "INSERT INTO financial_transactions (`transaction_id`, `account_id`, `invoice_number`, `transaction_type`, `transaction_date`, `transaction_amount`) VALUES (15, 4, 14, 'refund', '2018-02-27 14:58:30', '1979.6600');",
+        "INSERT INTO order_items (`order_item_id`, `order_id`, `product_id`, `product_quantity`, `other_order_item_details`) VALUES (1, 4, 4, '6', null);",
+        "INSERT INTO order_items (`order_item_id`, `order_id`, `product_id`, `product_quantity`, `other_order_item_details`) VALUES (2, 4, 10, '7', null);",
+        "INSERT INTO order_items (`order_item_id`, `order_id`, `product_id`, `product_quantity`, `other_order_item_details`) VALUES (3, 15, 5, '4', null);",
+        "INSERT INTO order_items (`order_item_id`, `order_id`, `product_id`, `product_quantity`, `other_order_item_details`) VALUES (4, 1, 3, '9', null);",
+        "INSERT INTO order_items (`order_item_id`, `order_id`, `product_id`, `product_quantity`, `other_order_item_details`) VALUES (5, 2, 14, '3', null);",
+        "INSERT INTO order_items (`order_item_id`, `order_id`, `product_id`, `product_quantity`, `other_order_item_details`) VALUES (6, 13, 12, '8', null);",
+        "INSERT INTO order_items (`order_item_id`, `order_id`, `product_id`, `product_quantity`, `other_order_item_details`) VALUES (7, 1, 15, '3', null);",
+        "INSERT INTO order_items (`order_item_id`, `order_id`, `product_id`, `product_quantity`, `other_order_item_details`) VALUES (8, 10, 4, '4', null);",
+        "INSERT INTO order_items (`order_item_id`, `order_id`, `product_id`, `product_quantity`, `other_order_item_details`) VALUES (9, 14, 5, '1', null);",
+        "INSERT INTO order_items (`order_item_id`, `order_id`, `product_id`, `product_quantity`, `other_order_item_details`) VALUES (10, 13, 9, '2', null);",
+        "INSERT INTO order_items (`order_item_id`, `order_id`, `product_id`, `product_quantity`, `other_order_item_details`) VALUES (11, 15, 7, '5', null);",
+        "INSERT INTO order_items (`order_item_id`, `order_id`, `product_id`, `product_quantity`, `other_order_item_details`) VALUES (12, 4, 14, '4', null);",
+        "INSERT INTO order_items (`order_item_id`, `order_id`, `product_id`, `product_quantity`, `other_order_item_details`) VALUES (13, 12, 13, '1', null);",
+        "INSERT INTO order_items (`order_item_id`, `order_id`, `product_id`, `product_quantity`, `other_order_item_details`) VALUES (14, 13, 14, '2', null);",
+        "INSERT INTO order_items (`order_item_id`, `order_id`, `product_id`, `product_quantity`, `other_order_item_details`) VALUES (15, 13, 14, '6', null);",
+        "INSERT INTO invoice_line_items (`order_item_id`, `invoice_number`, `product_id`, `product_title`, `product_quantity`, `product_price`, `derived_product_cost`, `derived_vat_payable`, `derived_total_cost`) VALUES (14, 9, 5, 'prod_name', '4', '742.3700', '191.1100', null, '69.8200');",
+        "INSERT INTO invoice_line_items (`order_item_id`, `invoice_number`, `product_id`, `product_title`, `product_quantity`, `product_price`, `derived_product_cost`, `derived_vat_payable`, `derived_total_cost`) VALUES (3, 9, 15, 'prod_name', '1', '814.8700', '176.2900', null, '59.5600');",
+        "INSERT INTO invoice_line_items (`order_item_id`, `invoice_number`, `product_id`, `product_title`, `product_quantity`, `product_price`, `derived_product_cost`, `derived_vat_payable`, `derived_total_cost`) VALUES (4, 10, 15, 'prod_name', '8', '943.0700', '73.1400', null, '59.9300');",
+        "INSERT INTO invoice_line_items (`order_item_id`, `invoice_number`, `product_id`, `product_title`, `product_quantity`, `product_price`, `derived_product_cost`, `derived_vat_payable`, `derived_total_cost`) VALUES (6, 15, 14, 'prod_name', '2', '749.6000', '197.0600', null, '82.7700');",
+        "INSERT INTO invoice_line_items (`order_item_id`, `invoice_number`, `product_id`, `product_title`, `product_quantity`, `product_price`, `derived_product_cost`, `derived_vat_payable`, `derived_total_cost`) VALUES (8, 11, 10, 'prod_name', '2', '942.9900', '88.4300', null, '86.5600');",
+        "INSERT INTO invoice_line_items (`order_item_id`, `invoice_number`, `product_id`, `product_title`, `product_quantity`, `product_price`, `derived_product_cost`, `derived_vat_payable`, `derived_total_cost`) VALUES (9, 11, 9, 'prod_name', '6', '486.6900', '64.6700', null, '83.4000');",
+        "INSERT INTO invoice_line_items (`order_item_id`, `invoice_number`, `product_id`, `product_title`, `product_quantity`, `product_price`, `derived_product_cost`, `derived_vat_payable`, `derived_total_cost`) VALUES (8, 14, 3, 'prod_name', '3', '995.3400', '28.1800', null, '58.2400');",
+        "INSERT INTO invoice_line_items (`order_item_id`, `invoice_number`, `product_id`, `product_title`, `product_quantity`, `product_price`, `derived_product_cost`, `derived_vat_payable`, `derived_total_cost`) VALUES (11, 1, 6, 'prod_name', '9', '429.0500', '254.0800', null, '79.4800');",
+        "INSERT INTO invoice_line_items (`order_item_id`, `invoice_number`, `product_id`, `product_title`, `product_quantity`, `product_price`, `derived_product_cost`, `derived_vat_payable`, `derived_total_cost`) VALUES (15, 9, 3, 'prod_name', '4', '727.4100', '66.0000', null, '53.5300');",
+        "INSERT INTO invoice_line_items (`order_item_id`, `invoice_number`, `product_id`, `product_title`, `product_quantity`, `product_price`, `derived_product_cost`, `derived_vat_payable`, `derived_total_cost`) VALUES (7, 9, 14, 'prod_name', '9', '559.9500', '89.1600', null, '45.6600');",
+        "INSERT INTO invoice_line_items (`order_item_id`, `invoice_number`, `product_id`, `product_title`, `product_quantity`, `product_price`, `derived_product_cost`, `derived_vat_payable`, `derived_total_cost`) VALUES (5, 7, 8, 'prod_name', '6', '787.6100', '150.0400', null, '51.2700');",
+        "INSERT INTO invoice_line_items (`order_item_id`, `invoice_number`, `product_id`, `product_title`, `product_quantity`, `product_price`, `derived_product_cost`, `derived_vat_payable`, `derived_total_cost`) VALUES (10, 10, 1, 'prod_name', '9', '781.4600', '256.8400', null, '71.2200');",
+        "INSERT INTO invoice_line_items (`order_item_id`, `invoice_number`, `product_id`, `product_title`, `product_quantity`, `product_price`, `derived_product_cost`, `derived_vat_payable`, `derived_total_cost`) VALUES (10, 14, 11, 'prod_name', '7', '884.4000', '249.1900', null, '78.2600');",
+        "INSERT INTO invoice_line_items (`order_item_id`, `invoice_number`, `product_id`, `product_title`, `product_quantity`, `product_price`, `derived_product_cost`, `derived_vat_payable`, `derived_total_cost`) VALUES (10, 5, 11, 'prod_name', '5', '556.3600', '295.2600', null, '61.0000');",
+        "INSERT INTO invoice_line_items (`order_item_id`, `invoice_number`, `product_id`, `product_title`, `product_quantity`, `product_price`, `derived_product_cost`, `derived_vat_payable`, `derived_total_cost`) VALUES (8, 12, 6, 'prod_name', '8', '597.2800', '188.7100', null, '98.7700');"
+    ],
+    "table_names": [
+        "financial_transactions"
+    ],
+    "database": "customers_and_invoices"
+}

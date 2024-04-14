@@ -1,0 +1,478 @@
+{
+    "sql": [
+        {
+            "document_types": "CREATE TABLE `document_types` (\n  `document_type_code` varchar(10) NOT NULL,\n  `document_description` varchar(255) NOT NULL,\n  PRIMARY KEY (`document_type_code`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8",
+            "fileds": {
+                "field": [
+                    [
+                        "document_type_code",
+                        "varchar",
+                        "PRIMARY KEY"
+                    ],
+                    [
+                        "document_description",
+                        "varchar"
+                    ]
+                ],
+                "foreign_key": []
+            }
+        },
+        {
+            "documents": "CREATE TABLE `documents` (\n  `document_id` int(11) NOT NULL,\n  `document_type_code` varchar(10) DEFAULT NULL,\n  `grant_id` int(11) NOT NULL,\n  `sent_date` datetime NOT NULL,\n  `response_received_date` datetime NOT NULL,\n  `other_details` varchar(255) NOT NULL,\n  PRIMARY KEY (`document_id`),\n  KEY `document_type_code` (`document_type_code`),\n  KEY `grant_id` (`grant_id`),\n  CONSTRAINT `documents_ibfk_1` FOREIGN KEY (`document_type_code`) REFERENCES `document_types` (`document_type_code`),\n  CONSTRAINT `documents_ibfk_2` FOREIGN KEY (`grant_id`) REFERENCES `grants` (`grant_id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8",
+            "fileds": {
+                "field": [
+                    [
+                        "document_id",
+                        "int",
+                        "PRIMARY KEY"
+                    ],
+                    [
+                        "document_type_code",
+                        "varchar"
+                    ],
+                    [
+                        "grant_id",
+                        "int"
+                    ],
+                    [
+                        "sent_date",
+                        "datetime"
+                    ],
+                    [
+                        "response_received_date",
+                        "datetime"
+                    ],
+                    [
+                        "other_details",
+                        "varchar"
+                    ]
+                ],
+                "foreign_key": [
+                    [
+                        "document_type_code",
+                        "document_types",
+                        "document_type_code"
+                    ],
+                    [
+                        "grant_id",
+                        "grants",
+                        "grant_id"
+                    ]
+                ]
+            }
+        },
+        {
+            "grants": "CREATE TABLE `grants` (\n  `grant_id` int(11) NOT NULL,\n  `organisation_id` int(11) NOT NULL,\n  `grant_amount` decimal(19,4) NOT NULL DEFAULT '0.0000',\n  `grant_start_date` datetime NOT NULL,\n  `grant_end_date` datetime NOT NULL,\n  `other_details` varchar(255) NOT NULL,\n  PRIMARY KEY (`grant_id`),\n  KEY `organisation_id` (`organisation_id`),\n  CONSTRAINT `grants_ibfk_1` FOREIGN KEY (`organisation_id`) REFERENCES `organisations` (`organisation_id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8",
+            "fileds": {
+                "field": [
+                    [
+                        "grant_id",
+                        "int",
+                        "PRIMARY KEY"
+                    ],
+                    [
+                        "organisation_id",
+                        "int"
+                    ],
+                    [
+                        "grant_amount",
+                        "decimal"
+                    ],
+                    [
+                        "grant_start_date",
+                        "datetime"
+                    ],
+                    [
+                        "grant_end_date",
+                        "datetime"
+                    ],
+                    [
+                        "other_details",
+                        "varchar"
+                    ]
+                ],
+                "foreign_key": [
+                    [
+                        "organisation_id",
+                        "organisations",
+                        "organisation_id"
+                    ]
+                ]
+            }
+        },
+        {
+            "organisation_types": "CREATE TABLE `organisation_types` (\n  `organisation_type` varchar(10) NOT NULL,\n  `organisation_type_description` varchar(255) NOT NULL,\n  PRIMARY KEY (`organisation_type`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8",
+            "fileds": {
+                "field": [
+                    [
+                        "organisation_type",
+                        "varchar",
+                        "PRIMARY KEY"
+                    ],
+                    [
+                        "organisation_type_description",
+                        "varchar"
+                    ]
+                ],
+                "foreign_key": []
+            }
+        },
+        {
+            "organisations": "CREATE TABLE `organisations` (\n  `organisation_id` int(11) NOT NULL,\n  `organisation_type` varchar(10) NOT NULL,\n  `organisation_details` varchar(255) NOT NULL,\n  PRIMARY KEY (`organisation_id`),\n  KEY `organisation_type` (`organisation_type`),\n  CONSTRAINT `organisations_ibfk_1` FOREIGN KEY (`organisation_type`) REFERENCES `organisation_types` (`organisation_type`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8",
+            "fileds": {
+                "field": [
+                    [
+                        "organisation_id",
+                        "int",
+                        "PRIMARY KEY"
+                    ],
+                    [
+                        "organisation_type",
+                        "varchar"
+                    ],
+                    [
+                        "organisation_details",
+                        "varchar"
+                    ]
+                ],
+                "foreign_key": [
+                    [
+                        "organisation_type",
+                        "organisation_types",
+                        "organisation_type"
+                    ]
+                ]
+            }
+        },
+        {
+            "project_outcomes": "CREATE TABLE `project_outcomes` (\n  `project_id` int(11) NOT NULL,\n  `outcome_code` varchar(10) NOT NULL,\n  `outcome_details` varchar(255) DEFAULT NULL,\n  KEY `project_id` (`project_id`),\n  KEY `outcome_code` (`outcome_code`),\n  CONSTRAINT `project_outcomes_ibfk_1` FOREIGN KEY (`project_id`) REFERENCES `projects` (`project_id`),\n  CONSTRAINT `project_outcomes_ibfk_2` FOREIGN KEY (`outcome_code`) REFERENCES `research_outcomes` (`outcome_code`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8",
+            "fileds": {
+                "field": [
+                    [
+                        "project_id",
+                        "int"
+                    ],
+                    [
+                        "outcome_code",
+                        "varchar"
+                    ],
+                    [
+                        "outcome_details",
+                        "varchar"
+                    ]
+                ],
+                "foreign_key": [
+                    [
+                        "project_id",
+                        "projects",
+                        "project_id"
+                    ],
+                    [
+                        "outcome_code",
+                        "research_outcomes",
+                        "outcome_code"
+                    ]
+                ]
+            }
+        },
+        {
+            "project_staff": "CREATE TABLE `project_staff` (\n  `staff_id` double NOT NULL,\n  `project_id` int(11) NOT NULL,\n  `role_code` varchar(10) NOT NULL,\n  `date_from` datetime DEFAULT NULL,\n  `date_to` datetime DEFAULT NULL,\n  `other_details` varchar(255) DEFAULT NULL,\n  PRIMARY KEY (`staff_id`),\n  KEY `project_id` (`project_id`),\n  KEY `role_code` (`role_code`),\n  CONSTRAINT `project_staff_ibfk_1` FOREIGN KEY (`project_id`) REFERENCES `projects` (`project_id`),\n  CONSTRAINT `project_staff_ibfk_2` FOREIGN KEY (`role_code`) REFERENCES `staff_roles` (`role_code`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8",
+            "fileds": {
+                "field": [
+                    [
+                        "staff_id",
+                        "double",
+                        "PRIMARY KEY"
+                    ],
+                    [
+                        "project_id",
+                        "int"
+                    ],
+                    [
+                        "role_code",
+                        "varchar"
+                    ],
+                    [
+                        "date_from",
+                        "datetime"
+                    ],
+                    [
+                        "date_to",
+                        "datetime"
+                    ],
+                    [
+                        "other_details",
+                        "varchar"
+                    ]
+                ],
+                "foreign_key": [
+                    [
+                        "project_id",
+                        "projects",
+                        "project_id"
+                    ],
+                    [
+                        "role_code",
+                        "staff_roles",
+                        "role_code"
+                    ]
+                ]
+            }
+        },
+        {
+            "projects": "CREATE TABLE `projects` (\n  `project_id` int(11) NOT NULL,\n  `organisation_id` int(11) NOT NULL,\n  `project_details` varchar(255) NOT NULL,\n  PRIMARY KEY (`project_id`),\n  KEY `organisation_id` (`organisation_id`),\n  CONSTRAINT `projects_ibfk_1` FOREIGN KEY (`organisation_id`) REFERENCES `organisations` (`organisation_id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8",
+            "fileds": {
+                "field": [
+                    [
+                        "project_id",
+                        "int",
+                        "PRIMARY KEY"
+                    ],
+                    [
+                        "organisation_id",
+                        "int"
+                    ],
+                    [
+                        "project_details",
+                        "varchar"
+                    ]
+                ],
+                "foreign_key": [
+                    [
+                        "organisation_id",
+                        "organisations",
+                        "organisation_id"
+                    ]
+                ]
+            }
+        },
+        {
+            "research_outcomes": "CREATE TABLE `research_outcomes` (\n  `outcome_code` varchar(10) NOT NULL,\n  `outcome_description` varchar(255) NOT NULL,\n  PRIMARY KEY (`outcome_code`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8",
+            "fileds": {
+                "field": [
+                    [
+                        "outcome_code",
+                        "varchar",
+                        "PRIMARY KEY"
+                    ],
+                    [
+                        "outcome_description",
+                        "varchar"
+                    ]
+                ],
+                "foreign_key": []
+            }
+        },
+        {
+            "research_staff": "CREATE TABLE `research_staff` (\n  `staff_id` int(11) NOT NULL,\n  `employer_organisation_id` int(11) NOT NULL,\n  `staff_details` varchar(255) NOT NULL,\n  PRIMARY KEY (`staff_id`),\n  KEY `employer_organisation_id` (`employer_organisation_id`),\n  CONSTRAINT `research_staff_ibfk_1` FOREIGN KEY (`employer_organisation_id`) REFERENCES `organisations` (`organisation_id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8",
+            "fileds": {
+                "field": [
+                    [
+                        "staff_id",
+                        "int",
+                        "PRIMARY KEY"
+                    ],
+                    [
+                        "employer_organisation_id",
+                        "int"
+                    ],
+                    [
+                        "staff_details",
+                        "varchar"
+                    ]
+                ],
+                "foreign_key": [
+                    [
+                        "employer_organisation_id",
+                        "organisations",
+                        "organisation_id"
+                    ]
+                ]
+            }
+        },
+        {
+            "staff_roles": "CREATE TABLE `staff_roles` (\n  `role_code` varchar(10) NOT NULL,\n  `role_description` varchar(255) NOT NULL,\n  PRIMARY KEY (`role_code`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8",
+            "fileds": {
+                "field": [
+                    [
+                        "role_code",
+                        "varchar",
+                        "PRIMARY KEY"
+                    ],
+                    [
+                        "role_description",
+                        "varchar"
+                    ]
+                ],
+                "foreign_key": []
+            }
+        },
+        {
+            "tasks": "CREATE TABLE `tasks` (\n  `task_id` int(11) NOT NULL,\n  `project_id` int(11) NOT NULL,\n  `task_details` varchar(255) NOT NULL,\n  `eg agree objectives` varchar(1) DEFAULT NULL,\n  PRIMARY KEY (`task_id`),\n  KEY `project_id` (`project_id`),\n  CONSTRAINT `tasks_ibfk_1` FOREIGN KEY (`project_id`) REFERENCES `projects` (`project_id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8",
+            "fileds": {
+                "field": [
+                    [
+                        "task_id",
+                        "int",
+                        "PRIMARY KEY"
+                    ],
+                    [
+                        "project_id",
+                        "int"
+                    ],
+                    [
+                        "task_details",
+                        "varchar"
+                    ],
+                    [
+                        "eg",
+                        "agree"
+                    ]
+                ],
+                "foreign_key": [
+                    [
+                        "project_id",
+                        "projects",
+                        "project_id"
+                    ]
+                ]
+            }
+        }
+    ],
+    "input": "How many kinds of roles are there for the staff?",
+    "response": "select count(distinct role_code) from project_staff;",
+    "insert": [
+        "INSERT INTO document_types (`document_type_code`, `document_description`) VALUES ('app', 'initial application');",
+        "INSERT INTO document_types (`document_type_code`, `document_description`) VALUES ('reg', 'regular');",
+        "INSERT INTO organisation_types (`organisation_type`, `organisation_type_description`) VALUES ('res', 'research');",
+        "INSERT INTO organisation_types (`organisation_type`, `organisation_type_description`) VALUES ('spon', 'sponsor');",
+        "INSERT INTO organisations (`organisation_id`, `organisation_type`, `organisation_details`) VALUES (1, 'res', 'et');",
+        "INSERT INTO organisations (`organisation_id`, `organisation_type`, `organisation_details`) VALUES (2, 'res', 'eius');",
+        "INSERT INTO organisations (`organisation_id`, `organisation_type`, `organisation_details`) VALUES (3, 'res', 'impedit');",
+        "INSERT INTO organisations (`organisation_id`, `organisation_type`, `organisation_details`) VALUES (4, 'spon', 'eos');",
+        "INSERT INTO organisations (`organisation_id`, `organisation_type`, `organisation_details`) VALUES (5, 'spon', 'tenetur');",
+        "INSERT INTO organisations (`organisation_id`, `organisation_type`, `organisation_details`) VALUES (6, 'res', 'dolorem');",
+        "INSERT INTO organisations (`organisation_id`, `organisation_type`, `organisation_details`) VALUES (7, 'res', 'itaque');",
+        "INSERT INTO organisations (`organisation_id`, `organisation_type`, `organisation_details`) VALUES (8, 'spon', 'aperiam');",
+        "INSERT INTO organisations (`organisation_id`, `organisation_type`, `organisation_details`) VALUES (9, 'res', 'a');",
+        "INSERT INTO organisations (`organisation_id`, `organisation_type`, `organisation_details`) VALUES (10, 'spon', 'officiis');",
+        "INSERT INTO organisations (`organisation_id`, `organisation_type`, `organisation_details`) VALUES (11, 'spon', 'eveniet');",
+        "INSERT INTO organisations (`organisation_id`, `organisation_type`, `organisation_details`) VALUES (12, 'res', 'itaque');",
+        "INSERT INTO organisations (`organisation_id`, `organisation_type`, `organisation_details`) VALUES (13, 'spon', 'voluptas');",
+        "INSERT INTO organisations (`organisation_id`, `organisation_type`, `organisation_details`) VALUES (14, 'res', 'quo');",
+        "INSERT INTO organisations (`organisation_id`, `organisation_type`, `organisation_details`) VALUES (15, 'spon', 'consequuntur');",
+        "INSERT INTO staff_roles (`role_code`, `role_description`) VALUES ('leader', 'project leader');",
+        "INSERT INTO staff_roles (`role_code`, `role_description`) VALUES ('researcher', 'project researcher');",
+        "INSERT INTO grants (`grant_id`, `organisation_id`, `grant_amount`, `grant_start_date`, `grant_end_date`, `other_details`) VALUES (1, 10, '4094.5420', '2016-11-20 00:18:51', '2004-10-24 09:09:39', 'et');",
+        "INSERT INTO grants (`grant_id`, `organisation_id`, `grant_amount`, `grant_start_date`, `grant_end_date`, `other_details`) VALUES (2, 3, '281.2446', '1985-10-09 20:08:49', '1985-06-08 00:22:07', 'occaecati');",
+        "INSERT INTO grants (`grant_id`, `organisation_id`, `grant_amount`, `grant_start_date`, `grant_end_date`, `other_details`) VALUES (3, 14, '4515947.7015', '1970-09-19 22:53:49', '1989-03-16 18:27:16', 'et');",
+        "INSERT INTO grants (`grant_id`, `organisation_id`, `grant_amount`, `grant_start_date`, `grant_end_date`, `other_details`) VALUES (4, 11, '330.6339', '1990-08-13 20:27:28', '2014-08-13 22:58:50', 'et');",
+        "INSERT INTO grants (`grant_id`, `organisation_id`, `grant_amount`, `grant_start_date`, `grant_end_date`, `other_details`) VALUES (5, 2, '608413.3291', '1979-10-29 07:44:22', '1996-08-16 20:45:05', 'corrupti');",
+        "INSERT INTO grants (`grant_id`, `organisation_id`, `grant_amount`, `grant_start_date`, `grant_end_date`, `other_details`) VALUES (6, 8, '42.8061', '2011-05-10 22:44:08', '1977-12-27 01:51:18', 'dolor');",
+        "INSERT INTO grants (`grant_id`, `organisation_id`, `grant_amount`, `grant_start_date`, `grant_end_date`, `other_details`) VALUES (7, 7, '76977808.3060', '2015-12-14 13:02:11', '1981-03-09 17:12:27', 'explicabo');",
+        "INSERT INTO grants (`grant_id`, `organisation_id`, `grant_amount`, `grant_start_date`, `grant_end_date`, `other_details`) VALUES (8, 10, '38675408.6017', '2016-02-25 04:28:44', '1983-06-22 15:12:32', 'aliquam');",
+        "INSERT INTO grants (`grant_id`, `organisation_id`, `grant_amount`, `grant_start_date`, `grant_end_date`, `other_details`) VALUES (9, 8, '0.0000', '2009-07-14 18:26:05', '1982-03-11 15:27:55', 'sapiente');",
+        "INSERT INTO grants (`grant_id`, `organisation_id`, `grant_amount`, `grant_start_date`, `grant_end_date`, `other_details`) VALUES (10, 14, '66.4203', '1986-08-26 20:49:27', '2007-09-26 19:19:26', 'veniam');",
+        "INSERT INTO grants (`grant_id`, `organisation_id`, `grant_amount`, `grant_start_date`, `grant_end_date`, `other_details`) VALUES (11, 5, '610.7004', '1986-10-31 17:11:29', '2001-05-22 21:02:43', 'voluptatum');",
+        "INSERT INTO grants (`grant_id`, `organisation_id`, `grant_amount`, `grant_start_date`, `grant_end_date`, `other_details`) VALUES (12, 12, '2001349.4590', '2001-06-22 16:01:05', '2007-04-24 03:04:13', 'aut');",
+        "INSERT INTO grants (`grant_id`, `organisation_id`, `grant_amount`, `grant_start_date`, `grant_end_date`, `other_details`) VALUES (13, 7, '1.9848', '2004-11-10 02:26:01', '2011-05-29 11:21:59', 'qui');",
+        "INSERT INTO grants (`grant_id`, `organisation_id`, `grant_amount`, `grant_start_date`, `grant_end_date`, `other_details`) VALUES (14, 2, '24.7000', '2004-12-05 19:43:13', '1983-12-17 12:29:58', 'aliquam');",
+        "INSERT INTO grants (`grant_id`, `organisation_id`, `grant_amount`, `grant_start_date`, `grant_end_date`, `other_details`) VALUES (15, 9, '25313.5100', '1982-04-07 00:07:43', '1991-06-06 07:26:25', 'ea');",
+        "INSERT INTO documents (`document_id`, `document_type_code`, `grant_id`, `sent_date`, `response_received_date`, `other_details`) VALUES (1, 'app', 5, '1986-11-30 07:56:35', '1977-12-01 02:18:53', '');",
+        "INSERT INTO documents (`document_id`, `document_type_code`, `grant_id`, `sent_date`, `response_received_date`, `other_details`) VALUES (2, 'app', 13, '2004-01-23 11:57:08', '1979-12-08 10:38:07', '');",
+        "INSERT INTO documents (`document_id`, `document_type_code`, `grant_id`, `sent_date`, `response_received_date`, `other_details`) VALUES (3, 'reg', 10, '1999-03-03 12:25:58', '1995-09-12 13:13:48', '');",
+        "INSERT INTO documents (`document_id`, `document_type_code`, `grant_id`, `sent_date`, `response_received_date`, `other_details`) VALUES (4, 'app', 13, '1999-05-29 00:02:46', '1991-09-25 10:38:24', '');",
+        "INSERT INTO documents (`document_id`, `document_type_code`, `grant_id`, `sent_date`, `response_received_date`, `other_details`) VALUES (5, 'app', 11, '2003-08-29 03:32:52', '1986-05-23 07:17:59', '');",
+        "INSERT INTO documents (`document_id`, `document_type_code`, `grant_id`, `sent_date`, `response_received_date`, `other_details`) VALUES (6, 'reg', 5, '1979-07-04 08:54:23', '1976-10-04 22:13:27', '');",
+        "INSERT INTO documents (`document_id`, `document_type_code`, `grant_id`, `sent_date`, `response_received_date`, `other_details`) VALUES (7, 'app', 13, '1978-09-13 16:23:29', '1979-01-06 05:05:30', '');",
+        "INSERT INTO documents (`document_id`, `document_type_code`, `grant_id`, `sent_date`, `response_received_date`, `other_details`) VALUES (8, 'app', 15, '2001-06-18 06:35:49', '1986-05-18 01:54:56', '');",
+        "INSERT INTO documents (`document_id`, `document_type_code`, `grant_id`, `sent_date`, `response_received_date`, `other_details`) VALUES (9, 'app', 6, '2014-01-28 05:11:34', '1980-02-24 15:23:44', '');",
+        "INSERT INTO documents (`document_id`, `document_type_code`, `grant_id`, `sent_date`, `response_received_date`, `other_details`) VALUES (10, 'reg', 7, '2002-07-26 15:50:28', '1987-10-29 15:35:50', '');",
+        "INSERT INTO documents (`document_id`, `document_type_code`, `grant_id`, `sent_date`, `response_received_date`, `other_details`) VALUES (11, 'reg', 15, '1993-02-19 16:31:12', '1994-03-13 01:52:45', '');",
+        "INSERT INTO documents (`document_id`, `document_type_code`, `grant_id`, `sent_date`, `response_received_date`, `other_details`) VALUES (12, 'reg', 13, '1997-03-09 03:42:19', '1977-01-27 07:14:11', '');",
+        "INSERT INTO documents (`document_id`, `document_type_code`, `grant_id`, `sent_date`, `response_received_date`, `other_details`) VALUES (13, 'app', 13, '1979-08-23 08:22:34', '1990-01-19 19:57:14', '');",
+        "INSERT INTO documents (`document_id`, `document_type_code`, `grant_id`, `sent_date`, `response_received_date`, `other_details`) VALUES (14, 'app', 15, '2000-06-06 01:03:46', '1971-08-28 11:20:56', '');",
+        "INSERT INTO documents (`document_id`, `document_type_code`, `grant_id`, `sent_date`, `response_received_date`, `other_details`) VALUES (15, 'app', 8, '1981-08-06 14:56:55', '1999-06-01 18:41:00', '');",
+        "INSERT INTO projects (`project_id`, `organisation_id`, `project_details`) VALUES (1, 15, 'porro');",
+        "INSERT INTO projects (`project_id`, `organisation_id`, `project_details`) VALUES (2, 11, 'et');",
+        "INSERT INTO projects (`project_id`, `organisation_id`, `project_details`) VALUES (3, 7, 'sint');",
+        "INSERT INTO projects (`project_id`, `organisation_id`, `project_details`) VALUES (4, 4, 'doloremque');",
+        "INSERT INTO projects (`project_id`, `organisation_id`, `project_details`) VALUES (5, 11, 'vel');",
+        "INSERT INTO projects (`project_id`, `organisation_id`, `project_details`) VALUES (6, 10, 'deserunt');",
+        "INSERT INTO projects (`project_id`, `organisation_id`, `project_details`) VALUES (7, 3, 'deleniti');",
+        "INSERT INTO projects (`project_id`, `organisation_id`, `project_details`) VALUES (8, 1, 'ad');",
+        "INSERT INTO projects (`project_id`, `organisation_id`, `project_details`) VALUES (9, 4, 'sed');",
+        "INSERT INTO projects (`project_id`, `organisation_id`, `project_details`) VALUES (10, 4, 'consectetur');",
+        "INSERT INTO projects (`project_id`, `organisation_id`, `project_details`) VALUES (11, 13, 'impedit');",
+        "INSERT INTO projects (`project_id`, `organisation_id`, `project_details`) VALUES (12, 12, 'omnis');",
+        "INSERT INTO projects (`project_id`, `organisation_id`, `project_details`) VALUES (13, 3, 'non');",
+        "INSERT INTO projects (`project_id`, `organisation_id`, `project_details`) VALUES (14, 1, 'beatae');",
+        "INSERT INTO projects (`project_id`, `organisation_id`, `project_details`) VALUES (15, 5, 'dolorem');",
+        "INSERT INTO tasks (`task_id`, `project_id`, `task_details`, `eg agree objectives`) VALUES (1, 1, 'a', null);",
+        "INSERT INTO tasks (`task_id`, `project_id`, `task_details`, `eg agree objectives`) VALUES (2, 2, 'b', null);",
+        "INSERT INTO tasks (`task_id`, `project_id`, `task_details`, `eg agree objectives`) VALUES (3, 3, 'c', null);",
+        "INSERT INTO tasks (`task_id`, `project_id`, `task_details`, `eg agree objectives`) VALUES (4, 4, 'q', null);",
+        "INSERT INTO tasks (`task_id`, `project_id`, `task_details`, `eg agree objectives`) VALUES (5, 5, 'w', null);",
+        "INSERT INTO tasks (`task_id`, `project_id`, `task_details`, `eg agree objectives`) VALUES (6, 6, 'e', null);",
+        "INSERT INTO tasks (`task_id`, `project_id`, `task_details`, `eg agree objectives`) VALUES (7, 7, 'r', null);",
+        "INSERT INTO tasks (`task_id`, `project_id`, `task_details`, `eg agree objectives`) VALUES (8, 8, 't', null);",
+        "INSERT INTO tasks (`task_id`, `project_id`, `task_details`, `eg agree objectives`) VALUES (9, 9, 'y', null);",
+        "INSERT INTO tasks (`task_id`, `project_id`, `task_details`, `eg agree objectives`) VALUES (10, 10, 'u', null);",
+        "INSERT INTO tasks (`task_id`, `project_id`, `task_details`, `eg agree objectives`) VALUES (11, 11, 'i', null);",
+        "INSERT INTO tasks (`task_id`, `project_id`, `task_details`, `eg agree objectives`) VALUES (12, 12, 'm', null);",
+        "INSERT INTO tasks (`task_id`, `project_id`, `task_details`, `eg agree objectives`) VALUES (13, 13, 'n', null);",
+        "INSERT INTO tasks (`task_id`, `project_id`, `task_details`, `eg agree objectives`) VALUES (14, 14, 'o', null);",
+        "INSERT INTO tasks (`task_id`, `project_id`, `task_details`, `eg agree objectives`) VALUES (15, 15, 'p', null);",
+        "INSERT INTO research_outcomes (`outcome_code`, `outcome_description`) VALUES ('paper', 'published research paper');",
+        "INSERT INTO research_outcomes (`outcome_code`, `outcome_description`) VALUES ('patent', 'research patent');",
+        "INSERT INTO project_outcomes (`project_id`, `outcome_code`, `outcome_details`) VALUES (4, 'paper', null);",
+        "INSERT INTO project_outcomes (`project_id`, `outcome_code`, `outcome_details`) VALUES (3, 'patent', null);",
+        "INSERT INTO project_outcomes (`project_id`, `outcome_code`, `outcome_details`) VALUES (9, 'paper', null);",
+        "INSERT INTO project_outcomes (`project_id`, `outcome_code`, `outcome_details`) VALUES (6, 'paper', null);",
+        "INSERT INTO project_outcomes (`project_id`, `outcome_code`, `outcome_details`) VALUES (9, 'patent', null);",
+        "INSERT INTO project_outcomes (`project_id`, `outcome_code`, `outcome_details`) VALUES (11, 'paper', null);",
+        "INSERT INTO project_outcomes (`project_id`, `outcome_code`, `outcome_details`) VALUES (14, 'patent', null);",
+        "INSERT INTO project_outcomes (`project_id`, `outcome_code`, `outcome_details`) VALUES (14, 'paper', null);",
+        "INSERT INTO project_outcomes (`project_id`, `outcome_code`, `outcome_details`) VALUES (13, 'paper', null);",
+        "INSERT INTO project_outcomes (`project_id`, `outcome_code`, `outcome_details`) VALUES (12, 'patent', null);",
+        "INSERT INTO project_outcomes (`project_id`, `outcome_code`, `outcome_details`) VALUES (7, 'paper', null);",
+        "INSERT INTO project_outcomes (`project_id`, `outcome_code`, `outcome_details`) VALUES (5, 'patent', null);",
+        "INSERT INTO project_outcomes (`project_id`, `outcome_code`, `outcome_details`) VALUES (7, 'paper', null);",
+        "INSERT INTO project_outcomes (`project_id`, `outcome_code`, `outcome_details`) VALUES (13, 'paper', null);",
+        "INSERT INTO project_outcomes (`project_id`, `outcome_code`, `outcome_details`) VALUES (7, 'paper', null);",
+        "INSERT INTO project_staff (`staff_id`, `project_id`, `role_code`, `date_from`, `date_to`, `other_details`) VALUES ('0', 2, 'leader', '1981-10-04 22:44:50', '1985-05-30 22:26:30', null);",
+        "INSERT INTO project_staff (`staff_id`, `project_id`, `role_code`, `date_from`, `date_to`, `other_details`) VALUES ('674810', 5, 'leader', '2003-04-19 15:06:20', '2010-12-08 11:55:36', null);",
+        "INSERT INTO project_staff (`staff_id`, `project_id`, `role_code`, `date_from`, `date_to`, `other_details`) VALUES ('779', 2, 'researcher', '1981-10-09 21:32:53', '2004-12-16 13:03:36', null);",
+        "INSERT INTO project_staff (`staff_id`, `project_id`, `role_code`, `date_from`, `date_to`, `other_details`) VALUES ('6572', 4, 'researcher', '1983-02-07 17:55:59', '2004-07-28 03:11:47', null);",
+        "INSERT INTO project_staff (`staff_id`, `project_id`, `role_code`, `date_from`, `date_to`, `other_details`) VALUES ('5353407', 15, 'leader', '2004-11-01 23:52:38', '1988-03-04 19:30:05', null);",
+        "INSERT INTO project_staff (`staff_id`, `project_id`, `role_code`, `date_from`, `date_to`, `other_details`) VALUES ('5137097', 7, 'researcher', '1991-01-11 16:57:50', '1993-06-09 12:44:28', null);",
+        "INSERT INTO project_staff (`staff_id`, `project_id`, `role_code`, `date_from`, `date_to`, `other_details`) VALUES ('29', 9, 'researcher', '2005-01-13 11:49:48', '1973-07-19 04:51:26', null);",
+        "INSERT INTO project_staff (`staff_id`, `project_id`, `role_code`, `date_from`, `date_to`, `other_details`) VALUES ('3', 8, 'researcher', '1970-03-25 06:18:11', '1985-12-05 12:00:58', null);",
+        "INSERT INTO project_staff (`staff_id`, `project_id`, `role_code`, `date_from`, `date_to`, `other_details`) VALUES ('3100031', 11, 'researcher', '1972-01-17 19:42:16', '2016-03-15 00:33:18', null);",
+        "INSERT INTO project_staff (`staff_id`, `project_id`, `role_code`, `date_from`, `date_to`, `other_details`) VALUES ('49698449', 1, 'leader', '1970-04-06 15:50:21', '1983-03-19 16:06:31', null);",
+        "INSERT INTO project_staff (`staff_id`, `project_id`, `role_code`, `date_from`, `date_to`, `other_details`) VALUES ('45', 11, 'researcher', '2000-08-28 11:49:17', '2007-02-02 17:26:02', null);",
+        "INSERT INTO project_staff (`staff_id`, `project_id`, `role_code`, `date_from`, `date_to`, `other_details`) VALUES ('37', 5, 'researcher', '1989-04-24 23:51:54', '2002-03-19 18:00:36', null);",
+        "INSERT INTO project_staff (`staff_id`, `project_id`, `role_code`, `date_from`, `date_to`, `other_details`) VALUES ('6065505', 3, 'leader', '1999-10-21 22:07:15', '2008-09-25 20:06:28', null);",
+        "INSERT INTO project_staff (`staff_id`, `project_id`, `role_code`, `date_from`, `date_to`, `other_details`) VALUES ('56', 1, 'leader', '1970-01-02 15:35:05', '1985-09-22 09:06:08', null);",
+        "INSERT INTO project_staff (`staff_id`, `project_id`, `role_code`, `date_from`, `date_to`, `other_details`) VALUES ('13739108', 2, 'researcher', '1973-12-12 11:46:28', '1971-07-19 22:49:05', null);",
+        "INSERT INTO research_staff (`staff_id`, `employer_organisation_id`, `staff_details`) VALUES (1, 1, 'quo');",
+        "INSERT INTO research_staff (`staff_id`, `employer_organisation_id`, `staff_details`) VALUES (2, 4, 'est');",
+        "INSERT INTO research_staff (`staff_id`, `employer_organisation_id`, `staff_details`) VALUES (3, 5, 'aspernatur');",
+        "INSERT INTO research_staff (`staff_id`, `employer_organisation_id`, `staff_details`) VALUES (4, 3, 'dolor');",
+        "INSERT INTO research_staff (`staff_id`, `employer_organisation_id`, `staff_details`) VALUES (5, 2, 'doloribus');",
+        "INSERT INTO research_staff (`staff_id`, `employer_organisation_id`, `staff_details`) VALUES (6, 5, 'consequatur');",
+        "INSERT INTO research_staff (`staff_id`, `employer_organisation_id`, `staff_details`) VALUES (7, 3, 'animi');",
+        "INSERT INTO research_staff (`staff_id`, `employer_organisation_id`, `staff_details`) VALUES (8, 5, 'consequatur');",
+        "INSERT INTO research_staff (`staff_id`, `employer_organisation_id`, `staff_details`) VALUES (9, 6, 'sint');",
+        "INSERT INTO research_staff (`staff_id`, `employer_organisation_id`, `staff_details`) VALUES (10, 8, 'iure');",
+        "INSERT INTO research_staff (`staff_id`, `employer_organisation_id`, `staff_details`) VALUES (11, 9, 'voluptatibus');",
+        "INSERT INTO research_staff (`staff_id`, `employer_organisation_id`, `staff_details`) VALUES (12, 10, 'nulla');",
+        "INSERT INTO research_staff (`staff_id`, `employer_organisation_id`, `staff_details`) VALUES (13, 2, 'ab');",
+        "INSERT INTO research_staff (`staff_id`, `employer_organisation_id`, `staff_details`) VALUES (14, 3, 'accusamus');",
+        "INSERT INTO research_staff (`staff_id`, `employer_organisation_id`, `staff_details`) VALUES (15, 2, 'dicta');"
+    ],
+    "table_names": [
+        "project_staff"
+    ],
+    "database": "tracking_grants_for_research"
+}

@@ -1,0 +1,41 @@
+{
+    "conversations": [
+        {
+            "database": "insurance_fnol",
+            "system": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\n##Instruction:\ninsurance_fnol contains tables such as settlements.\nTable settlements has columns such as settlement_id, claim_id, effective_date, settlement_amount, UNIQUE, where claim_id is the primary key.\nThe claim_id of claims is the foreign key of claim_id of settlements.",
+            "query": "Return the sum and average of all settlement amounts.",
+            "answer": "SELECT sum(settlement_amount),\n       avg(settlement_amount)\nFROM settlements;",
+            "insert": [
+                "INSERT INTO `customers` (`customer_id`, `customer_name`) VALUES (194, 'america jaskolski');",
+                "INSERT INTO `customers` (`customer_id`, `customer_name`) VALUES (214, 'ellsworth paucek');",
+                "INSERT INTO `customers` (`customer_id`, `customer_name`) VALUES (256, 'mrs. hanna willms');",
+                "INSERT INTO `customers` (`customer_id`, `customer_name`) VALUES (562, 'dr. diana rath');",
+                "INSERT INTO `customers` (`customer_id`, `customer_name`) VALUES (582, 'selena gerhold');",
+                "INSERT INTO `customers` (`customer_id`, `customer_name`) VALUES (641, 'dayana robel');",
+                "INSERT INTO `customers` (`customer_id`, `customer_name`) VALUES (682, 'mr. edwardo blanda i');",
+                "INSERT INTO `customers` (`customer_id`, `customer_name`) VALUES (756, 'mr. randal lynch iii');",
+                "INSERT INTO `customers` (`customer_id`, `customer_name`) VALUES (805, 'mrs. liza heller v');",
+                "INSERT INTO `customers` (`customer_id`, `customer_name`) VALUES (826, 'mrs. lilly graham iii');",
+                "INSERT INTO `customers` (`customer_id`, `customer_name`) VALUES (882, 'miss felicita reichel');",
+                "INSERT INTO `customers` (`customer_id`, `customer_name`) VALUES (892, 'sydnie friesen');",
+                "INSERT INTO `customers` (`customer_id`, `customer_name`) VALUES (923, 'david ross');",
+                "INSERT INTO `customers` (`customer_id`, `customer_name`) VALUES (956, 'cai zhang');",
+                "INSERT INTO `customers` (`customer_id`, `customer_name`) VALUES (996, 'jay chou');",
+                "INSERT INTO `services` (`service_id`, `service_name`) VALUES (1, 'new policy application');",
+                "INSERT INTO `services` (`service_id`, `service_name`) VALUES (4, 'close a policy');",
+                "INSERT INTO `services` (`service_id`, `service_name`) VALUES (6, 'change a policy');",
+                "INSERT INTO `services` (`service_id`, `service_name`) VALUES (9, 'upgrade a policy');",
+                "INSERT INTO `available_policies` (`policy_id`, `policy_type_code`, `customer_phone`) VALUES (246, 'life insurance', '+16 (2) 5838999222');",
+                "INSERT INTO `available_policies` (`policy_id`, `policy_type_code`, `customer_phone`) VALUES (586, 'life insurance', '991.642.6485x822');",
+                "INSERT INTO `available_policies` (`policy_id`, `policy_type_code`, `customer_phone`) VALUES (636, 'life insurance', '889-572-0609x552');",
+                "INSERT INTO `available_policies` (`policy_id`, `policy_type_code`, `customer_phone`) VALUES (751, 'life insurance', '1-138-841-3073');",
+                "INSERT INTO `customers_policies` (`customer_id`, `policy_id`, `date_opened`, `date_closed`) VALUES (582, 586, '2016-04-11', '2018-03-17');",
+                "INSERT INTO `first_notification_of_loss` (`fnol_id`, `customer_id`, `policy_id`, `service_id`) VALUES (4525, 582, 586, 1);",
+                "INSERT INTO `claims` (`claim_id`, `fnol_id`, `effective_date`) VALUES (641, 4525, '1985-03-24');",
+                "INSERT INTO `claims` (`claim_id`, `fnol_id`, `effective_date`) VALUES (717, 4525, '1996-11-29');",
+                "INSERT INTO `settlements` (`settlement_id`, `claim_id`, `effective_date`, `settlement_amount`) VALUES (161, 717, '2009-11-20', '6451.65');",
+                "INSERT INTO `settlements` (`settlement_id`, `claim_id`, `effective_date`, `settlement_amount`) VALUES (176, 641, '1971-06-29', '1588.45');"
+            ]
+        }
+    ]
+}

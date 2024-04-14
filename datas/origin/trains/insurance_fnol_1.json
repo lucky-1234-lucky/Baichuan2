@@ -1,0 +1,247 @@
+{
+    "sql": [
+        {
+            "available_policies": "CREATE TABLE `available_policies` (\n  `policy_id` int(11) NOT NULL,\n  `policy_type_code` char(15) DEFAULT NULL,\n  `customer_phone` varchar(255) DEFAULT NULL,\n  PRIMARY KEY (`policy_id`),\n  UNIQUE KEY `policy_id` (`policy_id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8",
+            "fileds": {
+                "field": [
+                    [
+                        "policy_id",
+                        "int",
+                        "PRIMARY KEY"
+                    ],
+                    [
+                        "policy_type_code",
+                        "char"
+                    ],
+                    [
+                        "customer_phone",
+                        "varchar"
+                    ],
+                    [
+                        "UNIQUE",
+                        "KEY"
+                    ]
+                ],
+                "foreign_key": []
+            }
+        },
+        {
+            "claims": "CREATE TABLE `claims` (\n  `claim_id` int(11) NOT NULL,\n  `fnol_id` int(11) NOT NULL,\n  `effective_date` date DEFAULT NULL,\n  PRIMARY KEY (`claim_id`),\n  UNIQUE KEY `claim_id` (`claim_id`),\n  KEY `fnol_id` (`fnol_id`),\n  CONSTRAINT `claims_ibfk_1` FOREIGN KEY (`fnol_id`) REFERENCES `first_notification_of_loss` (`fnol_id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8",
+            "fileds": {
+                "field": [
+                    [
+                        "claim_id",
+                        "int",
+                        "PRIMARY KEY"
+                    ],
+                    [
+                        "fnol_id",
+                        "int"
+                    ],
+                    [
+                        "effective_date",
+                        "date"
+                    ],
+                    [
+                        "UNIQUE",
+                        "KEY"
+                    ]
+                ],
+                "foreign_key": [
+                    [
+                        "fnol_id",
+                        "first_notification_of_loss",
+                        "fnol_id"
+                    ]
+                ]
+            }
+        },
+        {
+            "customers": "CREATE TABLE `customers` (\n  `customer_id` int(11) NOT NULL,\n  `customer_name` varchar(40) DEFAULT NULL,\n  PRIMARY KEY (`customer_id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8",
+            "fileds": {
+                "field": [
+                    [
+                        "customer_id",
+                        "int",
+                        "PRIMARY KEY"
+                    ],
+                    [
+                        "customer_name",
+                        "varchar"
+                    ]
+                ],
+                "foreign_key": []
+            }
+        },
+        {
+            "customers_policies": "CREATE TABLE `customers_policies` (\n  `customer_id` int(11) NOT NULL,\n  `policy_id` int(11) NOT NULL,\n  `date_opened` date DEFAULT NULL,\n  `date_closed` date DEFAULT NULL,\n  PRIMARY KEY (`customer_id`,`policy_id`),\n  KEY `policy_id` (`policy_id`),\n  CONSTRAINT `customers_policies_ibfk_1` FOREIGN KEY (`customer_id`) REFERENCES `customers` (`customer_id`),\n  CONSTRAINT `customers_policies_ibfk_2` FOREIGN KEY (`policy_id`) REFERENCES `available_policies` (`policy_id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8",
+            "fileds": {
+                "field": [
+                    [
+                        "customer_id",
+                        "int",
+                        "PRIMARY KEY"
+                    ],
+                    [
+                        "policy_id",
+                        "int",
+                        "PRIMARY KEY"
+                    ],
+                    [
+                        "date_opened",
+                        "date"
+                    ],
+                    [
+                        "date_closed",
+                        "date"
+                    ]
+                ],
+                "foreign_key": [
+                    [
+                        "customer_id",
+                        "customers",
+                        "customer_id"
+                    ],
+                    [
+                        "policy_id",
+                        "available_policies",
+                        "policy_id"
+                    ]
+                ]
+            }
+        },
+        {
+            "first_notification_of_loss": "CREATE TABLE `first_notification_of_loss` (\n  `fnol_id` int(11) NOT NULL,\n  `customer_id` int(11) NOT NULL,\n  `policy_id` int(11) NOT NULL,\n  `service_id` int(11) NOT NULL,\n  PRIMARY KEY (`fnol_id`),\n  UNIQUE KEY `fnol_id` (`fnol_id`),\n  KEY `service_id` (`service_id`),\n  KEY `customer_id` (`customer_id`,`policy_id`),\n  CONSTRAINT `first_notification_of_loss_ibfk_1` FOREIGN KEY (`service_id`) REFERENCES `services` (`service_id`),\n  CONSTRAINT `first_notification_of_loss_ibfk_2` FOREIGN KEY (`customer_id`, `policy_id`) REFERENCES `customers_policies` (`customer_id`, `policy_id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8",
+            "fileds": {
+                "field": [
+                    [
+                        "fnol_id",
+                        "int",
+                        "PRIMARY KEY"
+                    ],
+                    [
+                        "customer_id",
+                        "int"
+                    ],
+                    [
+                        "policy_id",
+                        "int"
+                    ],
+                    [
+                        "service_id",
+                        "int"
+                    ],
+                    [
+                        "UNIQUE",
+                        "KEY"
+                    ]
+                ],
+                "foreign_key": [
+                    [
+                        "service_id",
+                        "services",
+                        "service_id"
+                    ],
+                    [
+                        "customer_id",
+                        "policy_id",
+                        "customers_policies",
+                        "customer_id",
+                        "policy_id"
+                    ]
+                ]
+            }
+        },
+        {
+            "services": "CREATE TABLE `services` (\n  `service_id` int(11) NOT NULL,\n  `service_name` varchar(40) DEFAULT NULL,\n  PRIMARY KEY (`service_id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8",
+            "fileds": {
+                "field": [
+                    [
+                        "service_id",
+                        "int",
+                        "PRIMARY KEY"
+                    ],
+                    [
+                        "service_name",
+                        "varchar"
+                    ]
+                ],
+                "foreign_key": []
+            }
+        },
+        {
+            "settlements": "CREATE TABLE `settlements` (\n  `settlement_id` int(11) NOT NULL,\n  `claim_id` int(11) DEFAULT NULL,\n  `effective_date` date DEFAULT NULL,\n  `settlement_amount` double DEFAULT NULL,\n  PRIMARY KEY (`settlement_id`),\n  UNIQUE KEY `settlement_id` (`settlement_id`),\n  KEY `claim_id` (`claim_id`),\n  CONSTRAINT `settlements_ibfk_1` FOREIGN KEY (`claim_id`) REFERENCES `claims` (`claim_id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8",
+            "fileds": {
+                "field": [
+                    [
+                        "settlement_id",
+                        "int",
+                        "PRIMARY KEY"
+                    ],
+                    [
+                        "claim_id",
+                        "int"
+                    ],
+                    [
+                        "effective_date",
+                        "date"
+                    ],
+                    [
+                        "settlement_amount",
+                        "double"
+                    ],
+                    [
+                        "UNIQUE",
+                        "KEY"
+                    ]
+                ],
+                "foreign_key": [
+                    [
+                        "claim_id",
+                        "claims",
+                        "claim_id"
+                    ]
+                ]
+            }
+        }
+    ],
+    "input": "Tell me the types of the policy used by the customer named \"Dayana Robel\".",
+    "response": "select distinct t3.policy_type_code from customers as t1 join customers_policies as t2 on t1.customer_id = t2.customer_id join available_policies as t3 on t2.policy_id = t3.policy_id where t1.customer_name = 'dayana robel';",
+    "insert": [
+        "INSERT INTO `customers` (`customer_id`, `customer_name`) VALUES (194, 'america jaskolski');",
+        "INSERT INTO `customers` (`customer_id`, `customer_name`) VALUES (214, 'ellsworth paucek');",
+        "INSERT INTO `customers` (`customer_id`, `customer_name`) VALUES (256, 'mrs. hanna willms');",
+        "INSERT INTO `customers` (`customer_id`, `customer_name`) VALUES (562, 'dr. diana rath');",
+        "INSERT INTO `customers` (`customer_id`, `customer_name`) VALUES (582, 'selena gerhold');",
+        "INSERT INTO `customers` (`customer_id`, `customer_name`) VALUES (641, 'dayana robel');",
+        "INSERT INTO `customers` (`customer_id`, `customer_name`) VALUES (682, 'mr. edwardo blanda i');",
+        "INSERT INTO `customers` (`customer_id`, `customer_name`) VALUES (756, 'mr. randal lynch iii');",
+        "INSERT INTO `customers` (`customer_id`, `customer_name`) VALUES (805, 'mrs. liza heller v');",
+        "INSERT INTO `customers` (`customer_id`, `customer_name`) VALUES (826, 'mrs. lilly graham iii');",
+        "INSERT INTO `customers` (`customer_id`, `customer_name`) VALUES (882, 'miss felicita reichel');",
+        "INSERT INTO `customers` (`customer_id`, `customer_name`) VALUES (892, 'sydnie friesen');",
+        "INSERT INTO `customers` (`customer_id`, `customer_name`) VALUES (923, 'david ross');",
+        "INSERT INTO `customers` (`customer_id`, `customer_name`) VALUES (956, 'cai zhang');",
+        "INSERT INTO `customers` (`customer_id`, `customer_name`) VALUES (996, 'jay chou');",
+        "INSERT INTO `services` (`service_id`, `service_name`) VALUES (1, 'new policy application');",
+        "INSERT INTO `services` (`service_id`, `service_name`) VALUES (4, 'close a policy');",
+        "INSERT INTO `services` (`service_id`, `service_name`) VALUES (6, 'change a policy');",
+        "INSERT INTO `services` (`service_id`, `service_name`) VALUES (9, 'upgrade a policy');",
+        "INSERT INTO `available_policies` (`policy_id`, `policy_type_code`, `customer_phone`) VALUES (246, 'life insurance', '+16 (2) 5838999222');",
+        "INSERT INTO `available_policies` (`policy_id`, `policy_type_code`, `customer_phone`) VALUES (586, 'life insurance', '991.642.6485x822');",
+        "INSERT INTO `available_policies` (`policy_id`, `policy_type_code`, `customer_phone`) VALUES (636, 'life insurance', '889-572-0609x552');",
+        "INSERT INTO `available_policies` (`policy_id`, `policy_type_code`, `customer_phone`) VALUES (751, 'life insurance', '1-138-841-3073');",
+        "INSERT INTO `customers_policies` (`customer_id`, `policy_id`, `date_opened`, `date_closed`) VALUES (582, 586, '2016-04-11', '2018-03-17');",
+        "INSERT INTO `first_notification_of_loss` (`fnol_id`, `customer_id`, `policy_id`, `service_id`) VALUES (4525, 582, 586, 1);",
+        "INSERT INTO `claims` (`claim_id`, `fnol_id`, `effective_date`) VALUES (641, 4525, '1985-03-24');",
+        "INSERT INTO `claims` (`claim_id`, `fnol_id`, `effective_date`) VALUES (717, 4525, '1996-11-29');",
+        "INSERT INTO `settlements` (`settlement_id`, `claim_id`, `effective_date`, `settlement_amount`) VALUES (161, 717, '2009-11-20', '6451.65');",
+        "INSERT INTO `settlements` (`settlement_id`, `claim_id`, `effective_date`, `settlement_amount`) VALUES (176, 641, '1971-06-29', '1588.45');"
+    ],
+    "table_names": [
+        "customers",
+        "available_policies",
+        "customers_policies"
+    ],
+    "database": "insurance_fnol"
+}

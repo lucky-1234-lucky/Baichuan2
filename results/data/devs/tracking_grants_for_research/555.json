@@ -1,0 +1,20 @@
+{
+    "conversations": [
+        {
+            "role": "system",
+            "content": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\n##Instruction:\ntracking_grants_for_research contains tables such as organisations, organisation_types, grants, documents.\nTable documents has columns such as document_id, document_type_code, grant_id, sent_date, response_received_date, other_details, where document_type_code is the primary key, grant_id is the primary key.\nTable grants has columns such as grant_id, organisation_id, grant_amount, grant_start_date, grant_end_date, other_details, where organisation_id is the primary key.\nTable organisation_types has columns such as organisation_type, organisation_type_description.\nTable organisations has columns such as organisation_id, organisation_type, organisation_details, where organisation_type is the primary key.\nThe document_type_code of document_types is the foreign key of document_type_code of documents.\nThe grant_id of grants is the foreign key of grant_id of documents.\nThe organisation_id of organisations is the foreign key of organisation_id of grants.\nThe organisation_type of organisation_types is the foreign key of organisation_type of organisations."
+        },
+        {
+            "role": "user",
+            "content": "What are the send dates for all documents that have a grant amount of more than 5000 and are involved in research?"
+        },
+        {
+            "role": "assistant",
+            "content": "select t1.sent_date from documents as t1 join grants as t2 on t1.grant_id = t2.grant_id join organisations as t3 on t2.organisation_id = t3.organisation_id join organisation_types as t4 on t3.organisation_type = t4.organisation_type where t2.grant_amount > 5000 and t4.organisation_type_description = 'research';"
+        },
+        {
+            "role": "result",
+            "content": "SELECT DISTINCT d.sent_date FROM documents AS d\nJOIN grants AS g ON d.grant_id = g.grant_id\nWHERE g.grant_amount > 5000 AND g.other_details LIKE '%research%';"
+        }
+    ]
+}

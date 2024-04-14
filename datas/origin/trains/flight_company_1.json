@@ -1,0 +1,130 @@
+{
+    "sql": [
+        {
+            "airport": "CREATE TABLE `airport` (\n  `id` int(11) NOT NULL,\n  `city` text,\n  `country` text,\n  `iata` text,\n  `icao` text,\n  `name` text,\n  PRIMARY KEY (`id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8",
+            "fileds": {
+                "field": [
+                    [
+                        "id",
+                        "int",
+                        "PRIMARY KEY"
+                    ],
+                    [
+                        "city",
+                        "text,"
+                    ],
+                    [
+                        "country",
+                        "text,"
+                    ],
+                    [
+                        "iata",
+                        "text,"
+                    ],
+                    [
+                        "icao",
+                        "text,"
+                    ],
+                    [
+                        "name",
+                        "text,"
+                    ]
+                ],
+                "foreign_key": []
+            }
+        },
+        {
+            "flight": "CREATE TABLE `flight` (\n  `id` int(11) NOT NULL,\n  `vehicle_flight_number` text,\n  `date` text,\n  `pilot` text,\n  `velocity` double DEFAULT NULL,\n  `altitude` double DEFAULT NULL,\n  `airport_id` int(11) DEFAULT NULL,\n  `company_id` int(11) DEFAULT NULL,\n  PRIMARY KEY (`id`),\n  KEY `airport_id` (`airport_id`),\n  KEY `company_id` (`company_id`),\n  CONSTRAINT `flight_ibfk_1` FOREIGN KEY (`airport_id`) REFERENCES `airport` (`id`),\n  CONSTRAINT `flight_ibfk_2` FOREIGN KEY (`company_id`) REFERENCES `operate_company` (`id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8",
+            "fileds": {
+                "field": [
+                    [
+                        "id",
+                        "int",
+                        "PRIMARY KEY"
+                    ],
+                    [
+                        "vehicle_flight_number",
+                        "text,"
+                    ],
+                    [
+                        "date",
+                        "text,"
+                    ],
+                    [
+                        "pilot",
+                        "text,"
+                    ],
+                    [
+                        "velocity",
+                        "double"
+                    ],
+                    [
+                        "altitude",
+                        "double"
+                    ],
+                    [
+                        "airport_id",
+                        "int"
+                    ],
+                    [
+                        "company_id",
+                        "int"
+                    ]
+                ],
+                "foreign_key": [
+                    [
+                        "airport_id",
+                        "airport",
+                        "id"
+                    ],
+                    [
+                        "company_id",
+                        "operate_company",
+                        "id"
+                    ]
+                ]
+            }
+        },
+        {
+            "operate_company": "CREATE TABLE `operate_company` (\n  `id` int(11) NOT NULL,\n  `name` text,\n  `type` text,\n  `principal_activities` text,\n  `incorporated_in` text,\n  `group_equity_shareholding` double DEFAULT NULL,\n  PRIMARY KEY (`id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8",
+            "fileds": {
+                "field": [
+                    [
+                        "id",
+                        "int",
+                        "PRIMARY KEY"
+                    ],
+                    [
+                        "name",
+                        "text,"
+                    ],
+                    [
+                        "type",
+                        "text,"
+                    ],
+                    [
+                        "principal_activities",
+                        "text,"
+                    ],
+                    [
+                        "incorporated_in",
+                        "text,"
+                    ],
+                    [
+                        "group_equity_shareholding",
+                        "double"
+                    ]
+                ],
+                "foreign_key": []
+            }
+        }
+    ],
+    "input": "What are the ids and names of the companies that operated more than one flight?",
+    "response": "select t1.id , t1.name from operate_company as t1 join flight as t2 on t1.id = t2.company_id group by t1.id having count(*) > 1;",
+    "insert": [],
+    "table_names": [
+        "flight",
+        "operate_company"
+    ],
+    "database": "flight_company"
+}

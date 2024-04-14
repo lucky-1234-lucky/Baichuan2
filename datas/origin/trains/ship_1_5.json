@@ -1,0 +1,83 @@
+{
+    "sql": [
+        {
+            "captain": "CREATE TABLE `captain` (\n  `captain_id` int(11) NOT NULL,\n  `name` text,\n  `ship_id` int(11) DEFAULT NULL,\n  `age` text,\n  `class` text,\n  `rank` text,\n  PRIMARY KEY (`captain_id`),\n  KEY `ship_id` (`ship_id`),\n  CONSTRAINT `captain_ibfk_1` FOREIGN KEY (`ship_id`) REFERENCES `ship` (`ship_id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8",
+            "fileds": {
+                "field": [
+                    [
+                        "captain_id",
+                        "int",
+                        "PRIMARY KEY"
+                    ],
+                    [
+                        "name",
+                        "text,"
+                    ],
+                    [
+                        "ship_id",
+                        "int"
+                    ],
+                    [
+                        "age",
+                        "text,"
+                    ],
+                    [
+                        "class",
+                        "text,"
+                    ],
+                    [
+                        "rank",
+                        "text,"
+                    ]
+                ],
+                "foreign_key": [
+                    [
+                        "ship_id",
+                        "ship",
+                        "ship_id"
+                    ]
+                ]
+            }
+        },
+        {
+            "ship": "CREATE TABLE `ship` (\n  `ship_id` int(11) NOT NULL,\n  `name` text,\n  `type` text,\n  `built_year` double DEFAULT NULL,\n  `class` text,\n  `flag` text,\n  PRIMARY KEY (`ship_id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8",
+            "fileds": {
+                "field": [
+                    [
+                        "ship_id",
+                        "int",
+                        "PRIMARY KEY"
+                    ],
+                    [
+                        "name",
+                        "text,"
+                    ],
+                    [
+                        "type",
+                        "text,"
+                    ],
+                    [
+                        "built_year",
+                        "double"
+                    ],
+                    [
+                        "class",
+                        "text,"
+                    ],
+                    [
+                        "flag",
+                        "text,"
+                    ]
+                ],
+                "foreign_key": []
+            }
+        }
+    ],
+    "input": "Sort all captain names by their ages from old to young.",
+    "response": "select name from captain order by age desc;",
+    "insert": [],
+    "table_names": [
+        "captain"
+    ],
+    "database": "ship_1"
+}

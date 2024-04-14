@@ -1,0 +1,20 @@
+{
+    "conversations": [
+        {
+            "role": "system",
+            "content": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\n##Instruction:\ntracking_software_problems contains tables such as problem_log.\nTable problem_log has columns such as problem_log_id, assigned_to_staff_id, problem_id, problem_category_code, problem_status_code, log_entry_date, log_entry_description, log_entry_fix, other_log_details, where problem_category_code is the primary key, assigned_to_staff_id is the primary key, problem_id is the primary key, problem_status_code is the primary key.\nThe problem_category_code of problem_category_codes is the foreign key of problem_category_code of problem_log.\nThe staff_id of staff is the foreign key of assigned_to_staff_id of problem_log.\nThe problem_id of problems is the foreign key of problem_id of problem_log.\nThe problem_status_code of problem_status_codes is the foreign key of problem_status_code of problem_log."
+        },
+        {
+            "role": "user",
+            "content": "Find the oldest log id and its corresponding problem id."
+        },
+        {
+            "role": "assistant",
+            "content": "select problem_log_id , problem_id from problem_log order by log_entry_date limit 1;"
+        },
+        {
+            "role": "result",
+            "content": "SELECT problem_log.problem_log_id, problem_log.problem_id \nFROM problem_log \nINNER JOIN problem_category_codes ON problem_log.problem_category_code = problem_category_codes.problem_category_code \nINNER JOIN staff ON problem_log.assigned_to_staff_id = staff.staff_id \nINNER JOIN problems ON problem_log.problem_id = problems.problem_id \nWHERE problem_log.problem_status_code = 'Open' AND problem_log.log_entry_date = (\n    SELECT MAX(problem_log.log_entry_date) \n    FROM problem_log \n    INNER JOIN problem_category_codes ON problem_log.problem_category_code = problem_category_codes.problem_category_code \n    INNER JOIN staff ON problem_log.assigned_to_staff_id = staff.staff_id \n    INNER JOIN problems ON problem_log.problem_id = problems.problem_id \n    WHERE problem_log.problem_status_code = 'Open')"
+        }
+    ]
+}

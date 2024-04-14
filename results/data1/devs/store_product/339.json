@@ -1,0 +1,20 @@
+{
+    "conversations": [
+        {
+            "role": "system",
+            "content": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\n##Instruction:\nstore_product contains tables such as product, store, store_product.\nTable product has columns such as product_id, product, dimensions, dpi, pages_per_minute_color, max_page_size, interface.\nTable store has columns such as store_id, store_name, type, area_size, number_of_product_category, ranking.\nTable store_product has columns such as store_id, product_id, where store_id is the primary key, product_id is the primary key.\nThe store_id of store is the foreign key of store_id of store_product.\nThe product_id of product is the foreign key of product_id of store_product."
+        },
+        {
+            "role": "user",
+            "content": "What products are available at store named \"Miramichi\"?"
+        },
+        {
+            "role": "assistant",
+            "content": "select t1.product from product as t1 join store_product as t2 on t1.product_id = t2.product_id join store as t3 on t2.store_id = t3.store_id where t3.store_name = 'miramichi';"
+        },
+        {
+            "role": "result",
+            "content": "select distinct t1.product from store_product as t1 join store as t2 on t1.store_id = t2.store_id join product as t3 on t1.product_id = t3.product_id where t2.store_name = 'miramichi';"
+        }
+    ]
+}

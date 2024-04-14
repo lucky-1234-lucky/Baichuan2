@@ -1,0 +1,20 @@
+{
+    "conversations": [
+        {
+            "role": "system",
+            "content": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\n##Instruction:\nstudent_transcripts_tracking contains tables such as student_enrolment, semesters.\nTable semesters has columns such as semester_id, semester_name, semester_description, other_details.\nTable student_enrolment has columns such as student_enrolment_id, degree_program_id, semester_id, student_id, other_details, where degree_program_id is the primary key, semester_id is the primary key, student_id is the primary key.\nThe degree_program_id of degree_programs is the foreign key of degree_program_id of student_enrolment.\nThe semester_id of semesters is the foreign key of semester_id of student_enrolment.\nThe student_id of students is the foreign key of student_id of student_enrolment."
+        },
+        {
+            "role": "user",
+            "content": "For each semester, what is the name and id of the one with the most students registered?"
+        },
+        {
+            "role": "assistant",
+            "content": "select t1.semester_name , t1.semester_id from semesters as t1 join student_enrolment as t2 on t1.semester_id = t2.semester_id group by t1.semester_id order by count(*) desc limit 1;"
+        },
+        {
+            "role": "result",
+            "content": "SELECT semester_name, semester_id \nFROM semesters \nWHERE semester_id IN (\n    SELECT MAX(semester_id) \n    FROM student_enrolment \n    GROUP BY semester_id\n);"
+        }
+    ]
+}

@@ -1,0 +1,252 @@
+{
+    "sql": [
+        {
+            "accounts": "CREATE TABLE `accounts` (\n  `account_id` int(11) NOT NULL,\n  `statement_id` int(11) NOT NULL,\n  `account_details` varchar(255) DEFAULT NULL,\n  PRIMARY KEY (`account_id`),\n  KEY `statement_id` (`statement_id`),\n  CONSTRAINT `accounts_ibfk_1` FOREIGN KEY (`statement_id`) REFERENCES `statements` (`statement_id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8",
+            "fileds": {
+                "field": [
+                    [
+                        "account_id",
+                        "int",
+                        "PRIMARY KEY"
+                    ],
+                    [
+                        "statement_id",
+                        "int"
+                    ],
+                    [
+                        "account_details",
+                        "varchar"
+                    ]
+                ],
+                "foreign_key": [
+                    [
+                        "statement_id",
+                        "statements",
+                        "statement_id"
+                    ]
+                ]
+            }
+        },
+        {
+            "documents": "CREATE TABLE `documents` (\n  `document_id` int(11) NOT NULL,\n  `document_type_code` char(15) NOT NULL,\n  `project_id` int(11) NOT NULL,\n  `document_date` datetime DEFAULT NULL,\n  `document_name` varchar(255) DEFAULT NULL,\n  `document_description` varchar(255) DEFAULT NULL,\n  `other_details` varchar(255) DEFAULT NULL,\n  PRIMARY KEY (`document_id`),\n  KEY `document_type_code` (`document_type_code`),\n  KEY `project_id` (`project_id`),\n  CONSTRAINT `documents_ibfk_1` FOREIGN KEY (`document_type_code`) REFERENCES `ref_document_types` (`document_type_code`),\n  CONSTRAINT `documents_ibfk_2` FOREIGN KEY (`project_id`) REFERENCES `projects` (`project_id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8",
+            "fileds": {
+                "field": [
+                    [
+                        "document_id",
+                        "int",
+                        "PRIMARY KEY"
+                    ],
+                    [
+                        "document_type_code",
+                        "char"
+                    ],
+                    [
+                        "project_id",
+                        "int"
+                    ],
+                    [
+                        "document_date",
+                        "datetime"
+                    ],
+                    [
+                        "document_name",
+                        "varchar"
+                    ],
+                    [
+                        "document_description",
+                        "varchar"
+                    ],
+                    [
+                        "other_details",
+                        "varchar"
+                    ]
+                ],
+                "foreign_key": [
+                    [
+                        "document_type_code",
+                        "ref_document_types",
+                        "document_type_code"
+                    ],
+                    [
+                        "project_id",
+                        "projects",
+                        "project_id"
+                    ]
+                ]
+            }
+        },
+        {
+            "documents_with_expenses": "CREATE TABLE `documents_with_expenses` (\n  `document_id` int(11) NOT NULL,\n  `budget_type_code` char(15) NOT NULL,\n  `document_details` varchar(255) DEFAULT NULL,\n  PRIMARY KEY (`document_id`),\n  KEY `budget_type_code` (`budget_type_code`),\n  CONSTRAINT `documents_with_expenses_ibfk_1` FOREIGN KEY (`budget_type_code`) REFERENCES `ref_budget_codes` (`budget_type_code`),\n  CONSTRAINT `documents_with_expenses_ibfk_2` FOREIGN KEY (`document_id`) REFERENCES `documents` (`document_id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8",
+            "fileds": {
+                "field": [
+                    [
+                        "document_id",
+                        "int",
+                        "PRIMARY KEY"
+                    ],
+                    [
+                        "budget_type_code",
+                        "char"
+                    ],
+                    [
+                        "document_details",
+                        "varchar"
+                    ]
+                ],
+                "foreign_key": [
+                    [
+                        "budget_type_code",
+                        "ref_budget_codes",
+                        "budget_type_code"
+                    ],
+                    [
+                        "document_id",
+                        "documents",
+                        "document_id"
+                    ]
+                ]
+            }
+        },
+        {
+            "projects": "CREATE TABLE `projects` (\n  `project_id` int(11) NOT NULL,\n  `project_details` varchar(255) DEFAULT NULL,\n  PRIMARY KEY (`project_id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8",
+            "fileds": {
+                "field": [
+                    [
+                        "project_id",
+                        "int",
+                        "PRIMARY KEY"
+                    ],
+                    [
+                        "project_details",
+                        "varchar"
+                    ]
+                ],
+                "foreign_key": []
+            }
+        },
+        {
+            "ref_budget_codes": "CREATE TABLE `ref_budget_codes` (\n  `budget_type_code` char(15) NOT NULL,\n  `budget_type_description` varchar(255) NOT NULL,\n  PRIMARY KEY (`budget_type_code`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8",
+            "fileds": {
+                "field": [
+                    [
+                        "budget_type_code",
+                        "char",
+                        "PRIMARY KEY"
+                    ],
+                    [
+                        "budget_type_description",
+                        "varchar"
+                    ]
+                ],
+                "foreign_key": []
+            }
+        },
+        {
+            "ref_document_types": "CREATE TABLE `ref_document_types` (\n  `document_type_code` char(15) NOT NULL,\n  `document_type_name` varchar(255) NOT NULL,\n  `document_type_description` varchar(255) NOT NULL,\n  PRIMARY KEY (`document_type_code`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8",
+            "fileds": {
+                "field": [
+                    [
+                        "document_type_code",
+                        "char",
+                        "PRIMARY KEY"
+                    ],
+                    [
+                        "document_type_name",
+                        "varchar"
+                    ],
+                    [
+                        "document_type_description",
+                        "varchar"
+                    ]
+                ],
+                "foreign_key": []
+            }
+        },
+        {
+            "statements": "CREATE TABLE `statements` (\n  `statement_id` int(11) NOT NULL,\n  `statement_details` varchar(255) DEFAULT NULL,\n  PRIMARY KEY (`statement_id`),\n  CONSTRAINT `statements_ibfk_1` FOREIGN KEY (`statement_id`) REFERENCES `documents` (`document_id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8",
+            "fileds": {
+                "field": [
+                    [
+                        "statement_id",
+                        "int",
+                        "PRIMARY KEY"
+                    ],
+                    [
+                        "statement_details",
+                        "varchar"
+                    ]
+                ],
+                "foreign_key": [
+                    [
+                        "statement_id",
+                        "documents",
+                        "document_id"
+                    ]
+                ]
+            }
+        }
+    ],
+    "input": "Show the number of documents.",
+    "response": "select count(*) from documents;",
+    "insert": [
+        "INSERT INTO ref_budget_codes (`budget_type_code`, `budget_type_description`) VALUES ('gv', 'government');",
+        "INSERT INTO ref_budget_codes (`budget_type_code`, `budget_type_description`) VALUES ('org', 'organisation');",
+        "INSERT INTO ref_budget_codes (`budget_type_code`, `budget_type_description`) VALUES ('sf', 'self founded');",
+        "INSERT INTO ref_document_types (`document_type_code`, `document_type_name`, `document_type_description`) VALUES ('bk', 'book', 'excellent');",
+        "INSERT INTO ref_document_types (`document_type_code`, `document_type_name`, `document_type_description`) VALUES ('cv', 'cv', 'excellent');",
+        "INSERT INTO ref_document_types (`document_type_code`, `document_type_name`, `document_type_description`) VALUES ('pt', 'presentation', 'very good');",
+        "INSERT INTO ref_document_types (`document_type_code`, `document_type_name`, `document_type_description`) VALUES ('pp', 'paper', 'good');",
+        "INSERT INTO ref_document_types (`document_type_code`, `document_type_name`, `document_type_description`) VALUES ('fm', 'film', 'fun');",
+        "INSERT INTO projects (`project_id`, `project_details`) VALUES (30, 'society research project');",
+        "INSERT INTO projects (`project_id`, `project_details`) VALUES (35, 'internet of things project');",
+        "INSERT INTO projects (`project_id`, `project_details`) VALUES (105, 'graph database project');",
+        "INSERT INTO projects (`project_id`, `project_details`) VALUES (134, 'human resource project');",
+        "INSERT INTO projects (`project_id`, `project_details`) VALUES (195, 'population research project');",
+        "INSERT INTO documents (`document_id`, `document_type_code`, `project_id`, `document_date`, `document_name`, `document_description`, `other_details`) VALUES (29, 'cv', 30, '2004-08-28 06:59:19', 'review on uk files', null, null);",
+        "INSERT INTO documents (`document_id`, `document_type_code`, `project_id`, `document_date`, `document_name`, `document_description`, `other_details`) VALUES (42, 'bk', 105, '2012-12-27 19:09:18', 'review on canadian files', null, null);",
+        "INSERT INTO documents (`document_id`, `document_type_code`, `project_id`, `document_date`, `document_name`, `document_description`, `other_details`) VALUES (57, 'cv', 195, '1980-10-22 14:17:11', 'review on french files', null, null);",
+        "INSERT INTO documents (`document_id`, `document_type_code`, `project_id`, `document_date`, `document_name`, `document_description`, `other_details`) VALUES (121, 'bk', 105, '1981-11-29 10:23:01', 'review on usa files', null, null);",
+        "INSERT INTO documents (`document_id`, `document_type_code`, `project_id`, `document_date`, `document_name`, `document_description`, `other_details`) VALUES (181, 'pp', 105, '1970-06-17 14:03:21', 'chapter on private files', null, null);",
+        "INSERT INTO documents (`document_id`, `document_type_code`, `project_id`, `document_date`, `document_name`, `document_description`, `other_details`) VALUES (192, 'pp', 134, '2013-01-26 15:15:25', 'book on usa files', null, null);",
+        "INSERT INTO documents (`document_id`, `document_type_code`, `project_id`, `document_date`, `document_name`, `document_description`, `other_details`) VALUES (226, 'bk', 30, '1991-07-08 08:49:59', 'review on uk files', null, null);",
+        "INSERT INTO documents (`document_id`, `document_type_code`, `project_id`, `document_date`, `document_name`, `document_description`, `other_details`) VALUES (227, 'bk', 30, '1970-03-06 07:34:49', 'deontae files', null, null);",
+        "INSERT INTO documents (`document_id`, `document_type_code`, `project_id`, `document_date`, `document_name`, `document_description`, `other_details`) VALUES (240, 'bk', 105, '1971-06-09 19:03:41', 'winona book', null, null);",
+        "INSERT INTO documents (`document_id`, `document_type_code`, `project_id`, `document_date`, `document_name`, `document_description`, `other_details`) VALUES (300, 'fm', 35, '2007-09-26 02:39:11', 'trenton presentation', null, null);",
+        "INSERT INTO documents (`document_id`, `document_type_code`, `project_id`, `document_date`, `document_name`, `document_description`, `other_details`) VALUES (309, 'bk', 35, '1978-10-15 10:33:17', 'noel cv', null, null);",
+        "INSERT INTO documents (`document_id`, `document_type_code`, `project_id`, `document_date`, `document_name`, `document_description`, `other_details`) VALUES (318, 'pp', 134, '1970-01-30 10:53:35', 'king book', null, null);",
+        "INSERT INTO documents (`document_id`, `document_type_code`, `project_id`, `document_date`, `document_name`, `document_description`, `other_details`) VALUES (367, 'cv', 134, '1983-08-24 17:10:26', 'jevon paper', null, null);",
+        "INSERT INTO documents (`document_id`, `document_type_code`, `project_id`, `document_date`, `document_name`, `document_description`, `other_details`) VALUES (371, 'pp', 105, '1976-05-06 12:56:12', 'katheryn statement', null, null);",
+        "INSERT INTO documents (`document_id`, `document_type_code`, `project_id`, `document_date`, `document_name`, `document_description`, `other_details`) VALUES (383, 'pp', 35, '2005-10-28 03:17:16', 'review on uk files', null, null);",
+        "INSERT INTO statements (`statement_id`, `statement_details`) VALUES (57, 'open project');",
+        "INSERT INTO statements (`statement_id`, `statement_details`) VALUES (192, 'private project');",
+        "INSERT INTO documents_with_expenses (`document_id`, `budget_type_code`, `document_details`) VALUES (57, 'gv', 'government');",
+        "INSERT INTO documents_with_expenses (`document_id`, `budget_type_code`, `document_details`) VALUES (192, 'gv', 'government');",
+        "INSERT INTO documents_with_expenses (`document_id`, `budget_type_code`, `document_details`) VALUES (226, 'gv', 'government');",
+        "INSERT INTO documents_with_expenses (`document_id`, `budget_type_code`, `document_details`) VALUES (227, 'gv', 'government');",
+        "INSERT INTO documents_with_expenses (`document_id`, `budget_type_code`, `document_details`) VALUES (240, 'gv', 'government');",
+        "INSERT INTO documents_with_expenses (`document_id`, `budget_type_code`, `document_details`) VALUES (300, 'gv', 'government');",
+        "INSERT INTO documents_with_expenses (`document_id`, `budget_type_code`, `document_details`) VALUES (309, 'sf', 'safety');",
+        "INSERT INTO documents_with_expenses (`document_id`, `budget_type_code`, `document_details`) VALUES (367, 'sf', 'safety');",
+        "INSERT INTO documents_with_expenses (`document_id`, `budget_type_code`, `document_details`) VALUES (371, 'org', 'organization');",
+        "INSERT INTO documents_with_expenses (`document_id`, `budget_type_code`, `document_details`) VALUES (383, 'org', 'organization');",
+        "INSERT INTO accounts (`account_id`, `statement_id`, `account_details`) VALUES (7, 57, '495.063');",
+        "INSERT INTO accounts (`account_id`, `statement_id`, `account_details`) VALUES (61, 57, '930.14');",
+        "INSERT INTO accounts (`account_id`, `statement_id`, `account_details`) VALUES (98, 57, '6035.84');",
+        "INSERT INTO accounts (`account_id`, `statement_id`, `account_details`) VALUES (136, 57, '199.52');",
+        "INSERT INTO accounts (`account_id`, `statement_id`, `account_details`) VALUES (164, 192, '12223.93');",
+        "INSERT INTO accounts (`account_id`, `statement_id`, `account_details`) VALUES (209, 57, '11130.23');",
+        "INSERT INTO accounts (`account_id`, `statement_id`, `account_details`) VALUES (211, 192, '1230.454');",
+        "INSERT INTO accounts (`account_id`, `statement_id`, `account_details`) VALUES (240, 192, '6352.31');",
+        "INSERT INTO accounts (`account_id`, `statement_id`, `account_details`) VALUES (262, 57, '147.96');",
+        "INSERT INTO accounts (`account_id`, `statement_id`, `account_details`) VALUES (280, 57, '187.14');",
+        "INSERT INTO accounts (`account_id`, `statement_id`, `account_details`) VALUES (321, 192, '745.817');",
+        "INSERT INTO accounts (`account_id`, `statement_id`, `account_details`) VALUES (346, 192, '127.9');",
+        "INSERT INTO accounts (`account_id`, `statement_id`, `account_details`) VALUES (414, 57, '25.41');",
+        "INSERT INTO accounts (`account_id`, `statement_id`, `account_details`) VALUES (427, 57, '1168.32');",
+        "INSERT INTO accounts (`account_id`, `statement_id`, `account_details`) VALUES (451, 192, '658.26');"
+    ],
+    "table_names": [
+        "documents"
+    ],
+    "database": "cre_docs_and_epenses"
+}

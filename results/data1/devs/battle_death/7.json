@@ -1,0 +1,20 @@
+{
+    "conversations": [
+        {
+            "role": "system",
+            "content": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\n##Instruction:\nbattle_death contains tables such as battle, ship.\nTable battle has columns such as id, name, date, bulgarian_commander, latin_commander, result.\nTable ship has columns such as lost_in_battle, id, name, tonnage, ship_type, location, disposition_of_ship, where lost_in_battle is the primary key.\nThe id of battle is the foreign key of lost_in_battle of ship."
+        },
+        {
+            "role": "user",
+            "content": "How many battles did not lose any ship with tonnage '225'?"
+        },
+        {
+            "role": "assistant",
+            "content": "select count(*) from battle where id not in ( select lost_in_battle from ship where tonnage = '225' );"
+        },
+        {
+            "role": "result",
+            "content": "select count(*) from battle as t1 join ship as t2 on t1.id = t2.lost_in_battle where t2.tonnage = '225';"
+        }
+    ]
+}

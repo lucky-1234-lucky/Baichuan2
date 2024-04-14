@@ -1,0 +1,20 @@
+{
+    "conversations": [
+        {
+            "role": "system",
+            "content": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\n##Instruction:\ntracking_grants_for_research contains tables such as organisations, grants.\nTable grants has columns such as grant_id, organisation_id, grant_amount, grant_start_date, grant_end_date, other_details, where organisation_id is the primary key.\nTable organisations has columns such as organisation_id, organisation_type, organisation_details, where organisation_type is the primary key.\nThe organisation_id of organisations is the foreign key of organisation_id of grants.\nThe organisation_type of organisation_types is the foreign key of organisation_type of organisations."
+        },
+        {
+            "role": "user",
+            "content": "What are the ids and details for all organizations that have grants of more than 6000 dollars?"
+        },
+        {
+            "role": "assistant",
+            "content": "select t2.organisation_id , t2.organisation_details from grants as t1 join organisations as t2 on t1.organisation_id = t2.organisation_id group by t2.organisation_id having sum(t1.grant_amount) > 6000;"
+        },
+        {
+            "role": "result",
+            "content": "select t2.organisation_id , t1.organisation_details from organisations as t1 join grants as t2 on t1.organisation_id = t2.organisation_id where t2.grant_amount > 6000;"
+        }
+    ]
+}

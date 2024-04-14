@@ -1,0 +1,20 @@
+{
+    "conversations": [
+        {
+            "role": "system",
+            "content": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\n##Instruction:\nuniversity_basketball contains tables such as university, basketball_match.\nTable basketball_match has columns such as team_id, school_id, team_name, acc_regular_season, acc_percent, acc_home, acc_road, all_games, all_games_percent, all_home, all_road, all_neutral, where school_id is the primary key.\nTable university has columns such as school_id, school, location, founded, affiliation, enrollment, nickname, primary_conference.\nThe school_id of university is the foreign key of school_id of basketball_match."
+        },
+        {
+            "role": "user",
+            "content": "Return the name of the team and the acc during the regular season for the school that was founded the earliest."
+        },
+        {
+            "role": "assistant",
+            "content": "select t2.team_name , t2.acc_regular_season from university as t1 join basketball_match as t2 on t1.school_id = t2.school_id order by t1.founded limit 1;"
+        },
+        {
+            "role": "result",
+            "content": "SELECT team_name, acc_regular_season FROM basketball_match INNER JOIN university ON basketball_match.school_id = university.school_id WHERE university.founded = (SELECT MIN(founded) FROM university);"
+        }
+    ]
+}

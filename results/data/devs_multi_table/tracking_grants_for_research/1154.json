@@ -1,0 +1,20 @@
+{
+    "conversations": [
+        {
+            "role": "system",
+            "content": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\n##Instruction:\ntracking_grants_for_research contains tables such as projects, project_staff.\nTable project_staff has columns such as staff_id, project_id, role_code, date_from, date_to, other_details, where project_id is the primary key, role_code is the primary key.\nTable projects has columns such as project_id, organisation_id, project_details, where organisation_id is the primary key.\nThe project_id of projects is the foreign key of project_id of project_staff.\nThe role_code of staff_roles is the foreign key of role_code of project_staff.\nThe organisation_id of organisations is the foreign key of organisation_id of projects."
+        },
+        {
+            "role": "user",
+            "content": "List the project details of the projects which did not hire any staff for a researcher role."
+        },
+        {
+            "role": "assistant",
+            "content": "select project_details from projects where project_id not in ( select project_id from project_staff where role_code = 'researcher' );"
+        },
+        {
+            "role": "result",
+            "content": "SELECT project_details FROM projects WHERE project_id NOT IN (SELECT project_id FROM project_staff WHERE role_code = 'researcher');"
+        }
+    ]
+}

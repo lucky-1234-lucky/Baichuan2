@@ -1,0 +1,20 @@
+{
+    "conversations": [
+        {
+            "role": "system",
+            "content": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\n##Instruction:\ntracking_grants_for_research contains tables such as projects, project_outcomes, project_staff, staff_roles.\nTable project_outcomes has columns such as project_id, outcome_code, outcome_details, where project_id is the primary key, outcome_code is the primary key.\nTable project_staff has columns such as staff_id, project_id, role_code, date_from, date_to, other_details, where project_id is the primary key, role_code is the primary key.\nTable projects has columns such as project_id, organisation_id, project_details, where organisation_id is the primary key.\nTable staff_roles has columns such as role_code, role_description.\nThe project_id of projects is the foreign key of project_id of project_outcomes.\nThe outcome_code of research_outcomes is the foreign key of outcome_code of project_outcomes.\nThe project_id of projects is the foreign key of project_id of project_staff.\nThe role_code of staff_roles is the foreign key of role_code of project_staff.\nThe organisation_id of organisations is the foreign key of organisation_id of projects."
+        },
+        {
+            "role": "user",
+            "content": "Show the role description and the id of the project staff involved in most number of project outcomes?"
+        },
+        {
+            "role": "assistant",
+            "content": "select t1.role_description , t2.staff_id from staff_roles as t1 join project_staff as t2 on t1.role_code = t2.role_code join project_outcomes as t3 on t2.project_id = t3.project_id group by t2.staff_id order by count(*) desc limit 1;"
+        },
+        {
+            "role": "result",
+            "content": "SELECT sr.role_description, sp.project_id\nFROM staff_roles sr\nJOIN project_staff ps ON sr.role_code = ps.role_code\nJOIN project_outcomes po ON ps.project_id = po.project_id\nGROUP BY sr.role_description, sp.project_id\nORDER BY COUNT(po.outcome_code) DESC\nLIMIT 1;"
+        }
+    ]
+}

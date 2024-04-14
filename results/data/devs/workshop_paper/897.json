@@ -1,0 +1,20 @@
+{
+    "conversations": [
+        {
+            "role": "system",
+            "content": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\n##Instruction:\nworkshop_paper contains tables such as acceptance, submission.\nTable acceptance has columns such as submission_id, workshop_id, result, where submission_id is the primary key, workshop_id is the primary key.\nTable submission has columns such as submission_id, scores, author, college.\nThe submission_id of submission is the foreign key of submission_id of acceptance.\nThe workshop_id of workshop is the foreign key of workshop_id of acceptance."
+        },
+        {
+            "role": "user",
+            "content": "Show the authors who have submissions to more than one workshop."
+        },
+        {
+            "role": "assistant",
+            "content": "select t2.author from acceptance as t1 join submission as t2 on t1.submission_id = t2.submission_id group by t2.author having count(distinct t1.workshop_id) > 1;"
+        },
+        {
+            "role": "result",
+            "content": "SELECT DISTINCT author FROM submission INNER JOIN acceptance ON submission.submission_id = acceptance.submission_id GROUP BY author HAVING COUNT(DISTINCT workshop_id) > 1;"
+        }
+    ]
+}

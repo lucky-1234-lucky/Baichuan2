@@ -1,0 +1,20 @@
+{
+    "conversations": [
+        {
+            "role": "system",
+            "content": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\n##Instruction:\nuniversity_basketball contains tables such as university.\nTable university has columns such as school_id, school, location, founded, affiliation, enrollment, nickname, primary_conference."
+        },
+        {
+            "role": "user",
+            "content": "Find how many school locations have the word 'NY'."
+        },
+        {
+            "role": "assistant",
+            "content": "select count(*) from university where location like '%ny%';"
+        },
+        {
+            "role": "result",
+            "content": "SELECT COUNT(DISTINCT location) FROM university WHERE location LIKE '%NY%';"
+        }
+    ]
+}

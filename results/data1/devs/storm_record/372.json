@@ -1,0 +1,20 @@
+{
+    "conversations": [
+        {
+            "role": "system",
+            "content": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\n##Instruction:\nstorm_record contains tables such as region.\nTable region has columns such as region_id, region_code, region_name."
+        },
+        {
+            "role": "user",
+            "content": "How many regions do we have?"
+        },
+        {
+            "role": "assistant",
+            "content": "select count(*) from region;"
+        },
+        {
+            "role": "result",
+            "content": "select count(*) from region;"
+        }
+    ]
+}

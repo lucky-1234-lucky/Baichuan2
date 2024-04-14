@@ -1,0 +1,20 @@
+{
+    "conversations": [
+        {
+            "role": "system",
+            "content": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\n##Instruction:\ntracking_orders contains tables such as shipments.\nTable shipments has columns such as shipment_id, order_id, invoice_number, shipment_tracking_number, shipment_date, other_shipment_details, where order_id is the primary key, invoice_number is the primary key.\nThe order_id of orders is the foreign key of order_id of shipments.\nThe invoice_number of invoices is the foreign key of invoice_number of shipments."
+        },
+        {
+            "role": "user",
+            "content": "Which order's shipment tracking number is \"3452\"? Give me the id of the order."
+        },
+        {
+            "role": "assistant",
+            "content": "select order_id from shipments where shipment_tracking_number = '3452';"
+        },
+        {
+            "role": "result",
+            "content": "SELECT order_id FROM shipments WHERE shipment_tracking_number = '3452';"
+        }
+    ]
+}

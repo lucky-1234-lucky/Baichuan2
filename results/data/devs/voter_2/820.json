@@ -1,0 +1,20 @@
+{
+    "conversations": [
+        {
+            "role": "system",
+            "content": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\n##Instruction:\nvoter_2 contains tables such as voting_record, student.\nTable student has columns such as stuid, lname, fname, age, sex, major, advisor, city_code.\nTable voting_record has columns such as stuid, registration_date, election_cycle, president_vote, vice_president_vote, secretary_vote, treasurer_vote, class_president_vote, class_senator_vote, where stuid is the primary key, president_vote is the primary key, vice_president_vote is the primary key, secretary_vote is the primary key, treasurer_vote is the primary key, class_president_vote is the primary key, class_senator_vote is the primary key.\nThe stuid of student is the foreign key of stuid of voting_record.\nThe stuid of student is the foreign key of president_vote of voting_record.\nThe stuid of student is the foreign key of vice_president_vote of voting_record.\nThe stuid of student is the foreign key of secretary_vote of voting_record.\nThe stuid of student is the foreign key of treasurer_vote of voting_record.\nThe stuid of student is the foreign key of class_president_vote of voting_record.\nThe stuid of student is the foreign key of class_senator_vote of voting_record."
+        },
+        {
+            "role": "user",
+            "content": "Find the average age of students who live in the city with code \"NYC\" and have secretary votes in the spring election cycle."
+        },
+        {
+            "role": "assistant",
+            "content": "select avg(t1.age) from student as t1 join voting_record as t2 on t1.stuid = secretary_vote where t1.city_code = 'nyc' and t2.election_cycle = 'spring';"
+        },
+        {
+            "role": "result",
+            "content": "SELECT AVG(age) FROM student WHERE city_code = 'NYC' AND secretary_vote IN (SELECT stuid FROM voting_record WHERE election_cycle = 'spring');"
+        }
+    ]
+}

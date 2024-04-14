@@ -1,0 +1,20 @@
+{
+    "conversations": [
+        {
+            "role": "system",
+            "content": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\n##Instruction:\ntracking_software_problems contains tables such as product.\nTable product has columns such as product_id, product_name, product_details."
+        },
+        {
+            "role": "user",
+            "content": "List the names of all the distinct product names in alphabetical order?"
+        },
+        {
+            "role": "assistant",
+            "content": "select distinct product_name from product order by product_name;"
+        },
+        {
+            "role": "result",
+            "content": "select distinct product_name from product order by product_name;"
+        }
+    ]
+}

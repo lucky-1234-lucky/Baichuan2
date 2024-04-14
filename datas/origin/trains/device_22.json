@@ -1,0 +1,106 @@
+{
+    "sql": [
+        {
+            "device": "CREATE TABLE `device` (\n  `device_id` int(11) NOT NULL,\n  `device` text,\n  `carrier` text,\n  `package_version` text,\n  `applications` text,\n  `software_platform` text,\n  PRIMARY KEY (`device_id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8",
+            "fileds": {
+                "field": [
+                    [
+                        "device_id",
+                        "int",
+                        "PRIMARY KEY"
+                    ],
+                    [
+                        "device",
+                        "text,"
+                    ],
+                    [
+                        "carrier",
+                        "text,"
+                    ],
+                    [
+                        "package_version",
+                        "text,"
+                    ],
+                    [
+                        "applications",
+                        "text,"
+                    ],
+                    [
+                        "software_platform",
+                        "text,"
+                    ]
+                ],
+                "foreign_key": []
+            }
+        },
+        {
+            "shop": "CREATE TABLE `shop` (\n  `shop_id` int(11) NOT NULL,\n  `shop_name` text,\n  `location` text,\n  `open_date` text,\n  `open_year` int(11) DEFAULT NULL,\n  PRIMARY KEY (`shop_id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8",
+            "fileds": {
+                "field": [
+                    [
+                        "shop_id",
+                        "int",
+                        "PRIMARY KEY"
+                    ],
+                    [
+                        "shop_name",
+                        "text,"
+                    ],
+                    [
+                        "location",
+                        "text,"
+                    ],
+                    [
+                        "open_date",
+                        "text,"
+                    ],
+                    [
+                        "open_year",
+                        "int"
+                    ]
+                ],
+                "foreign_key": []
+            }
+        },
+        {
+            "stock": "CREATE TABLE `stock` (\n  `shop_id` int(11) NOT NULL,\n  `device_id` int(11) NOT NULL,\n  `quantity` int(11) DEFAULT NULL,\n  PRIMARY KEY (`shop_id`,`device_id`),\n  KEY `device_id` (`device_id`),\n  CONSTRAINT `stock_ibfk_1` FOREIGN KEY (`shop_id`) REFERENCES `shop` (`shop_id`),\n  CONSTRAINT `stock_ibfk_2` FOREIGN KEY (`device_id`) REFERENCES `device` (`device_id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8",
+            "fileds": {
+                "field": [
+                    [
+                        "shop_id",
+                        "int",
+                        "PRIMARY KEY"
+                    ],
+                    [
+                        "device_id",
+                        "int",
+                        "PRIMARY KEY"
+                    ],
+                    [
+                        "quantity",
+                        "int"
+                    ]
+                ],
+                "foreign_key": [
+                    [
+                        "shop_id",
+                        "shop",
+                        "shop_id"
+                    ],
+                    [
+                        "device_id",
+                        "device",
+                        "device_id"
+                    ]
+                ]
+            }
+        }
+    ],
+    "input": "What are the names of shops in ascending order of open year?",
+    "response": "select shop_name from shop order by open_year asc;",
+    "insert": [],
+    "table_names": [
+        "shop"
+    ],
+    "database": "device"
+}

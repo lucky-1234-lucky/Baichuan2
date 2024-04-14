@@ -1,0 +1,20 @@
+{
+    "conversations": [
+        {
+            "role": "system",
+            "content": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\n##Instruction:\nwedding contains tables such as wedding, church.\nTable church has columns such as church_id, name, organized_by, open_date, continuation_of.\nTable wedding has columns such as church_id, male_id, female_id, year, where church_id is the primary key, male_id is the primary key, female_id is the primary key.\nThe church_id of church is the foreign key of church_id of wedding.\nThe people_id of people is the foreign key of male_id of wedding.\nThe people_id of people is the foreign key of female_id of wedding."
+        },
+        {
+            "role": "user",
+            "content": "Show all church names that have hosted least two weddings."
+        },
+        {
+            "role": "assistant",
+            "content": "select t1.name from church as t1 join wedding as t2 on t1.church_id = t2.church_id group by t1.church_id having count(*) >= 2;"
+        },
+        {
+            "role": "result",
+            "content": "select distinct t1.name from church as t1 join wedding as t2 on t1.church_id = t2.church_id group by t1.church_id having count(*) <= 2;"
+        }
+    ]
+}

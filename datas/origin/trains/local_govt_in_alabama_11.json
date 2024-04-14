@@ -1,0 +1,158 @@
+{
+    "sql": [
+        {
+            "events": "CREATE TABLE `events` (\n  `event_id` int(11) NOT NULL,\n  `service_id` int(11) NOT NULL,\n  `event_details` varchar(255) DEFAULT NULL,\n  PRIMARY KEY (`event_id`),\n  KEY `service_id` (`service_id`),\n  CONSTRAINT `events_ibfk_1` FOREIGN KEY (`service_id`) REFERENCES `services` (`service_id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8",
+            "fileds": {
+                "field": [
+                    [
+                        "event_id",
+                        "int",
+                        "PRIMARY KEY"
+                    ],
+                    [
+                        "service_id",
+                        "int"
+                    ],
+                    [
+                        "event_details",
+                        "varchar"
+                    ]
+                ],
+                "foreign_key": [
+                    [
+                        "service_id",
+                        "services",
+                        "service_id"
+                    ]
+                ]
+            }
+        },
+        {
+            "participants": "CREATE TABLE `participants` (\n  `participant_id` int(11) NOT NULL,\n  `participant_type_code` char(15) NOT NULL,\n  `participant_details` varchar(255) DEFAULT NULL,\n  PRIMARY KEY (`participant_id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8",
+            "fileds": {
+                "field": [
+                    [
+                        "participant_id",
+                        "int",
+                        "PRIMARY KEY"
+                    ],
+                    [
+                        "participant_type_code",
+                        "char"
+                    ],
+                    [
+                        "participant_details",
+                        "varchar"
+                    ]
+                ],
+                "foreign_key": []
+            }
+        },
+        {
+            "participants_in_events": "CREATE TABLE `participants_in_events` (\n  `event_id` int(11) NOT NULL,\n  `participant_id` int(11) NOT NULL,\n  PRIMARY KEY (`event_id`,`participant_id`),\n  KEY `participant_id` (`participant_id`),\n  CONSTRAINT `participants_in_events_ibfk_1` FOREIGN KEY (`participant_id`) REFERENCES `participants` (`participant_id`),\n  CONSTRAINT `participants_in_events_ibfk_2` FOREIGN KEY (`event_id`) REFERENCES `events` (`event_id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8",
+            "fileds": {
+                "field": [
+                    [
+                        "event_id",
+                        "int",
+                        "PRIMARY KEY"
+                    ],
+                    [
+                        "participant_id",
+                        "int",
+                        "PRIMARY KEY"
+                    ]
+                ],
+                "foreign_key": [
+                    [
+                        "participant_id",
+                        "participants",
+                        "participant_id"
+                    ],
+                    [
+                        "event_id",
+                        "events",
+                        "event_id"
+                    ]
+                ]
+            }
+        },
+        {
+            "services": "CREATE TABLE `services` (\n  `service_id` int(11) NOT NULL,\n  `service_type_code` char(15) NOT NULL,\n  PRIMARY KEY (`service_id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8",
+            "fileds": {
+                "field": [
+                    [
+                        "service_id",
+                        "int",
+                        "PRIMARY KEY"
+                    ],
+                    [
+                        "service_type_code",
+                        "char"
+                    ]
+                ],
+                "foreign_key": []
+            }
+        }
+    ],
+    "input": "How many participants belong to the type 'Organizer'?",
+    "response": "select count(*) from participants where participant_type_code = 'organizer';",
+    "insert": [
+        "INSERT INTO `services` (`service_id`, `service_type_code`) VALUES (2, 'marriage');",
+        "INSERT INTO `services` (`service_id`, `service_type_code`) VALUES (5, 'death proof');",
+        "INSERT INTO `services` (`service_id`, `service_type_code`) VALUES (6, 'birth proof');",
+        "INSERT INTO `services` (`service_id`, `service_type_code`) VALUES (8, 'property change');",
+        "INSERT INTO `participants` (`participant_id`, `participant_type_code`, `participant_details`) VALUES (9, 'organizer', 'karlee batz');",
+        "INSERT INTO `participants` (`participant_id`, `participant_type_code`, `participant_details`) VALUES (26, 'organizer', 'vilma schinner');",
+        "INSERT INTO `participants` (`participant_id`, `participant_type_code`, `participant_details`) VALUES (28, 'organizer', 'lupe deckow');",
+        "INSERT INTO `participants` (`participant_id`, `participant_type_code`, `participant_details`) VALUES (36, 'organizer', 'kenyatta kuhn');",
+        "INSERT INTO `participants` (`participant_id`, `participant_type_code`, `participant_details`) VALUES (37, 'participant', 'miss kaci lebsack');",
+        "INSERT INTO `participants` (`participant_id`, `participant_type_code`, `participant_details`) VALUES (38, 'organizer', 'macy mayer dds');",
+        "INSERT INTO `participants` (`participant_id`, `participant_type_code`, `participant_details`) VALUES (60, 'participant', 'dewitt walter');",
+        "INSERT INTO `participants` (`participant_id`, `participant_type_code`, `participant_details`) VALUES (63, 'participant', 'prof. michelle maggio jr.');",
+        "INSERT INTO `participants` (`participant_id`, `participant_type_code`, `participant_details`) VALUES (64, 'participant', 'dr. jaydon renner');",
+        "INSERT INTO `participants` (`participant_id`, `participant_type_code`, `participant_details`) VALUES (66, 'participant', 'justyn lebsack');",
+        "INSERT INTO `participants` (`participant_id`, `participant_type_code`, `participant_details`) VALUES (75, 'participant', 'berniece weimann');",
+        "INSERT INTO `participants` (`participant_id`, `participant_type_code`, `participant_details`) VALUES (86, 'organizer', 'neil blick');",
+        "INSERT INTO `participants` (`participant_id`, `participant_type_code`, `participant_details`) VALUES (90, 'participant', 'dedrick ebert');",
+        "INSERT INTO `participants` (`participant_id`, `participant_type_code`, `participant_details`) VALUES (96, 'organizer', 'miss joyce cremin');",
+        "INSERT INTO `participants` (`participant_id`, `participant_type_code`, `participant_details`) VALUES (98, 'participant', 'dr. kris deckow');",
+        "INSERT INTO `events` (`event_id`, `service_id`, `event_details`) VALUES (3, 5, 'success');",
+        "INSERT INTO `events` (`event_id`, `service_id`, `event_details`) VALUES (8, 8, 'success');",
+        "INSERT INTO `events` (`event_id`, `service_id`, `event_details`) VALUES (13, 8, 'fail');",
+        "INSERT INTO `events` (`event_id`, `service_id`, `event_details`) VALUES (16, 2, 'fail');",
+        "INSERT INTO `events` (`event_id`, `service_id`, `event_details`) VALUES (17, 5, 'fail');",
+        "INSERT INTO `events` (`event_id`, `service_id`, `event_details`) VALUES (38, 6, 'fail');",
+        "INSERT INTO `events` (`event_id`, `service_id`, `event_details`) VALUES (40, 6, 'fail');",
+        "INSERT INTO `events` (`event_id`, `service_id`, `event_details`) VALUES (43, 8, 'fail');",
+        "INSERT INTO `events` (`event_id`, `service_id`, `event_details`) VALUES (48, 8, 'fail');",
+        "INSERT INTO `events` (`event_id`, `service_id`, `event_details`) VALUES (57, 5, 'success');",
+        "INSERT INTO `events` (`event_id`, `service_id`, `event_details`) VALUES (60, 2, 'fail');",
+        "INSERT INTO `events` (`event_id`, `service_id`, `event_details`) VALUES (74, 2, 'success');",
+        "INSERT INTO `events` (`event_id`, `service_id`, `event_details`) VALUES (80, 5, 'success');",
+        "INSERT INTO `events` (`event_id`, `service_id`, `event_details`) VALUES (95, 2, 'fail');",
+        "INSERT INTO `events` (`event_id`, `service_id`, `event_details`) VALUES (96, 2, 'success');",
+        "INSERT INTO `participants_in_events` (`event_id`, `participant_id`) VALUES (3, 26);",
+        "INSERT INTO `participants_in_events` (`event_id`, `participant_id`) VALUES (3, 66);",
+        "INSERT INTO `participants_in_events` (`event_id`, `participant_id`) VALUES (8, 86);",
+        "INSERT INTO `participants_in_events` (`event_id`, `participant_id`) VALUES (13, 64);",
+        "INSERT INTO `participants_in_events` (`event_id`, `participant_id`) VALUES (13, 90);",
+        "INSERT INTO `participants_in_events` (`event_id`, `participant_id`) VALUES (16, 60);",
+        "INSERT INTO `participants_in_events` (`event_id`, `participant_id`) VALUES (17, 37);",
+        "INSERT INTO `participants_in_events` (`event_id`, `participant_id`) VALUES (17, 66);",
+        "INSERT INTO `participants_in_events` (`event_id`, `participant_id`) VALUES (38, 66);",
+        "INSERT INTO `participants_in_events` (`event_id`, `participant_id`) VALUES (40, 37);",
+        "INSERT INTO `participants_in_events` (`event_id`, `participant_id`) VALUES (40, 86);",
+        "INSERT INTO `participants_in_events` (`event_id`, `participant_id`) VALUES (57, 90);",
+        "INSERT INTO `participants_in_events` (`event_id`, `participant_id`) VALUES (60, 26);",
+        "INSERT INTO `participants_in_events` (`event_id`, `participant_id`) VALUES (80, 36);",
+        "INSERT INTO `participants_in_events` (`event_id`, `participant_id`) VALUES (80, 66);",
+        "INSERT INTO `participants_in_events` (`event_id`, `participant_id`) VALUES (80, 96);",
+        "INSERT INTO `participants_in_events` (`event_id`, `participant_id`) VALUES (95, 63);",
+        "INSERT INTO `participants_in_events` (`event_id`, `participant_id`) VALUES (96, 90);"
+    ],
+    "table_names": [
+        "participants"
+    ],
+    "database": "local_govt_in_alabama"
+}

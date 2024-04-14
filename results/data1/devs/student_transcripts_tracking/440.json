@@ -1,0 +1,20 @@
+{
+    "conversations": [
+        {
+            "role": "system",
+            "content": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\n##Instruction:\nstudent_transcripts_tracking contains tables such as student_enrolment, students, degree_programs.\nTable degree_programs has columns such as degree_program_id, department_id, degree_summary_name, degree_summary_description, other_details, where department_id is the primary key.\nTable student_enrolment has columns such as student_enrolment_id, degree_program_id, semester_id, student_id, other_details, where degree_program_id is the primary key, semester_id is the primary key, student_id is the primary key.\nTable students has columns such as student_id, current_address_id, permanent_address_id, first_name, middle_name, last_name, cell_mobile_number, email_address, ssn, date_first_registered, date_left, other_student_details, where current_address_id is the primary key, permanent_address_id is the primary key.\nThe department_id of departments is the foreign key of department_id of degree_programs.\nThe degree_program_id of degree_programs is the foreign key of degree_program_id of student_enrolment.\nThe semester_id of semesters is the foreign key of semester_id of student_enrolment.\nThe student_id of students is the foreign key of student_id of student_enrolment.\nThe address_id of addresses is the foreign key of current_address_id of students.\nThe address_id of addresses is the foreign key of permanent_address_id of students."
+        },
+        {
+            "role": "user",
+            "content": "What are the first, middle, and last names for everybody enrolled in a Bachelors program?"
+        },
+        {
+            "role": "assistant",
+            "content": "select distinct t1.first_name , t1.middle_name , t1.last_name from students as t1 join student_enrolment as t2 on t1.student_id = t2.student_id join degree_programs as t3 on t2.degree_program_id = t3.degree_program_id where t3.degree_summary_name = 'bachelor';"
+        },
+        {
+            "role": "result",
+            "content": "select distinct t1.first_name , t1.middle_name , t1.last_name from students as t1 join degree_programs as t2 on t1.student_id = t2.degree_program_id where t2.degree_summary_name = 'bachelor';"
+        }
+    ]
+}

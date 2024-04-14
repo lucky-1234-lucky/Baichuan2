@@ -1,0 +1,126 @@
+{
+    "sql": [
+        {
+            "county": "CREATE TABLE `county` (\n  `county_id` int(11) NOT NULL,\n  `county_name` text,\n  `population` double DEFAULT NULL,\n  `zip_code` text,\n  PRIMARY KEY (`county_id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8",
+            "fileds": {
+                "field": [
+                    [
+                        "county_id",
+                        "int",
+                        "PRIMARY KEY"
+                    ],
+                    [
+                        "county_name",
+                        "text,"
+                    ],
+                    [
+                        "population",
+                        "double"
+                    ],
+                    [
+                        "zip_code",
+                        "text,"
+                    ]
+                ],
+                "foreign_key": []
+            }
+        },
+        {
+            "election": "CREATE TABLE `election` (\n  `election_id` int(11) NOT NULL,\n  `counties_represented` text,\n  `district` int(11) DEFAULT NULL,\n  `delegate` text,\n  `party` int(11) DEFAULT NULL,\n  `first_elected` double DEFAULT NULL,\n  `committee` text,\n  PRIMARY KEY (`election_id`),\n  KEY `party` (`party`),\n  KEY `district` (`district`),\n  CONSTRAINT `election_ibfk_1` FOREIGN KEY (`party`) REFERENCES `party` (`party_id`),\n  CONSTRAINT `election_ibfk_2` FOREIGN KEY (`district`) REFERENCES `county` (`county_id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8",
+            "fileds": {
+                "field": [
+                    [
+                        "election_id",
+                        "int",
+                        "PRIMARY KEY"
+                    ],
+                    [
+                        "counties_represented",
+                        "text,"
+                    ],
+                    [
+                        "district",
+                        "int"
+                    ],
+                    [
+                        "delegate",
+                        "text,"
+                    ],
+                    [
+                        "party",
+                        "int"
+                    ],
+                    [
+                        "first_elected",
+                        "double"
+                    ],
+                    [
+                        "committee",
+                        "text,"
+                    ]
+                ],
+                "foreign_key": [
+                    [
+                        "party",
+                        "party",
+                        "party_id"
+                    ],
+                    [
+                        "district",
+                        "county",
+                        "county_id"
+                    ]
+                ]
+            }
+        },
+        {
+            "party": "CREATE TABLE `party` (\n  `party_id` int(11) NOT NULL,\n  `year` double DEFAULT NULL,\n  `party` text,\n  `governor` text,\n  `lieutenant_governor` text,\n  `comptroller` text,\n  `attorney_general` text,\n  `us_senate` text,\n  PRIMARY KEY (`party_id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8",
+            "fileds": {
+                "field": [
+                    [
+                        "party_id",
+                        "int",
+                        "PRIMARY KEY"
+                    ],
+                    [
+                        "year",
+                        "double"
+                    ],
+                    [
+                        "party",
+                        "text,"
+                    ],
+                    [
+                        "governor",
+                        "text,"
+                    ],
+                    [
+                        "lieutenant_governor",
+                        "text,"
+                    ],
+                    [
+                        "comptroller",
+                        "text,"
+                    ],
+                    [
+                        "attorney_general",
+                        "text,"
+                    ],
+                    [
+                        "us_senate",
+                        "text,"
+                    ]
+                ],
+                "foreign_key": []
+            }
+        }
+    ],
+    "input": "Who were the governors of the parties associated with delegates from district 1?",
+    "response": "select t2.governor from election as t1 join party as t2 on t1.party = t2.party_id where t1.district = 1;",
+    "insert": [],
+    "table_names": [
+        "election",
+        "party"
+    ],
+    "database": "election"
+}

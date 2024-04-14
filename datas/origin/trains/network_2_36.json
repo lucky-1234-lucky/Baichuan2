@@ -1,0 +1,81 @@
+{
+    "sql": [
+        {
+            "person": "CREATE TABLE `person` (\n  `name` varchar(20) NOT NULL,\n  `age` int(11) DEFAULT NULL,\n  `city` text,\n  `gender` text,\n  `job` text,\n  PRIMARY KEY (`name`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8",
+            "fileds": {
+                "field": [
+                    [
+                        "name",
+                        "varchar",
+                        "PRIMARY KEY"
+                    ],
+                    [
+                        "age",
+                        "int"
+                    ],
+                    [
+                        "city",
+                        "text,"
+                    ],
+                    [
+                        "gender",
+                        "text,"
+                    ],
+                    [
+                        "job",
+                        "text,"
+                    ]
+                ],
+                "foreign_key": []
+            }
+        },
+        {
+            "personfriend": "CREATE TABLE `personfriend` (\n  `name` varchar(20) DEFAULT NULL,\n  `friend` varchar(20) DEFAULT NULL,\n  `year` int(11) DEFAULT NULL,\n  KEY `name` (`name`),\n  KEY `friend` (`friend`),\n  CONSTRAINT `personfriend_ibfk_1` FOREIGN KEY (`name`) REFERENCES `person` (`name`),\n  CONSTRAINT `personfriend_ibfk_2` FOREIGN KEY (`friend`) REFERENCES `person` (`name`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8",
+            "fileds": {
+                "field": [
+                    [
+                        "name",
+                        "varchar"
+                    ],
+                    [
+                        "friend",
+                        "varchar"
+                    ],
+                    [
+                        "year",
+                        "int"
+                    ]
+                ],
+                "foreign_key": [
+                    [
+                        "name",
+                        "person",
+                        "name"
+                    ],
+                    [
+                        "friend",
+                        "person",
+                        "name"
+                    ]
+                ]
+            }
+        }
+    ],
+    "input": "Find the name of persons who are friends with Bob.",
+    "response": "select t1.name from person as t1 join personfriend as t2 on t1.name = t2.name where t2.friend = 'bob';",
+    "insert": [
+        "INSERT INTO person VALUES ('alice', 25, 'new york city', 'female', 'student');",
+        "INSERT INTO person VALUES ('bob', 35, 'salt lake city', 'male', 'engineer');",
+        "INSERT INTO person VALUES ('zach', 45, 'austin', 'male', 'doctor');",
+        "INSERT INTO person VALUES ('dan', 26, 'chicago', 'female', 'student');",
+        "INSERT INTO personfriend VALUES ('alice', 'bob', 10);",
+        "INSERT INTO personfriend VALUES ('zach', 'dan', 12);",
+        "INSERT INTO personfriend VALUES ('bob', 'zach', 5);",
+        "INSERT INTO personfriend VALUES ('zach', 'alice', 6);"
+    ],
+    "table_names": [
+        "person",
+        "personfriend"
+    ],
+    "database": "network_2"
+}

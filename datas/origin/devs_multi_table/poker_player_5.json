@@ -1,0 +1,80 @@
+{
+    "sql": [
+        {
+            "people": "CREATE TABLE `people` (\n  `people_id` int(11) NOT NULL,\n  `nationality` text,\n  `name` text,\n  `birth_date` text,\n  `height` double DEFAULT NULL,\n  PRIMARY KEY (`people_id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8",
+            "fileds": {
+                "field": [
+                    [
+                        "people_id",
+                        "int",
+                        "PRIMARY KEY"
+                    ],
+                    [
+                        "nationality",
+                        "text,"
+                    ],
+                    [
+                        "name",
+                        "text,"
+                    ],
+                    [
+                        "birth_date",
+                        "text,"
+                    ],
+                    [
+                        "height",
+                        "double"
+                    ]
+                ],
+                "foreign_key": []
+            }
+        },
+        {
+            "poker_player": "CREATE TABLE `poker_player` (\n  `poker_player_id` int(11) NOT NULL,\n  `people_id` int(11) DEFAULT NULL,\n  `final_table_made` double DEFAULT NULL,\n  `best_finish` double DEFAULT NULL,\n  `money_rank` double DEFAULT NULL,\n  `earnings` double DEFAULT NULL,\n  PRIMARY KEY (`poker_player_id`),\n  KEY `people_id` (`people_id`),\n  CONSTRAINT `poker_player_ibfk_1` FOREIGN KEY (`people_id`) REFERENCES `people` (`people_id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8",
+            "fileds": {
+                "field": [
+                    [
+                        "poker_player_id",
+                        "int",
+                        "PRIMARY KEY"
+                    ],
+                    [
+                        "people_id",
+                        "int"
+                    ],
+                    [
+                        "final_table_made",
+                        "double"
+                    ],
+                    [
+                        "best_finish",
+                        "double"
+                    ],
+                    [
+                        "money_rank",
+                        "double"
+                    ],
+                    [
+                        "earnings",
+                        "double"
+                    ]
+                ],
+                "foreign_key": [
+                    [
+                        "people_id",
+                        "people",
+                        "people_id"
+                    ]
+                ]
+            }
+        }
+    ],
+    "input": "What is the money rank of the tallest poker player?",
+    "response": "select t2.money_rank from people as t1 join poker_player as t2 on t1.people_id = t2.people_id order by t1.height desc limit 1;",
+    "insert": [],
+    "table_names": [
+        "people",
+        "poker_player"
+    ],
+    "database": "poker_player"
+}

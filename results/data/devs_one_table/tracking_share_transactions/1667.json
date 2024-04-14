@@ -1,0 +1,20 @@
+{
+    "conversations": [
+        {
+            "role": "system",
+            "content": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\n##Instruction:\ntracking_share_transactions contains tables such as transactions.\nTable transactions has columns such as transaction_id, investor_id, transaction_type_code, date_of_transaction, amount_of_transaction, share_count, other_details, where investor_id is the primary key, transaction_type_code is the primary key.\nThe investor_id of investors is the foreign key of investor_id of transactions.\nThe transaction_type_code of ref_transaction_types is the foreign key of transaction_type_code of transactions."
+        },
+        {
+            "role": "user",
+            "content": "Show the average share count of transactions each each investor, ordered by average share count."
+        },
+        {
+            "role": "assistant",
+            "content": "select investor_id , avg(share_count) from transactions group by investor_id order by avg(share_count);"
+        },
+        {
+            "role": "result",
+            "content": "SELECT t.investor_id, avg(t.share_count) AS average_share_count\nFROM transactions t\nGROUP BY t.investor_id\nORDER BY average_share_count;"
+        }
+    ]
+}
