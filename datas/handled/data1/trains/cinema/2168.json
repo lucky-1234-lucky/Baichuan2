@@ -1,0 +1,11 @@
+{
+    "conversations": [
+        {
+            "database": "cinema",
+            "system": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\n##Instruction:\ncinema contains tables such as film, schedule.\nTable film has columns such as film_id, rank_in_series, number_in_season, title, directed_by, original_air_date, production_code.\nTable schedule has columns such as cinema_id, film_id, date, show_times_per_day, price, where film_id is the primary key, cinema_id is the primary key.\nThe film_id of film is the foreign key of film_id of schedule.\nThe cinema_id of cinema is the foreign key of cinema_id of schedule.",
+            "query": "What are the title and director of the films without any schedule?",
+            "answer": "select title , directed_by from film where film_id not in (select film_id from schedule);",
+            "insert": []
+        }
+    ]
+}

@@ -1,0 +1,28 @@
+{
+    "conversations": [
+        {
+            "role": "system",
+            "content": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\n##Instruction:\ncre_doc_template_mgt contains tables such as ref_template_types, templates.\nTable ref_template_types has columns such as template_type_code, template_type_description.\nTable templates has columns such as template_id, version_number, template_type_code, date_effective_from, date_effective_to, template_details, where template_type_code is the primary key.\nThe template_type_code of ref_template_types is the foreign key of template_type_code of templates."
+        },
+        {
+            "role": "user",
+            "content": "Return the ids corresponding to templates with the description 'Presentation'."
+        },
+        {
+            "role": "assistant",
+            "content": "select t2.template_id from ref_template_types as t1 join templates as t2 on t1.template_type_code = t2.template_type_code where t1.template_type_description = 'presentation';"
+        },
+        {
+            "role": "result",
+            "content": "select template_id from templates as t1 join ref_template_types as t2 on t1.template_type_code = t2.template_type_code where t2.template_type_description = 'presentation';"
+        },
+        {
+            "role": "exuc_assist",
+            "content": 3
+        },
+        {
+            "role": "exuc_infer",
+            "content": 3
+        }
+    ]
+}

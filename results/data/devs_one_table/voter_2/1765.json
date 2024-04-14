@@ -1,0 +1,20 @@
+{
+    "conversations": [
+        {
+            "role": "system",
+            "content": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\n##Instruction:\nvoter_2 contains tables such as student.\nTable student has columns such as stuid, lname, fname, age, sex, major, advisor, city_code."
+        },
+        {
+            "role": "user",
+            "content": "What is the most common major among female (sex is F) students?"
+        },
+        {
+            "role": "assistant",
+            "content": "select major from student where sex = 'f' group by major order by count(*) desc limit 1;"
+        },
+        {
+            "role": "result",
+            "content": "SELECT major FROM student WHERE sex = 'F' GROUP BY major ORDER BY COUNT(*) DESC LIMIT 1;"
+        }
+    ]
+}

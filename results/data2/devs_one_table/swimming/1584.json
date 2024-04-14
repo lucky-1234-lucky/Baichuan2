@@ -1,0 +1,20 @@
+{
+    "conversations": [
+        {
+            "role": "system",
+            "content": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\n##Instruction:\nswimming contains tables such as swimmer.\nTable swimmer has columns such as id, name, nationality, meter_100, meter_200, meter_300, meter_400, meter_500, meter_600, meter_700, time."
+        },
+        {
+            "role": "user",
+            "content": "List countries that have more than one swimmer."
+        },
+        {
+            "role": "assistant",
+            "content": "SELECT nationality,\n       count(*)\nFROM swimmer\nGROUP BY nationality\nHAVING count(*) > 1;"
+        },
+        {
+            "role": "result",
+            "content": "SELECT COUNTRY\nFROM swimmer\nGROUP BY country\nHAVING count(*) > 1;"
+        }
+    ]
+}

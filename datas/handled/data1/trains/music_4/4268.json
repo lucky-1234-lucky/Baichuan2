@@ -1,0 +1,11 @@
+{
+    "conversations": [
+        {
+            "database": "music_4",
+            "system": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\n##Instruction:\nmusic_4 contains tables such as volume.\nTable volume has columns such as volume_id, volume_issue, issue_date, weeks_on_top, song, artist_id, where artist_id is the primary key.\nThe artist_id of artist is the foreign key of artist_id of volume.",
+            "query": "What are the songs in volumes with more than 1 week on top?",
+            "answer": "select song from volume where weeks_on_top > 1;",
+            "insert": []
+        }
+    ]
+}

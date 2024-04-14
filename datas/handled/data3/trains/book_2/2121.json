@@ -1,0 +1,11 @@
+{
+    "conversations": [
+        {
+            "database": "book_2",
+            "system": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\n##Instruction:\nbook_2 contains tables such as book, publication.\nTable book has columns such as book_id, title, issues, writer.\nTable publication has columns such as publication_id, book_id, publisher, publication_date, price, where book_id is the primary key.\nThe book_id of book is the foreign key of book_id of publication.",
+            "query": "Show writers who have published a book with price more than 4000000.",
+            "answer": "SELECT t1.writer\nFROM book AS t1\nJOIN publication AS t2 ON t1.book_id = t2.book_id\nWHERE t2.price > 4000000;",
+            "insert": []
+        }
+    ]
+}

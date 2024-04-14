@@ -1,0 +1,28 @@
+{
+    "conversations": [
+        {
+            "role": "system",
+            "content": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\n##Instruction:\npoker_player contains tables such as people, poker_player.\nTable people has columns such as people_id, nationality, name, birth_date, height.\nTable poker_player has columns such as poker_player_id, people_id, final_table_made, best_finish, money_rank, earnings, where people_id is the primary key.\nThe people_id of people is the foreign key of people_id of poker_player."
+        },
+        {
+            "role": "user",
+            "content": "Return the names of all the poker players."
+        },
+        {
+            "role": "assistant",
+            "content": "select t1.name from people as t1 join poker_player as t2 on t1.people_id = t2.people_id;"
+        },
+        {
+            "role": "result",
+            "content": "select distinct t2.name from people as t1 join poker_player as t2 on t1.people_id = t2.people_id;"
+        },
+        {
+            "role": "exuc_assist",
+            "content": 0
+        },
+        {
+            "role": "exuc_infer",
+            "content": -1
+        }
+    ]
+}

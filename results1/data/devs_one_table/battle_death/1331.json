@@ -1,0 +1,28 @@
+{
+    "conversations": [
+        {
+            "role": "system",
+            "content": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\n##Instruction:\nbattle_death contains tables such as battle.\nTable battle has columns such as id, name, date, bulgarian_commander, latin_commander, result."
+        },
+        {
+            "role": "user",
+            "content": "What are the name and results of the battles when the bulgarian commander is not 'Boril'"
+        },
+        {
+            "role": "assistant",
+            "content": "select name , result from battle where bulgarian_commander != 'boril';"
+        },
+        {
+            "role": "result",
+            "content": "To find out the names and results of the battles where the Bulgarian commander is not 'Boril', you can use the following SQL command:\n\n```sql\nSELECT name, result FROM battle WHERE bulgarian_commander <> 'Boril';\n```\n\nThis command will return all battles from the `battle` table where the `bulgarian_commander` column does not equal the string 'Boril'."
+        },
+        {
+            "role": "exuc_assist",
+            "content": 0
+        },
+        {
+            "role": "exuc_infer",
+            "content": -1
+        }
+    ]
+}

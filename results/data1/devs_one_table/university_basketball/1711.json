@@ -1,0 +1,20 @@
+{
+    "conversations": [
+        {
+            "role": "system",
+            "content": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\n##Instruction:\nuniversity_basketball contains tables such as university.\nTable university has columns such as school_id, school, location, founded, affiliation, enrollment, nickname, primary_conference."
+        },
+        {
+            "role": "user",
+            "content": "What is the founded year of the non public school that was founded most recently?"
+        },
+        {
+            "role": "assistant",
+            "content": "select founded from university where affiliation != 'public' order by founded desc limit 1;"
+        },
+        {
+            "role": "result",
+            "content": "select founded from university where affiliation = 'nonpublic' order by founded desc limit 1;"
+        }
+    ]
+}

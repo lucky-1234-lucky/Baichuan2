@@ -1,0 +1,28 @@
+{
+    "conversations": [
+        {
+            "role": "system",
+            "content": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\n##Instruction:\nwedding contains tables such as people, wedding.\nTable people has columns such as people_id, name, country, is_male, age.\nTable wedding has columns such as church_id, male_id, female_id, year, where church_id is the primary key, male_id is the primary key, female_id is the primary key.\nThe church_id of church is the foreign key of church_id of wedding.\nThe people_id of people is the foreign key of male_id of wedding.\nThe people_id of people is the foreign key of female_id of wedding."
+        },
+        {
+            "role": "user",
+            "content": "Show the name and age for all male people who don't have a wedding."
+        },
+        {
+            "role": "assistant",
+            "content": "select name , age from people where is_male = 't' and people_id not in (select male_id from wedding);"
+        },
+        {
+            "role": "result",
+            "content": "SELECT p.name, p.age FROM people p LEFT JOIN wedding w ON p.people_id = w.male_id WHERE w.male_id IS NULL;"
+        },
+        {
+            "role": "exuc_assist",
+            "content": 0
+        },
+        {
+            "role": "exuc_infer",
+            "content": 0
+        }
+    ]
+}

@@ -1,0 +1,28 @@
+{
+    "conversations": [
+        {
+            "role": "system",
+            "content": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\n##Instruction:\ncre_doc_template_mgt contains tables such as paragraphs.\nTable paragraphs has columns such as paragraph_id, document_id, paragraph_text, other_details, where document_id is the primary key.\nThe document_id of documents is the foreign key of document_id of paragraphs."
+        },
+        {
+            "role": "user",
+            "content": "Return the id of the document with the fewest paragraphs."
+        },
+        {
+            "role": "assistant",
+            "content": "select document_id from paragraphs group by document_id order by count(*) asc limit 1;"
+        },
+        {
+            "role": "result",
+            "content": "SELECT paragraph_id FROM paragraphs GROUP BY document_id ORDER BY COUNT(*) ASC LIMIT 1;"
+        },
+        {
+            "role": "exuc_assist",
+            "content": 1
+        },
+        {
+            "role": "exuc_infer",
+            "content": 1
+        }
+    ]
+}

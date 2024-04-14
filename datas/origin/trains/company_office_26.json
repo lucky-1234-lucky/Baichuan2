@@ -1,0 +1,118 @@
+{
+    "sql": [
+        {
+            "buildings": "CREATE TABLE `buildings` (\n  `id` int(11) NOT NULL,\n  `name` text,\n  `city` text,\n  `height` int(11) DEFAULT NULL,\n  `stories` int(11) DEFAULT NULL,\n  `status` text,\n  PRIMARY KEY (`id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8",
+            "fileds": {
+                "field": [
+                    [
+                        "id",
+                        "int",
+                        "PRIMARY KEY"
+                    ],
+                    [
+                        "name",
+                        "text,"
+                    ],
+                    [
+                        "city",
+                        "text,"
+                    ],
+                    [
+                        "height",
+                        "int"
+                    ],
+                    [
+                        "stories",
+                        "int"
+                    ],
+                    [
+                        "status",
+                        "text,"
+                    ]
+                ],
+                "foreign_key": []
+            }
+        },
+        {
+            "companies": "CREATE TABLE `companies` (\n  `id` int(11) NOT NULL,\n  `name` text,\n  `headquarters` text,\n  `industry` text,\n  `sales_billion` double DEFAULT NULL,\n  `profits_billion` double DEFAULT NULL,\n  `assets_billion` double DEFAULT NULL,\n  `market_value_billion` text,\n  PRIMARY KEY (`id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8",
+            "fileds": {
+                "field": [
+                    [
+                        "id",
+                        "int",
+                        "PRIMARY KEY"
+                    ],
+                    [
+                        "name",
+                        "text,"
+                    ],
+                    [
+                        "headquarters",
+                        "text,"
+                    ],
+                    [
+                        "industry",
+                        "text,"
+                    ],
+                    [
+                        "sales_billion",
+                        "double"
+                    ],
+                    [
+                        "profits_billion",
+                        "double"
+                    ],
+                    [
+                        "assets_billion",
+                        "double"
+                    ],
+                    [
+                        "market_value_billion",
+                        "text,"
+                    ]
+                ],
+                "foreign_key": []
+            }
+        },
+        {
+            "office_locations": "CREATE TABLE `office_locations` (\n  `building_id` int(11) NOT NULL,\n  `company_id` int(11) NOT NULL,\n  `move_in_year` int(11) DEFAULT NULL,\n  PRIMARY KEY (`building_id`,`company_id`),\n  KEY `company_id` (`company_id`),\n  CONSTRAINT `office_locations_ibfk_1` FOREIGN KEY (`building_id`) REFERENCES `buildings` (`id`),\n  CONSTRAINT `office_locations_ibfk_2` FOREIGN KEY (`company_id`) REFERENCES `companies` (`id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8",
+            "fileds": {
+                "field": [
+                    [
+                        "building_id",
+                        "int",
+                        "PRIMARY KEY"
+                    ],
+                    [
+                        "company_id",
+                        "int",
+                        "PRIMARY KEY"
+                    ],
+                    [
+                        "move_in_year",
+                        "int"
+                    ]
+                ],
+                "foreign_key": [
+                    [
+                        "building_id",
+                        "buildings",
+                        "id"
+                    ],
+                    [
+                        "company_id",
+                        "companies",
+                        "id"
+                    ]
+                ]
+            }
+        }
+    ],
+    "input": "How many different industries are the companies in?",
+    "response": "select count(distinct industry) from companies;",
+    "insert": [],
+    "table_names": [
+        "companies"
+    ],
+    "database": "company_office"
+}

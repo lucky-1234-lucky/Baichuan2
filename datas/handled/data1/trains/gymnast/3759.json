@@ -1,0 +1,11 @@
+{
+    "conversations": [
+        {
+            "database": "gymnast",
+            "system": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\n##Instruction:\ngymnast contains tables such as people.\nTable people has columns such as people_id, name, age, height, hometown.",
+            "query": "Return the names of people, ordered alphabetically.",
+            "answer": "select name from people order by name asc;",
+            "insert": []
+        }
+    ]
+}

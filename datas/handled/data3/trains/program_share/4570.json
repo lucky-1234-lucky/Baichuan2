@@ -1,0 +1,11 @@
+{
+    "conversations": [
+        {
+            "database": "program_share",
+            "system": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\n##Instruction:\nprogram_share contains tables such as channel.\nTable channel has columns such as channel_id, name, owner, share_in_percent, rating_in_percent.",
+            "query": "What is the owner of the channel that has the highest rating ratio?",
+            "answer": "SELECT OWNER\nFROM channel\nORDER BY rating_in_percent DESC\nLIMIT 1;",
+            "insert": []
+        }
+    ]
+}

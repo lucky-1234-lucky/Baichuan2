@@ -1,0 +1,20 @@
+{
+    "conversations": [
+        {
+            "database": "network_2",
+            "system": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\n##Instruction:\nnetwork_2 contains tables such as person.\nTable person has columns such as name, age, city, gender, job.",
+            "query": "What is the name of all the people who are older than at least one engineer? Order them by age.",
+            "answer": "SELECT name\nFROM person\nWHERE age >\n    (SELECT min(age)\n     FROM person\n     WHERE job = 'engineer')\nORDER BY age;",
+            "insert": [
+                "INSERT INTO person VALUES ('alice', 25, 'new york city', 'female', 'student');",
+                "INSERT INTO person VALUES ('bob', 35, 'salt lake city', 'male', 'engineer');",
+                "INSERT INTO person VALUES ('zach', 45, 'austin', 'male', 'doctor');",
+                "INSERT INTO person VALUES ('dan', 26, 'chicago', 'female', 'student');",
+                "INSERT INTO personfriend VALUES ('alice', 'bob', 10);",
+                "INSERT INTO personfriend VALUES ('zach', 'dan', 12);",
+                "INSERT INTO personfriend VALUES ('bob', 'zach', 5);",
+                "INSERT INTO personfriend VALUES ('zach', 'alice', 6);"
+            ]
+        }
+    ]
+}

@@ -1,0 +1,11 @@
+{
+    "conversations": [
+        {
+            "database": "storm_record",
+            "system": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\n##Instruction:\nstorm_record contains tables such as region.\nTable region has columns such as region_id, region_code, region_name.",
+            "query": "List all region names in alphabetical order.",
+            "answer": "SELECT region_name\nFROM region\nORDER BY region_name;",
+            "insert": []
+        }
+    ]
+}

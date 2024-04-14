@@ -1,0 +1,20 @@
+{
+    "conversations": [
+        {
+            "role": "system",
+            "content": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\n##Instruction:\npets_1 contains tables such as has_pet, student.\nTable has_pet has columns such as stuid, petid, where petid is the primary key, stuid is the primary key.\nTable student has columns such as stuid, lname, fname, age, sex, major, advisor, city_code.\nThe petid of pets is the foreign key of petid of has_pet.\nThe stuid of student is the foreign key of stuid of has_pet."
+        },
+        {
+            "role": "user",
+            "content": "For students who have pets , how many pets does each student have ? list their ids instead of names ."
+        },
+        {
+            "role": "assistant",
+            "content": "SELECT count(*),\n       t1.stuid\nFROM student AS t1\nJOIN has_pet AS t2 ON t1.stuid = t2.stuid\nGROUP BY t1.stuid;"
+        },
+        {
+            "role": "result",
+            "content": "SELECT t2.stuid,\n       count(*)\nFROM has_pet AS t1\nJOIN student AS t2 ON t1.stuid = t2.stuid\nGROUP BY t2.stuid;"
+        }
+    ]
+}

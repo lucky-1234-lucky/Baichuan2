@@ -1,0 +1,11 @@
+{
+    "conversations": [
+        {
+            "database": "flight_company",
+            "system": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\n##Instruction:\nflight_company contains tables such as flight, operate_company.\nTable flight has columns such as id, vehicle_flight_number, date, pilot, velocity, altitude, airport_id, company_id, where airport_id is the primary key, company_id is the primary key.\nTable operate_company has columns such as id, name, type, principal_activities, incorporated_in, group_equity_shareholding.\nThe id of airport is the foreign key of airport_id of flight.\nThe id of operate_company is the foreign key of company_id of flight.",
+            "query": "What are the distinct types of the companies that have operated any flights with velocity less than 200?",
+            "answer": "SELECT DISTINCT t1.type\nFROM operate_company AS t1\nJOIN flight AS t2 ON t1.id = t2.company_id\nWHERE t2.velocity < 200;",
+            "insert": []
+        }
+    ]
+}

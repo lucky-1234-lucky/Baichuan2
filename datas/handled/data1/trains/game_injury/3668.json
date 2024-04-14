@@ -1,0 +1,11 @@
+{
+    "conversations": [
+        {
+            "database": "game_injury",
+            "system": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\n##Instruction:\ngame_injury contains tables such as game, injury_accident.\nTable game has columns such as stadium_id, id, season, date, home_team, away_team, score, competition, where stadium_id is the primary key.\nTable injury_accident has columns such as game_id, id, player, injury, number_of_matches, source, where game_id is the primary key.\nThe id of stadium is the foreign key of stadium_id of game.\nThe id of game is the foreign key of game_id of injury_accident.",
+            "query": "How many distinct kinds of injuries happened after season 2010?",
+            "answer": "select count(distinct t1.injury) from injury_accident as t1 join game as t2 on t1.game_id = t2.id where t2.season > 2010;",
+            "insert": []
+        }
+    ]
+}

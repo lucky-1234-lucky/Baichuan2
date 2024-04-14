@@ -1,0 +1,11 @@
+{
+    "conversations": [
+        {
+            "database": "decoration_competition",
+            "system": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\n##Instruction:\ndecoration_competition contains tables such as member.\nTable member has columns such as member_id, name, country, college_id, where college_id is the primary key.\nThe college_id of college is the foreign key of college_id of member.",
+            "query": "Which countries have more than two members?",
+            "answer": "SELECT country\nFROM member\nGROUP BY country\nHAVING count(*) > 2;",
+            "insert": []
+        }
+    ]
+}

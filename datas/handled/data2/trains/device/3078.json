@@ -1,0 +1,11 @@
+{
+    "conversations": [
+        {
+            "database": "device",
+            "system": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\n##Instruction:\ndevice contains tables such as stock, device.\nTable device has columns such as device_id, device, carrier, package_version, applications, software_platform.\nTable stock has columns such as shop_id, device_id, quantity, where shop_id is the primary key, device_id is the primary key.\nThe shop_id of shop is the foreign key of shop_id of stock.\nThe device_id of device is the foreign key of device_id of stock.",
+            "query": "What are the carriers of devices that are in stock in more than a single shop?",
+            "answer": "SELECT t2.carrier\nFROM stock AS t1\nJOIN device AS t2 ON t1.device_id = t2.device_id\nGROUP BY t1.device_id\nHAVING count(*) > 1;",
+            "insert": []
+        }
+    ]
+}

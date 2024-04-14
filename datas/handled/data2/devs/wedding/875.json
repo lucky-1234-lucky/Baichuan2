@@ -1,0 +1,11 @@
+{
+    "conversations": [
+        {
+            "database": "wedding",
+            "system": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\n##Instruction:\nwedding contains tables such as wedding, church.\nTable church has columns such as church_id, name, organized_by, open_date, continuation_of.\nTable wedding has columns such as church_id, male_id, female_id, year, where church_id is the primary key, male_id is the primary key, female_id is the primary key.\nThe church_id of church is the foreign key of church_id of wedding.\nThe people_id of people is the foreign key of male_id of wedding.\nThe people_id of people is the foreign key of female_id of wedding.",
+            "query": "Show all church names except for those that had a wedding in year 2015.",
+            "answer": "SELECT name\nFROM church\nEXCEPT\nSELECT t1.name\nFROM church AS t1\nJOIN wedding AS t2 ON t1.church_id = t2.church_id\nWHERE t2.year = 2015;",
+            "insert": []
+        }
+    ]
+}

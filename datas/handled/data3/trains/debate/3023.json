@@ -1,0 +1,11 @@
+{
+    "conversations": [
+        {
+            "database": "debate",
+            "system": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\n##Instruction:\ndebate contains tables such as people, debate, debate_people.\nTable debate has columns such as debate_id, date, venue, num_of_audience.\nTable debate_people has columns such as debate_id, affirmative, negative, if_affirmative_win, where debate_id is the primary key, affirmative is the primary key, negative is the primary key.\nTable people has columns such as people_id, district, name, party, age.\nThe debate_id of debate is the foreign key of debate_id of debate_people.\nThe people_id of people is the foreign key of affirmative of debate_people.\nThe people_id of people is the foreign key of negative of debate_people.",
+            "query": "Show the names of people, and dates and venues of debates they are on the negative side, ordered in ascending alphabetical order of name.",
+            "answer": "SELECT t3.name,\n       t2.date,\n       t2.venue\nFROM debate_people AS t1\nJOIN debate AS t2 ON t1.debate_id = t2.debate_id\nJOIN people AS t3 ON t1.negative = t3.people_id\nORDER BY t3.name ASC;",
+            "insert": []
+        }
+    ]
+}

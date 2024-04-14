@@ -1,0 +1,28 @@
+{
+    "conversations": [
+        {
+            "role": "system",
+            "content": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\n##Instruction:\ncre_doc_template_mgt contains tables such as paragraphs, documents.\nTable documents has columns such as document_id, template_id, document_name, document_description, other_details, where template_id is the primary key.\nTable paragraphs has columns such as paragraph_id, document_id, paragraph_text, other_details, where document_id is the primary key.\nThe template_id of templates is the foreign key of template_id of documents.\nThe document_id of documents is the foreign key of document_id of paragraphs."
+        },
+        {
+            "role": "user",
+            "content": "What is the document id and name with greatest number of paragraphs?"
+        },
+        {
+            "role": "assistant",
+            "content": "SELECT t1.document_id,\n       t2.document_name\nFROM paragraphs AS t1\nJOIN documents AS t2 ON t1.document_id = t2.document_id\nGROUP BY t1.document_id\nORDER BY count(*) DESC\nLIMIT 1;"
+        },
+        {
+            "role": "result",
+            "content": "SELECT t1.document_id,\n       t1.document_name\nFROM documents AS t1\nJOIN paragraphs AS t2 ON t1.template_id = t2.document_id\nGROUP BY t1.document_id\nORDER BY count(*) DESC\nLIMIT 1;"
+        },
+        {
+            "role": "exuc_assist",
+            "content": 1
+        },
+        {
+            "role": "exuc_infer",
+            "content": 0
+        }
+    ]
+}

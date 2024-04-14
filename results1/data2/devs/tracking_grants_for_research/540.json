@@ -1,0 +1,28 @@
+{
+    "conversations": [
+        {
+            "role": "system",
+            "content": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\n##Instruction:\ntracking_grants_for_research contains tables such as projects.\nTable projects has columns such as project_id, organisation_id, project_details, where organisation_id is the primary key.\nThe organisation_id of organisations is the foreign key of organisation_id of projects."
+        },
+        {
+            "role": "user",
+            "content": "List the project details of the projects launched by the organisation"
+        },
+        {
+            "role": "assistant",
+            "content": "SELECT project_details\nFROM projects\nWHERE organisation_id IN\n    (SELECT organisation_id\n     FROM projects\n     GROUP BY organisation_id\n     ORDER BY count(*) DESC\n     LIMIT 1);"
+        },
+        {
+            "role": "result",
+            "content": "SELECT project_details\nFROM projects\nWHERE organisation_id = 'organisation';"
+        },
+        {
+            "role": "exuc_assist",
+            "content": -1
+        },
+        {
+            "role": "exuc_infer",
+            "content": 0
+        }
+    ]
+}

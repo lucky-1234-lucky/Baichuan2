@@ -1,0 +1,11 @@
+{
+    "conversations": [
+        {
+            "database": "film_rank",
+            "system": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\n##Instruction:\nfilm_rank contains tables such as film_market_estimation, market.\nTable film_market_estimation has columns such as estimation_id, low_estimate, high_estimate, film_id, type, market_id, year, where film_id is the primary key, market_id is the primary key.\nTable market has columns such as market_id, country, number_cities.\nThe film_id of film is the foreign key of film_id of film_market_estimation.\nThe market_id of market is the foreign key of market_id of film_market_estimation.",
+            "query": "Give the average number of cities within markets that had a low market estimation larger than 10000?",
+            "answer": "SELECT avg(t2.number_cities)\nFROM film_market_estimation AS t1\nJOIN market AS t2 ON t1.market_id = t2.market_id\nWHERE t1.low_estimate > 10000;",
+            "insert": []
+        }
+    ]
+}

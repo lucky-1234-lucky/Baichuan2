@@ -1,0 +1,28 @@
+{
+    "conversations": [
+        {
+            "role": "system",
+            "content": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\n##Instruction:\ntracking_grants_for_research contains tables such as research_outcomes, project_outcomes.\nTable project_outcomes has columns such as project_id, outcome_code, outcome_details, where project_id is the primary key, outcome_code is the primary key.\nTable research_outcomes has columns such as outcome_code, outcome_description.\nThe project_id of projects is the foreign key of project_id of project_outcomes.\nThe outcome_code of research_outcomes is the foreign key of outcome_code of project_outcomes."
+        },
+        {
+            "role": "user",
+            "content": "List the description of the outcomes for all projects."
+        },
+        {
+            "role": "assistant",
+            "content": "select t1.outcome_description from research_outcomes as t1 join project_outcomes as t2 on t1.outcome_code = t2.outcome_code;"
+        },
+        {
+            "role": "result",
+            "content": "SELECT p.project_id, r.outcome_description \nFROM project_outcomes p \nJOIN research_outcomes r ON p.outcome_code = r.outcome_code;"
+        },
+        {
+            "role": "exuc_assist",
+            "content": 1290
+        },
+        {
+            "role": "exuc_infer",
+            "content": 1290
+        }
+    ]
+}

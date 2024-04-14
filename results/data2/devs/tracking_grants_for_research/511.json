@@ -1,0 +1,20 @@
+{
+    "conversations": [
+        {
+            "role": "system",
+            "content": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\n##Instruction:\ntracking_grants_for_research contains tables such as grants, document_types, documents.\nTable document_types has columns such as document_type_code, document_description.\nTable documents has columns such as document_id, document_type_code, grant_id, sent_date, response_received_date, other_details, where document_type_code is the primary key, grant_id is the primary key.\nTable grants has columns such as grant_id, organisation_id, grant_amount, grant_start_date, grant_end_date, other_details, where organisation_id is the primary key.\nThe document_type_code of document_types is the foreign key of document_type_code of documents.\nThe grant_id of grants is the foreign key of grant_id of documents.\nThe organisation_id of organisations is the foreign key of organisation_id of grants."
+        },
+        {
+            "role": "user",
+            "content": "For grants that have descriptions of Regular and Initial Applications, what are their start dates?"
+        },
+        {
+            "role": "assistant",
+            "content": "SELECT t1.grant_start_date\nFROM grants AS t1\nJOIN documents AS t2 ON t1.grant_id = t2.grant_id\nJOIN document_types AS t3 ON t2.document_type_code = t3.document_type_code\nWHERE t3.document_description = 'regular' INTERSECT\n  SELECT t1.grant_start_date\n  FROM grants AS t1\n  JOIN documents AS t2 ON t1.grant_id = t2.grant_id\n  JOIN document_types AS t3 ON t2.document_type_code = t3.document_type_code WHERE t3.document_description = 'initial application';"
+        },
+        {
+            "role": "result",
+            "content": "SELECT t1.grant_start_date\nFROM grants AS t1\nJOIN documents AS t2 ON t1.grant_id = t2.grant_id\nWHERE t2.document_description = 'regular application' INTERSECT\n  SELECT t1.grant_start_date\n  FROM grants AS t1\n  JOIN documents AS t2 ON t1.grant_id = t2.grant_id WHERE t2.document_description = 'initial application';"
+        }
+    ]
+}

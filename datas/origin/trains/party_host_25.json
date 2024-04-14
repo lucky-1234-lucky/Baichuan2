@@ -1,0 +1,102 @@
+{
+    "sql": [
+        {
+            "host": "CREATE TABLE `host` (\n  `host_id` int(11) NOT NULL,\n  `name` text,\n  `nationality` text,\n  `age` text,\n  PRIMARY KEY (`host_id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8",
+            "fileds": {
+                "field": [
+                    [
+                        "host_id",
+                        "int",
+                        "PRIMARY KEY"
+                    ],
+                    [
+                        "name",
+                        "text,"
+                    ],
+                    [
+                        "nationality",
+                        "text,"
+                    ],
+                    [
+                        "age",
+                        "text,"
+                    ]
+                ],
+                "foreign_key": []
+            }
+        },
+        {
+            "party": "CREATE TABLE `party` (\n  `party_id` int(11) NOT NULL,\n  `party_theme` text,\n  `location` text,\n  `first_year` text,\n  `last_year` text,\n  `number_of_hosts` int(11) DEFAULT NULL,\n  PRIMARY KEY (`party_id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8",
+            "fileds": {
+                "field": [
+                    [
+                        "party_id",
+                        "int",
+                        "PRIMARY KEY"
+                    ],
+                    [
+                        "party_theme",
+                        "text,"
+                    ],
+                    [
+                        "location",
+                        "text,"
+                    ],
+                    [
+                        "first_year",
+                        "text,"
+                    ],
+                    [
+                        "last_year",
+                        "text,"
+                    ],
+                    [
+                        "number_of_hosts",
+                        "int"
+                    ]
+                ],
+                "foreign_key": []
+            }
+        },
+        {
+            "party_host": "CREATE TABLE `party_host` (\n  `party_id` int(11) NOT NULL,\n  `host_id` int(11) NOT NULL,\n  `is_main_in_charge` tinyint(1) DEFAULT NULL,\n  PRIMARY KEY (`party_id`,`host_id`),\n  KEY `host_id` (`host_id`),\n  CONSTRAINT `party_host_ibfk_1` FOREIGN KEY (`host_id`) REFERENCES `host` (`host_id`),\n  CONSTRAINT `party_host_ibfk_2` FOREIGN KEY (`party_id`) REFERENCES `party` (`party_id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8",
+            "fileds": {
+                "field": [
+                    [
+                        "party_id",
+                        "int",
+                        "PRIMARY KEY"
+                    ],
+                    [
+                        "host_id",
+                        "int",
+                        "PRIMARY KEY"
+                    ],
+                    [
+                        "is_main_in_charge",
+                        "tinyint"
+                    ]
+                ],
+                "foreign_key": [
+                    [
+                        "host_id",
+                        "host",
+                        "host_id"
+                    ],
+                    [
+                        "party_id",
+                        "party",
+                        "party_id"
+                    ]
+                ]
+            }
+        }
+    ],
+    "input": "Compute the average number of hosts for parties.",
+    "response": "select avg(number_of_hosts) from party;",
+    "insert": [],
+    "table_names": [
+        "party"
+    ],
+    "database": "party_host"
+}

@@ -1,0 +1,11 @@
+{
+    "conversations": [
+        {
+            "database": "candidate_poll",
+            "system": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\n##Instruction:\ncandidate_poll contains tables such as people.\nTable people has columns such as people_id, sex, name, date_of_birth, height, weight.",
+            "query": "What are the names of people who have a height greater than 200 or less than 190?",
+            "answer": "select name from people where height > 200 or height < 190;",
+            "insert": []
+        }
+    ]
+}

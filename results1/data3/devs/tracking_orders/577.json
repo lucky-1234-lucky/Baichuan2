@@ -1,0 +1,28 @@
+{
+    "conversations": [
+        {
+            "role": "system",
+            "content": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\n##Instruction:\ntracking_orders contains tables such as shipment_items, shipments, orders, order_items.\nTable order_items has columns such as order_item_id, product_id, order_id, order_item_status, order_item_details, where order_id is the primary key, product_id is the primary key.\nTable orders has columns such as order_id, customer_id, order_status, date_order_placed, order_details, where customer_id is the primary key.\nTable shipment_items has columns such as shipment_id, order_item_id, where order_item_id is the primary key, shipment_id is the primary key.\nTable shipments has columns such as shipment_id, order_id, invoice_number, shipment_tracking_number, shipment_date, other_shipment_details, where order_id is the primary key, invoice_number is the primary key.\nThe order_id of orders is the foreign key of order_id of order_items.\nThe product_id of products is the foreign key of product_id of order_items.\nThe customer_id of customers is the foreign key of customer_id of orders.\nThe order_item_id of order_items is the foreign key of order_item_id of shipment_items.\nThe shipment_id of shipments is the foreign key of shipment_id of shipment_items.\nThe order_id of orders is the foreign key of order_id of shipments.\nThe invoice_number of invoices is the foreign key of invoice_number of shipments."
+        },
+        {
+            "role": "user",
+            "content": "What is the id of the order which has the most items?"
+        },
+        {
+            "role": "assistant",
+            "content": "SELECT t1.order_id\nFROM orders AS t1\nJOIN order_items AS t2 ON t1.order_id = t2.order_id\nGROUP BY t1.order_id\nORDER BY count(*) DESC\nLIMIT 1;"
+        },
+        {
+            "role": "result",
+            "content": "SELECT t1.order_id\nFROM orders AS t1\nJOIN order_items AS t2 ON t1.order_id = t2.order_id\nGROUP BY t1.order_id\nORDER BY count(*) DESC\nLIMIT 1;"
+        },
+        {
+            "role": "exuc_assist",
+            "content": 1
+        },
+        {
+            "role": "exuc_infer",
+            "content": 1
+        }
+    ]
+}

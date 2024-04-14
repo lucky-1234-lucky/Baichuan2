@@ -1,0 +1,11 @@
+{
+    "conversations": [
+        {
+            "database": "device",
+            "system": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\n##Instruction:\ndevice contains tables such as device.\nTable device has columns such as device_id, device, carrier, package_version, applications, software_platform.",
+            "query": "What are the different software platforms for devices, and how many devices have each?",
+            "answer": "select software_platform , count(*) from device group by software_platform;",
+            "insert": []
+        }
+    ]
+}

@@ -1,0 +1,11 @@
+{
+    "conversations": [
+        {
+            "database": "csu_1",
+            "system": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\n##Instruction:\ncsu_1 contains tables such as csu_fees.\nTable csu_fees has columns such as campus, year, campusfee, where campus is the primary key.\nThe id of campuses is the foreign key of campus of csu_fees.",
+            "query": "Find the average fee on a CSU campus in 1996",
+            "answer": "select avg(campusfee) from csu_fees where year = 1996;",
+            "insert": []
+        }
+    ]
+}

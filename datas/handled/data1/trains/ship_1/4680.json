@@ -1,0 +1,11 @@
+{
+    "conversations": [
+        {
+            "database": "ship_1",
+            "system": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\n##Instruction:\nship_1 contains tables such as captain.\nTable captain has columns such as captain_id, name, ship_id, age, class, rank, where ship_id is the primary key.\nThe ship_id of ship is the foreign key of ship_id of captain.",
+            "query": "Return the name of the youngest captain.",
+            "answer": "select name from captain order by age limit 1;",
+            "insert": []
+        }
+    ]
+}

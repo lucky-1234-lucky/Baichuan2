@@ -1,0 +1,20 @@
+{
+    "conversations": [
+        {
+            "database": "network_2",
+            "system": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\n##Instruction:\nnetwork_2 contains tables such as person, personfriend.\nTable person has columns such as name, age, city, gender, job.\nTable personfriend has columns such as name, friend, year, where name is the primary key, friend is the primary key.\nThe name of person is the foreign key of name of personfriend.\nThe name of person is the foreign key of friend of personfriend.",
+            "query": "What are all the friends of Alice who are female?",
+            "answer": "SELECT t2.friend\nFROM person AS t1\nJOIN personfriend AS t2 ON t1.name = t2.friend\nWHERE t2.name = 'alice'\n  AND t1.gender = 'female';",
+            "insert": [
+                "INSERT INTO person VALUES ('alice', 25, 'new york city', 'female', 'student');",
+                "INSERT INTO person VALUES ('bob', 35, 'salt lake city', 'male', 'engineer');",
+                "INSERT INTO person VALUES ('zach', 45, 'austin', 'male', 'doctor');",
+                "INSERT INTO person VALUES ('dan', 26, 'chicago', 'female', 'student');",
+                "INSERT INTO personfriend VALUES ('alice', 'bob', 10);",
+                "INSERT INTO personfriend VALUES ('zach', 'dan', 12);",
+                "INSERT INTO personfriend VALUES ('bob', 'zach', 5);",
+                "INSERT INTO personfriend VALUES ('zach', 'alice', 6);"
+            ]
+        }
+    ]
+}

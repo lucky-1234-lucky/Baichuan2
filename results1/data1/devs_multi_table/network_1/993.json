@@ -1,0 +1,28 @@
+{
+    "conversations": [
+        {
+            "role": "system",
+            "content": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\n##Instruction:\nnetwork_1 contains tables such as friend, highschooler.\nTable friend has columns such as student_id, friend_id, where student_id is the primary key, friend_id is the primary key.\nTable highschooler has columns such as id, name, grade.\nThe id of highschooler is the foreign key of student_id of friend.\nThe id of highschooler is the foreign key of friend_id of friend."
+        },
+        {
+            "role": "user",
+            "content": "What is the name of the high schooler who has the greatest number of friends?"
+        },
+        {
+            "role": "assistant",
+            "content": "select t2.name from friend as t1 join highschooler as t2 on t1.student_id = t2.id group by t1.student_id order by count(*) desc limit 1;"
+        },
+        {
+            "role": "result",
+            "content": "select t2.name from highschooler as t1 join friend as t2 on t1.id = t2.student_id group by t2.student_id order by count(*) desc limit 1;"
+        },
+        {
+            "role": "exuc_assist",
+            "content": 1
+        },
+        {
+            "role": "exuc_infer",
+            "content": -1
+        }
+    ]
+}

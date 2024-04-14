@@ -1,0 +1,28 @@
+{
+    "conversations": [
+        {
+            "role": "system",
+            "content": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\n##Instruction:\nstudent_transcripts_tracking contains tables such as transcript_contents.\nTable transcript_contents has columns such as student_course_id, transcript_id, where student_course_id is the primary key, transcript_id is the primary key.\nThe student_course_id of student_enrolment_courses is the foreign key of student_course_id of transcript_contents.\nThe transcript_id of transcripts is the foreign key of transcript_id of transcript_contents."
+        },
+        {
+            "role": "user",
+            "content": "What is the maximum number of times that a course shows up in different transcripts and what is that course's enrollment id?"
+        },
+        {
+            "role": "assistant",
+            "content": "SELECT count(*),\n       student_course_id\nFROM transcript_contents\nGROUP BY student_course_id\nORDER BY count(*) DESC\nLIMIT 1;"
+        },
+        {
+            "role": "result",
+            "content": "SELECT max(t1.student_course_id),\n       t2.student_course_id\nFROM transcript_contents AS t1\nJOIN student_enrollment_courses AS t2 ON t1.student_course_id = t2.student_course_id\nGROUP BY t1.student_course_id\nORDER BY count(*) DESC\nLIMIT 1;"
+        },
+        {
+            "role": "exuc_assist",
+            "content": 1
+        },
+        {
+            "role": "exuc_infer",
+            "content": -1
+        }
+    ]
+}

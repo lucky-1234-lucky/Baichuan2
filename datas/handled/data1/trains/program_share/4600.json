@@ -1,0 +1,11 @@
+{
+    "conversations": [
+        {
+            "database": "program_share",
+            "system": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\n##Instruction:\nprogram_share contains tables such as program.\nTable program has columns such as program_id, name, origin, launch, owner.",
+            "query": "Which program was launched most recently? Return the program name.",
+            "answer": "select name from program order by launch desc limit 1;",
+            "insert": []
+        }
+    ]
+}

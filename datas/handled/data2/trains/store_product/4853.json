@@ -1,0 +1,11 @@
+{
+    "conversations": [
+        {
+            "database": "store_product",
+            "system": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\n##Instruction:\nstore_product contains tables such as district.\nTable district has columns such as district_id, district_name, headquartered_city, city_population, city_area.",
+            "query": "Find the name all districts with city area greater than 10 or population larger than 100000",
+            "answer": "SELECT district_name\nFROM district\nWHERE city_area > 10\n  OR city_population > 100000;",
+            "insert": []
+        }
+    ]
+}

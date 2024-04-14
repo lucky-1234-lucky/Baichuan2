@@ -1,0 +1,11 @@
+{
+    "conversations": [
+        {
+            "database": "election_representative",
+            "system": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\n##Instruction:\nelection_representative contains tables such as county.\n",
+            "query": "Sort the names of all counties in descending alphabetical order.",
+            "answer": "select county_name from county order by county_name desc;",
+            "insert": []
+        }
+    ]
+}

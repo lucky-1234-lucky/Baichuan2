@@ -1,0 +1,28 @@
+{
+    "conversations": [
+        {
+            "role": "system",
+            "content": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\n##Instruction:\nstorm_record contains tables such as storm.\nTable storm has columns such as storm_id, name, dates_active, max_speed, damage_millions_usd, number_deaths."
+        },
+        {
+            "role": "user",
+            "content": "Show the average and maximum damage for all storms with max speed higher than 1000."
+        },
+        {
+            "role": "assistant",
+            "content": "select avg(damage_millions_usd) , max(damage_millions_usd) from storm where max_speed > 1000;"
+        },
+        {
+            "role": "result",
+            "content": "select avg(damage_millions_usd) , max(damage_millions_usd) from storm where max_speed > 1000;"
+        },
+        {
+            "role": "exuc_assist",
+            "content": 1
+        },
+        {
+            "role": "exuc_infer",
+            "content": 1
+        }
+    ]
+}

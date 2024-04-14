@@ -1,0 +1,282 @@
+{
+    "sql": [
+        {
+            "problem_category_codes": "CREATE TABLE `problem_category_codes` (\n  `problem_category_code` varchar(20) NOT NULL,\n  `problem_category_description` varchar(80) DEFAULT NULL,\n  PRIMARY KEY (`problem_category_code`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8",
+            "fileds": {
+                "field": [
+                    [
+                        "problem_category_code",
+                        "varchar",
+                        "PRIMARY KEY"
+                    ],
+                    [
+                        "problem_category_description",
+                        "varchar"
+                    ]
+                ],
+                "foreign_key": []
+            }
+        },
+        {
+            "problem_log": "CREATE TABLE `problem_log` (\n  `problem_log_id` int(11) NOT NULL,\n  `assigned_to_staff_id` int(11) NOT NULL,\n  `problem_id` int(11) NOT NULL,\n  `problem_category_code` varchar(20) NOT NULL,\n  `problem_status_code` varchar(20) NOT NULL,\n  `log_entry_date` datetime DEFAULT NULL,\n  `log_entry_description` varchar(255) DEFAULT NULL,\n  `log_entry_fix` varchar(255) DEFAULT NULL,\n  `other_log_details` varchar(255) DEFAULT NULL,\n  PRIMARY KEY (`problem_log_id`),\n  KEY `problem_category_code` (`problem_category_code`),\n  KEY `assigned_to_staff_id` (`assigned_to_staff_id`),\n  KEY `problem_id` (`problem_id`),\n  KEY `problem_status_code` (`problem_status_code`),\n  CONSTRAINT `problem_log_ibfk_1` FOREIGN KEY (`problem_category_code`) REFERENCES `problem_category_codes` (`problem_category_code`),\n  CONSTRAINT `problem_log_ibfk_2` FOREIGN KEY (`assigned_to_staff_id`) REFERENCES `staff` (`staff_id`),\n  CONSTRAINT `problem_log_ibfk_3` FOREIGN KEY (`problem_id`) REFERENCES `problems` (`problem_id`),\n  CONSTRAINT `problem_log_ibfk_4` FOREIGN KEY (`problem_status_code`) REFERENCES `problem_status_codes` (`problem_status_code`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8",
+            "fileds": {
+                "field": [
+                    [
+                        "problem_log_id",
+                        "int",
+                        "PRIMARY KEY"
+                    ],
+                    [
+                        "assigned_to_staff_id",
+                        "int"
+                    ],
+                    [
+                        "problem_id",
+                        "int"
+                    ],
+                    [
+                        "problem_category_code",
+                        "varchar"
+                    ],
+                    [
+                        "problem_status_code",
+                        "varchar"
+                    ],
+                    [
+                        "log_entry_date",
+                        "datetime"
+                    ],
+                    [
+                        "log_entry_description",
+                        "varchar"
+                    ],
+                    [
+                        "log_entry_fix",
+                        "varchar"
+                    ],
+                    [
+                        "other_log_details",
+                        "varchar"
+                    ]
+                ],
+                "foreign_key": [
+                    [
+                        "problem_category_code",
+                        "problem_category_codes",
+                        "problem_category_code"
+                    ],
+                    [
+                        "assigned_to_staff_id",
+                        "staff",
+                        "staff_id"
+                    ],
+                    [
+                        "problem_id",
+                        "problems",
+                        "problem_id"
+                    ],
+                    [
+                        "problem_status_code",
+                        "problem_status_codes",
+                        "problem_status_code"
+                    ]
+                ]
+            }
+        },
+        {
+            "problem_status_codes": "CREATE TABLE `problem_status_codes` (\n  `problem_status_code` varchar(20) NOT NULL,\n  `problem_status_description` varchar(80) DEFAULT NULL,\n  PRIMARY KEY (`problem_status_code`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8",
+            "fileds": {
+                "field": [
+                    [
+                        "problem_status_code",
+                        "varchar",
+                        "PRIMARY KEY"
+                    ],
+                    [
+                        "problem_status_description",
+                        "varchar"
+                    ]
+                ],
+                "foreign_key": []
+            }
+        },
+        {
+            "problems": "CREATE TABLE `problems` (\n  `problem_id` int(11) NOT NULL,\n  `product_id` int(11) NOT NULL,\n  `closure_authorised_by_staff_id` int(11) NOT NULL,\n  `reported_by_staff_id` int(11) NOT NULL,\n  `date_problem_reported` datetime NOT NULL,\n  `date_problem_closed` datetime DEFAULT NULL,\n  `problem_description` varchar(255) DEFAULT NULL,\n  `other_problem_details` varchar(255) DEFAULT NULL,\n  PRIMARY KEY (`problem_id`),\n  KEY `closure_authorised_by_staff_id` (`closure_authorised_by_staff_id`),\n  KEY `product_id` (`product_id`),\n  KEY `reported_by_staff_id` (`reported_by_staff_id`),\n  CONSTRAINT `problems_ibfk_1` FOREIGN KEY (`closure_authorised_by_staff_id`) REFERENCES `staff` (`staff_id`),\n  CONSTRAINT `problems_ibfk_2` FOREIGN KEY (`product_id`) REFERENCES `product` (`product_id`),\n  CONSTRAINT `problems_ibfk_3` FOREIGN KEY (`reported_by_staff_id`) REFERENCES `staff` (`staff_id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8",
+            "fileds": {
+                "field": [
+                    [
+                        "problem_id",
+                        "int",
+                        "PRIMARY KEY"
+                    ],
+                    [
+                        "product_id",
+                        "int"
+                    ],
+                    [
+                        "closure_authorised_by_staff_id",
+                        "int"
+                    ],
+                    [
+                        "reported_by_staff_id",
+                        "int"
+                    ],
+                    [
+                        "date_problem_reported",
+                        "datetime"
+                    ],
+                    [
+                        "date_problem_closed",
+                        "datetime"
+                    ],
+                    [
+                        "problem_description",
+                        "varchar"
+                    ],
+                    [
+                        "other_problem_details",
+                        "varchar"
+                    ]
+                ],
+                "foreign_key": [
+                    [
+                        "closure_authorised_by_staff_id",
+                        "staff",
+                        "staff_id"
+                    ],
+                    [
+                        "product_id",
+                        "product",
+                        "product_id"
+                    ],
+                    [
+                        "reported_by_staff_id",
+                        "staff",
+                        "staff_id"
+                    ]
+                ]
+            }
+        },
+        {
+            "product": "CREATE TABLE `product` (\n  `product_id` int(11) NOT NULL,\n  `product_name` varchar(80) DEFAULT NULL,\n  `product_details` varchar(255) DEFAULT NULL,\n  PRIMARY KEY (`product_id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8",
+            "fileds": {
+                "field": [
+                    [
+                        "product_id",
+                        "int",
+                        "PRIMARY KEY"
+                    ],
+                    [
+                        "product_name",
+                        "varchar"
+                    ],
+                    [
+                        "product_details",
+                        "varchar"
+                    ]
+                ],
+                "foreign_key": []
+            }
+        },
+        {
+            "staff": "CREATE TABLE `staff` (\n  `staff_id` int(11) NOT NULL,\n  `staff_first_name` varchar(80) DEFAULT NULL,\n  `staff_last_name` varchar(80) DEFAULT NULL,\n  `other_staff_details` varchar(255) DEFAULT NULL,\n  PRIMARY KEY (`staff_id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8",
+            "fileds": {
+                "field": [
+                    [
+                        "staff_id",
+                        "int",
+                        "PRIMARY KEY"
+                    ],
+                    [
+                        "staff_first_name",
+                        "varchar"
+                    ],
+                    [
+                        "staff_last_name",
+                        "varchar"
+                    ],
+                    [
+                        "other_staff_details",
+                        "varchar"
+                    ]
+                ],
+                "foreign_key": []
+            }
+        }
+    ],
+    "input": "What are the id of problems reported by the staff named Dameon Frami or Jolie Weber?",
+    "response": "select product_id from problems as t1 join staff as t2 on t1.reported_by_staff_id = t2.staff_id where t2.staff_first_name = 'dameon' and t2.staff_last_name = 'frami' union select product_id from problems as t1 join staff as t2 on t1.reported_by_staff_id = t2.staff_id where t2.staff_first_name = 'jolie' and t2.staff_last_name = 'weber';",
+    "insert": [
+        "INSERT INTO `problem_category_codes` (`problem_category_code`, `problem_category_description`) VALUES ('datatabase', 'database design or contents.');",
+        "INSERT INTO `problem_category_codes` (`problem_category_code`, `problem_category_description`) VALUES ('gui', 'user interface.');",
+        "INSERT INTO `problem_category_codes` (`problem_category_code`, `problem_category_description`) VALUES ('middleware', 'infrastructrure and architecture');",
+        "INSERT INTO `problem_status_codes` (`problem_status_code`, `problem_status_description`) VALUES ('reported', 'reported');",
+        "INSERT INTO `problem_status_codes` (`problem_status_code`, `problem_status_description`) VALUES ('solved', 'solved');",
+        "INSERT INTO staff (`staff_id`, `staff_first_name`, `staff_last_name`, `other_staff_details`) VALUES (1, 'lacey', 'bosco', 'm');",
+        "INSERT INTO staff (`staff_id`, `staff_first_name`, `staff_last_name`, `other_staff_details`) VALUES (2, 'dameon', 'frami', 'x');",
+        "INSERT INTO staff (`staff_id`, `staff_first_name`, `staff_last_name`, `other_staff_details`) VALUES (3, 'ashley', 'medhurst', 'w');",
+        "INSERT INTO staff (`staff_id`, `staff_first_name`, `staff_last_name`, `other_staff_details`) VALUES (4, 'kayla', 'klein', 'p');",
+        "INSERT INTO staff (`staff_id`, `staff_first_name`, `staff_last_name`, `other_staff_details`) VALUES (5, 'jolie', 'weber', 'q');",
+        "INSERT INTO staff (`staff_id`, `staff_first_name`, `staff_last_name`, `other_staff_details`) VALUES (6, 'kristian', 'lynch', 'b');",
+        "INSERT INTO staff (`staff_id`, `staff_first_name`, `staff_last_name`, `other_staff_details`) VALUES (7, 'kenton', 'champlin', 'p');",
+        "INSERT INTO staff (`staff_id`, `staff_first_name`, `staff_last_name`, `other_staff_details`) VALUES (8, 'magali', 'schumm', 'd');",
+        "INSERT INTO staff (`staff_id`, `staff_first_name`, `staff_last_name`, `other_staff_details`) VALUES (9, 'junius', 'treutel', 'j');",
+        "INSERT INTO staff (`staff_id`, `staff_first_name`, `staff_last_name`, `other_staff_details`) VALUES (10, 'christop', 'berge', 'x');",
+        "INSERT INTO staff (`staff_id`, `staff_first_name`, `staff_last_name`, `other_staff_details`) VALUES (11, 'rylan', 'homenick', 'x');",
+        "INSERT INTO staff (`staff_id`, `staff_first_name`, `staff_last_name`, `other_staff_details`) VALUES (12, 'stevie', 'mante', 'j');",
+        "INSERT INTO staff (`staff_id`, `staff_first_name`, `staff_last_name`, `other_staff_details`) VALUES (13, 'lysanne', 'turcotte', 'i');",
+        "INSERT INTO staff (`staff_id`, `staff_first_name`, `staff_last_name`, `other_staff_details`) VALUES (14, 'kenyatta', 'klocko', 'e');",
+        "INSERT INTO staff (`staff_id`, `staff_first_name`, `staff_last_name`, `other_staff_details`) VALUES (15, 'israel', 'dickens', 'w');",
+        "INSERT INTO product (`product_id`, `product_name`, `product_details`) VALUES (1, 'rose', 'k');",
+        "INSERT INTO product (`product_id`, `product_name`, `product_details`) VALUES (2, 'yellow', 'q');",
+        "INSERT INTO product (`product_id`, `product_name`, `product_details`) VALUES (3, 'chat', 'e');",
+        "INSERT INTO product (`product_id`, `product_name`, `product_details`) VALUES (4, 'wechat', 'r');",
+        "INSERT INTO product (`product_id`, `product_name`, `product_details`) VALUES (5, 'life', 'q');",
+        "INSERT INTO product (`product_id`, `product_name`, `product_details`) VALUES (6, 'keep', 'd');",
+        "INSERT INTO product (`product_id`, `product_name`, `product_details`) VALUES (7, 'messager', 'm');",
+        "INSERT INTO product (`product_id`, `product_name`, `product_details`) VALUES (8, 'hangout', 'u');",
+        "INSERT INTO product (`product_id`, `product_name`, `product_details`) VALUES (9, 'twitter', 'z');",
+        "INSERT INTO product (`product_id`, `product_name`, `product_details`) VALUES (10, 'blog', 'd');",
+        "INSERT INTO product (`product_id`, `product_name`, `product_details`) VALUES (11, 'snapchat', 'e');",
+        "INSERT INTO product (`product_id`, `product_name`, `product_details`) VALUES (12, 'doulingo', 'q');",
+        "INSERT INTO product (`product_id`, `product_name`, `product_details`) VALUES (13, 'learn', 'h');",
+        "INSERT INTO product (`product_id`, `product_name`, `product_details`) VALUES (14, 'teach', 'n');",
+        "INSERT INTO product (`product_id`, `product_name`, `product_details`) VALUES (15, 'game', 'j');",
+        "INSERT INTO problems (`problem_id`, `product_id`, `closure_authorised_by_staff_id`, `reported_by_staff_id`, `date_problem_reported`, `date_problem_closed`, `problem_description`, `other_problem_details`) VALUES (1, 4, 4, 2, '1978-06-26 19:10:17', '2012-07-22 19:24:26', 'x', 'p');",
+        "INSERT INTO problems (`problem_id`, `product_id`, `closure_authorised_by_staff_id`, `reported_by_staff_id`, `date_problem_reported`, `date_problem_closed`, `problem_description`, `other_problem_details`) VALUES (2, 8, 3, 10, '1988-11-07 16:09:31', '1973-06-07 04:13:51', 'w', 'p');",
+        "INSERT INTO problems (`problem_id`, `product_id`, `closure_authorised_by_staff_id`, `reported_by_staff_id`, `date_problem_reported`, `date_problem_closed`, `problem_description`, `other_problem_details`) VALUES (3, 1, 4, 1, '1995-05-14 08:32:56', '1997-02-26 05:06:15', 'r', 'i');",
+        "INSERT INTO problems (`problem_id`, `product_id`, `closure_authorised_by_staff_id`, `reported_by_staff_id`, `date_problem_reported`, `date_problem_closed`, `problem_description`, `other_problem_details`) VALUES (4, 13, 8, 7, '1973-10-12 10:51:23', '1993-06-19 10:02:59', 'y', 'c');",
+        "INSERT INTO problems (`problem_id`, `product_id`, `closure_authorised_by_staff_id`, `reported_by_staff_id`, `date_problem_reported`, `date_problem_closed`, `problem_description`, `other_problem_details`) VALUES (5, 4, 12, 11, '1986-11-13 07:30:55', '2013-05-24 20:33:11', 'a', 'k');",
+        "INSERT INTO problems (`problem_id`, `product_id`, `closure_authorised_by_staff_id`, `reported_by_staff_id`, `date_problem_reported`, `date_problem_closed`, `problem_description`, `other_problem_details`) VALUES (6, 1, 5, 4, '2010-10-05 02:25:37', '1998-07-03 14:53:59', 'p', 'l');",
+        "INSERT INTO problems (`problem_id`, `product_id`, `closure_authorised_by_staff_id`, `reported_by_staff_id`, `date_problem_reported`, `date_problem_closed`, `problem_description`, `other_problem_details`) VALUES (7, 2, 2, 7, '1996-04-19 15:54:13', '1974-09-20 13:42:19', 'a', 'l');",
+        "INSERT INTO problems (`problem_id`, `product_id`, `closure_authorised_by_staff_id`, `reported_by_staff_id`, `date_problem_reported`, `date_problem_closed`, `problem_description`, `other_problem_details`) VALUES (8, 2, 4, 1, '1976-12-18 23:54:41', '1982-08-26 10:58:01', 'w', 'f');",
+        "INSERT INTO problems (`problem_id`, `product_id`, `closure_authorised_by_staff_id`, `reported_by_staff_id`, `date_problem_reported`, `date_problem_closed`, `problem_description`, `other_problem_details`) VALUES (9, 15, 14, 13, '2010-10-11 13:36:00', '1995-06-10 18:41:08', 'i', 'v');",
+        "INSERT INTO problems (`problem_id`, `product_id`, `closure_authorised_by_staff_id`, `reported_by_staff_id`, `date_problem_reported`, `date_problem_closed`, `problem_description`, `other_problem_details`) VALUES (10, 4, 13, 10, '1993-12-29 23:22:21', '1990-04-13 21:15:50', 'd', 's');",
+        "INSERT INTO problems (`problem_id`, `product_id`, `closure_authorised_by_staff_id`, `reported_by_staff_id`, `date_problem_reported`, `date_problem_closed`, `problem_description`, `other_problem_details`) VALUES (11, 5, 1, 14, '1970-02-23 17:46:12', '1971-02-06 15:23:23', 'd', 'v');",
+        "INSERT INTO problems (`problem_id`, `product_id`, `closure_authorised_by_staff_id`, `reported_by_staff_id`, `date_problem_reported`, `date_problem_closed`, `problem_description`, `other_problem_details`) VALUES (12, 6, 9, 2, '1970-05-20 15:38:46', '1997-10-18 20:09:57', 'j', 'c');",
+        "INSERT INTO problems (`problem_id`, `product_id`, `closure_authorised_by_staff_id`, `reported_by_staff_id`, `date_problem_reported`, `date_problem_closed`, `problem_description`, `other_problem_details`) VALUES (13, 1, 9, 5, '1971-06-15 02:50:52', '2004-06-20 01:08:25', 'c', 'f');",
+        "INSERT INTO problems (`problem_id`, `product_id`, `closure_authorised_by_staff_id`, `reported_by_staff_id`, `date_problem_reported`, `date_problem_closed`, `problem_description`, `other_problem_details`) VALUES (14, 1, 6, 13, '1977-10-22 15:48:13', '1970-09-05 08:04:43', 's', 's');",
+        "INSERT INTO problems (`problem_id`, `product_id`, `closure_authorised_by_staff_id`, `reported_by_staff_id`, `date_problem_reported`, `date_problem_closed`, `problem_description`, `other_problem_details`) VALUES (15, 7, 9, 10, '1970-10-27 16:35:34', '1999-09-28 21:29:12', 'r', 'm');",
+        "INSERT INTO problem_log (`problem_log_id`, `assigned_to_staff_id`, `problem_id`, `problem_category_code`, `problem_status_code`, `log_entry_date`, `log_entry_description`, `log_entry_fix`, `other_log_details`) VALUES (1, 11, 11, 'middleware', 'solved', '2011-03-13 13:11:57', 't', 'k', 'p');",
+        "INSERT INTO problem_log (`problem_log_id`, `assigned_to_staff_id`, `problem_id`, `problem_category_code`, `problem_status_code`, `log_entry_date`, `log_entry_description`, `log_entry_fix`, `other_log_details`) VALUES (2, 11, 8, 'gui', 'solved', '1976-03-31 14:03:02', 'a', 'k', 's');",
+        "INSERT INTO problem_log (`problem_log_id`, `assigned_to_staff_id`, `problem_id`, `problem_category_code`, `problem_status_code`, `log_entry_date`, `log_entry_description`, `log_entry_fix`, `other_log_details`) VALUES (3, 12, 1, 'gui', 'solved', '1974-12-11 01:06:22', 'b', 'j', 'e');",
+        "INSERT INTO problem_log (`problem_log_id`, `assigned_to_staff_id`, `problem_id`, `problem_category_code`, `problem_status_code`, `log_entry_date`, `log_entry_description`, `log_entry_fix`, `other_log_details`) VALUES (4, 12, 12, 'gui', 'reported', '1993-04-02 11:07:29', 'a', 't', 'b');",
+        "INSERT INTO problem_log (`problem_log_id`, `assigned_to_staff_id`, `problem_id`, `problem_category_code`, `problem_status_code`, `log_entry_date`, `log_entry_description`, `log_entry_fix`, `other_log_details`) VALUES (5, 6, 12, 'middleware', 'reported', '1976-09-17 09:01:12', 'c', 'n', 'u');",
+        "INSERT INTO problem_log (`problem_log_id`, `assigned_to_staff_id`, `problem_id`, `problem_category_code`, `problem_status_code`, `log_entry_date`, `log_entry_description`, `log_entry_fix`, `other_log_details`) VALUES (6, 2, 13, 'gui', 'solved', '1983-07-01 02:12:36', 'h', 'g', 'n');",
+        "INSERT INTO problem_log (`problem_log_id`, `assigned_to_staff_id`, `problem_id`, `problem_category_code`, `problem_status_code`, `log_entry_date`, `log_entry_description`, `log_entry_fix`, `other_log_details`) VALUES (7, 13, 1, 'datatabase', 'solved', '1974-09-13 00:37:26', 's', 'c', 'v');",
+        "INSERT INTO problem_log (`problem_log_id`, `assigned_to_staff_id`, `problem_id`, `problem_category_code`, `problem_status_code`, `log_entry_date`, `log_entry_description`, `log_entry_fix`, `other_log_details`) VALUES (8, 4, 15, 'datatabase', 'solved', '1999-08-17 00:00:18', 'j', 'h', 'j');",
+        "INSERT INTO problem_log (`problem_log_id`, `assigned_to_staff_id`, `problem_id`, `problem_category_code`, `problem_status_code`, `log_entry_date`, `log_entry_description`, `log_entry_fix`, `other_log_details`) VALUES (9, 10, 13, 'gui', 'reported', '1993-06-21 22:33:35', 'p', 'i', 'f');",
+        "INSERT INTO problem_log (`problem_log_id`, `assigned_to_staff_id`, `problem_id`, `problem_category_code`, `problem_status_code`, `log_entry_date`, `log_entry_description`, `log_entry_fix`, `other_log_details`) VALUES (10, 6, 1, 'middleware', 'reported', '2001-05-14 10:03:53', 'd', 'x', 'd');",
+        "INSERT INTO problem_log (`problem_log_id`, `assigned_to_staff_id`, `problem_id`, `problem_category_code`, `problem_status_code`, `log_entry_date`, `log_entry_description`, `log_entry_fix`, `other_log_details`) VALUES (11, 1, 8, 'datatabase', 'solved', '1973-03-12 16:30:50', 'w', 'k', 'a');",
+        "INSERT INTO problem_log (`problem_log_id`, `assigned_to_staff_id`, `problem_id`, `problem_category_code`, `problem_status_code`, `log_entry_date`, `log_entry_description`, `log_entry_fix`, `other_log_details`) VALUES (12, 4, 10, 'middleware', 'solved', '1997-08-31 08:19:12', 'c', 'y', 'c');",
+        "INSERT INTO problem_log (`problem_log_id`, `assigned_to_staff_id`, `problem_id`, `problem_category_code`, `problem_status_code`, `log_entry_date`, `log_entry_description`, `log_entry_fix`, `other_log_details`) VALUES (13, 6, 10, 'middleware', 'reported', '2009-04-10 19:09:30', 'q', 't', 'o');",
+        "INSERT INTO problem_log (`problem_log_id`, `assigned_to_staff_id`, `problem_id`, `problem_category_code`, `problem_status_code`, `log_entry_date`, `log_entry_description`, `log_entry_fix`, `other_log_details`) VALUES (14, 8, 4, 'datatabase', 'reported', '2011-11-12 23:30:53', 'a', 's', 'c');",
+        "INSERT INTO problem_log (`problem_log_id`, `assigned_to_staff_id`, `problem_id`, `problem_category_code`, `problem_status_code`, `log_entry_date`, `log_entry_description`, `log_entry_fix`, `other_log_details`) VALUES (15, 5, 7, 'gui', 'reported', '1982-11-17 06:05:52', 'v', 'o', 'd');"
+    ],
+    "table_names": [
+        "problem_log",
+        "staff",
+        "problems"
+    ],
+    "database": "tracking_software_problems"
+}

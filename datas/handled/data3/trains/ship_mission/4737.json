@@ -1,0 +1,11 @@
+{
+    "conversations": [
+        {
+            "database": "ship_mission",
+            "system": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\n##Instruction:\nship_mission contains tables such as mission, ship.\nTable mission has columns such as mission_id, ship_id, code, launched_year, location, speed_knots, fate, where ship_id is the primary key.\nTable ship has columns such as ship_id, name, type, nationality, tonnage.\nThe ship_id of ship is the foreign key of ship_id of mission.",
+            "query": "Show names of ships involved in a mission launched after 1928.",
+            "answer": "SELECT t2.name\nFROM mission AS t1\nJOIN ship AS t2 ON t1.ship_id = t2.ship_id\nWHERE t1.launched_year > 1928;",
+            "insert": []
+        }
+    ]
+}

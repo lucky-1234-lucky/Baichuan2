@@ -1,0 +1,22 @@
+{
+    "conversations": [
+        {
+            "database": "match_season",
+            "system": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\n##Instruction:\nmatch_season contains tables such as match_season.\nTable match_season has columns such as season, player, position, country, team, draft_pick_number, draft_class, college, where country is the primary key, team is the primary key.\nThe country_id of country is the foreign key of country of match_season.\nThe team_id of team is the foreign key of team of match_season.",
+            "query": "Show the draft pick numbers and draft classes of players whose positions are defenders.",
+            "answer": "select draft_pick_number , draft_class from match_season where position = 'defender';",
+            "insert": [
+                "INSERT INTO `team` (`team_id`, `name`) VALUES (1, 'columbus crew');",
+                "INSERT INTO `team` (`team_id`, `name`) VALUES (2, 'evalyn feil');",
+                "INSERT INTO `team` (`team_id`, `name`) VALUES (3, 'anais vonrueden');",
+                "INSERT INTO `team` (`team_id`, `name`) VALUES (4, 'miami fusion');",
+                "INSERT INTO `team` (`team_id`, `name`) VALUES (5, 'enrique osinski');",
+                "INSERT INTO `team` (`team_id`, `name`) VALUES (6, 'brown erdman');",
+                "INSERT INTO `team` (`team_id`, `name`) VALUES (7, 'los angeles galaxy');",
+                "INSERT INTO `team` (`team_id`, `name`) VALUES (8, 'berneice hand');",
+                "INSERT INTO `team` (`team_id`, `name`) VALUES (9, 'ryley goldner');",
+                "INSERT INTO `team` (`team_id`, `name`) VALUES (10, 'd.c. united');"
+            ]
+        }
+    ]
+}

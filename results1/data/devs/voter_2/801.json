@@ -1,0 +1,28 @@
+{
+    "conversations": [
+        {
+            "role": "system",
+            "content": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\n##Instruction:\nvoter_2 contains tables such as voting_record, student.\nTable student has columns such as stuid, lname, fname, age, sex, major, advisor, city_code.\nTable voting_record has columns such as stuid, registration_date, election_cycle, president_vote, vice_president_vote, secretary_vote, treasurer_vote, class_president_vote, class_senator_vote, where stuid is the primary key, president_vote is the primary key, vice_president_vote is the primary key, secretary_vote is the primary key, treasurer_vote is the primary key, class_president_vote is the primary key, class_senator_vote is the primary key.\nThe stuid of student is the foreign key of stuid of voting_record.\nThe stuid of student is the foreign key of president_vote of voting_record.\nThe stuid of student is the foreign key of vice_president_vote of voting_record.\nThe stuid of student is the foreign key of secretary_vote of voting_record.\nThe stuid of student is the foreign key of treasurer_vote of voting_record.\nThe stuid of student is the foreign key of class_president_vote of voting_record.\nThe stuid of student is the foreign key of class_senator_vote of voting_record."
+        },
+        {
+            "role": "user",
+            "content": "Find the distinct first names of all the students who have vice president votes and whose city code is not PIT."
+        },
+        {
+            "role": "assistant",
+            "content": "select distinct t1.fname from student as t1 join voting_record as t2 on t1.stuid = t2.vice_president_vote except select distinct fname from student where city_code = 'pit';"
+        },
+        {
+            "role": "result",
+            "content": "```sql\nSELECT DISTINCT fname \nFROM student s\nJOIN voting_record vr ON s.stuid = vr.vp_vote\nWHERE s.city_code <> 'PIT';\n```"
+        },
+        {
+            "role": "exuc_assist",
+            "content": -1
+        },
+        {
+            "role": "exuc_infer",
+            "content": -1
+        }
+    ]
+}

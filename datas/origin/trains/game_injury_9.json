@@ -1,0 +1,130 @@
+{
+    "sql": [
+        {
+            "game": "CREATE TABLE `game` (\n  `stadium_id` int(11) DEFAULT NULL,\n  `id` int(11) NOT NULL,\n  `season` int(11) DEFAULT NULL,\n  `date` text,\n  `home_team` text,\n  `away_team` text,\n  `score` text,\n  `competition` text,\n  PRIMARY KEY (`id`),\n  KEY `stadium_id` (`stadium_id`),\n  CONSTRAINT `game_ibfk_1` FOREIGN KEY (`stadium_id`) REFERENCES `stadium` (`id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8",
+            "fileds": {
+                "field": [
+                    [
+                        "stadium_id",
+                        "int"
+                    ],
+                    [
+                        "id",
+                        "int",
+                        "PRIMARY KEY"
+                    ],
+                    [
+                        "season",
+                        "int"
+                    ],
+                    [
+                        "date",
+                        "text,"
+                    ],
+                    [
+                        "home_team",
+                        "text,"
+                    ],
+                    [
+                        "away_team",
+                        "text,"
+                    ],
+                    [
+                        "score",
+                        "text,"
+                    ],
+                    [
+                        "competition",
+                        "text,"
+                    ]
+                ],
+                "foreign_key": [
+                    [
+                        "stadium_id",
+                        "stadium",
+                        "id"
+                    ]
+                ]
+            }
+        },
+        {
+            "injury_accident": "CREATE TABLE `injury_accident` (\n  `game_id` int(11) DEFAULT NULL,\n  `id` int(11) NOT NULL,\n  `player` text,\n  `injury` text,\n  `number_of_matches` text,\n  `source` text,\n  PRIMARY KEY (`id`),\n  KEY `game_id` (`game_id`),\n  CONSTRAINT `injury_accident_ibfk_1` FOREIGN KEY (`game_id`) REFERENCES `game` (`id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8",
+            "fileds": {
+                "field": [
+                    [
+                        "game_id",
+                        "int"
+                    ],
+                    [
+                        "id",
+                        "int",
+                        "PRIMARY KEY"
+                    ],
+                    [
+                        "player",
+                        "text,"
+                    ],
+                    [
+                        "injury",
+                        "text,"
+                    ],
+                    [
+                        "number_of_matches",
+                        "text,"
+                    ],
+                    [
+                        "source",
+                        "text,"
+                    ]
+                ],
+                "foreign_key": [
+                    [
+                        "game_id",
+                        "game",
+                        "id"
+                    ]
+                ]
+            }
+        },
+        {
+            "stadium": "CREATE TABLE `stadium` (\n  `id` int(11) NOT NULL,\n  `name` text,\n  `home_games` int(11) DEFAULT NULL,\n  `average_attendance` double DEFAULT NULL,\n  `total_attendance` double DEFAULT NULL,\n  `capacity_percentage` double DEFAULT NULL,\n  PRIMARY KEY (`id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8",
+            "fileds": {
+                "field": [
+                    [
+                        "id",
+                        "int",
+                        "PRIMARY KEY"
+                    ],
+                    [
+                        "name",
+                        "text,"
+                    ],
+                    [
+                        "home_games",
+                        "int"
+                    ],
+                    [
+                        "average_attendance",
+                        "double"
+                    ],
+                    [
+                        "total_attendance",
+                        "double"
+                    ],
+                    [
+                        "capacity_percentage",
+                        "double"
+                    ]
+                ],
+                "foreign_key": []
+            }
+        }
+    ],
+    "input": "What are the maximum, minimum and average home games each stadium held?",
+    "response": "select max(home_games) , min(home_games) , avg(home_games) from stadium;",
+    "insert": [],
+    "table_names": [
+        "stadium"
+    ],
+    "database": "game_injury"
+}

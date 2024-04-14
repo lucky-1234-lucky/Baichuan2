@@ -1,0 +1,28 @@
+{
+    "conversations": [
+        {
+            "role": "system",
+            "content": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\n##Instruction:\ntracking_share_transactions contains tables such as purchases, transactions, sales.\nTable purchases has columns such as purchase_transaction_id, purchase_details, where purchase_transaction_id is the primary key.\nTable sales has columns such as sales_transaction_id, sales_details, where sales_transaction_id is the primary key.\nTable transactions has columns such as transaction_id, investor_id, transaction_type_code, date_of_transaction, amount_of_transaction, share_count, other_details, where investor_id is the primary key, transaction_type_code is the primary key.\nThe transaction_id of transactions is the foreign key of purchase_transaction_id of purchases.\nThe transaction_id of transactions is the foreign key of sales_transaction_id of sales.\nThe investor_id of investors is the foreign key of investor_id of transactions.\nThe transaction_type_code of ref_transaction_types is the foreign key of transaction_type_code of transactions."
+        },
+        {
+            "role": "user",
+            "content": "What are the details of all sales and purchases?"
+        },
+        {
+            "role": "assistant",
+            "content": "select sales_details from sales union select purchase_details from purchases;"
+        },
+        {
+            "role": "result",
+            "content": "SELECT * FROM purchases;\nSELECT * FROM sales;"
+        },
+        {
+            "role": "exuc_assist",
+            "content": 0
+        },
+        {
+            "role": "exuc_infer",
+            "content": -1
+        }
+    ]
+}

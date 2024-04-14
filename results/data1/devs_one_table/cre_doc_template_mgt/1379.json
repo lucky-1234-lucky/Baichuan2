@@ -1,0 +1,20 @@
+{
+    "conversations": [
+        {
+            "role": "system",
+            "content": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\n##Instruction:\ncre_doc_template_mgt contains tables such as paragraphs.\nTable paragraphs has columns such as paragraph_id, document_id, paragraph_text, other_details, where document_id is the primary key.\nThe document_id of documents is the foreign key of document_id of paragraphs."
+        },
+        {
+            "role": "user",
+            "content": "What are the ids of documents that contain the paragraph text 'Brazil' and 'Ireland'?"
+        },
+        {
+            "role": "assistant",
+            "content": "select document_id from paragraphs where paragraph_text = 'brazil' intersect select document_id from paragraphs where paragraph_text = 'ireland';"
+        },
+        {
+            "role": "result",
+            "content": "select document_id from paragraphs where paragraph_text = 'brazil' union select document_id from paragraphs where paragraph_text = 'ireland';"
+        }
+    ]
+}

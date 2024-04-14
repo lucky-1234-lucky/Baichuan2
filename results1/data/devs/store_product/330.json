@@ -1,0 +1,28 @@
+{
+    "conversations": [
+        {
+            "role": "system",
+            "content": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\n##Instruction:\nstore_product contains tables such as district.\nTable district has columns such as district_id, district_name, headquartered_city, city_population, city_area."
+        },
+        {
+            "role": "user",
+            "content": "Find the name and population of district with population between 200000 and 2000000"
+        },
+        {
+            "role": "assistant",
+            "content": "select district_name , city_population from district where city_population between 200000 and 2000000;"
+        },
+        {
+            "role": "result",
+            "content": "To find the name and population of districts with populations between 200,000 and 2 million (2,000,000), you can use a simple SQL query. Here's what the query would look like:\n\n```sql\nSELECT district_name, city_population\nFROM district\nWHERE city_population BETWEEN 200000 AND 2000000;\n```\n\nThis query selects the `district_name` and `city_population` from the `district` table where the `city_population` is between 200,000 and 2 million."
+        },
+        {
+            "role": "exuc_assist",
+            "content": 0
+        },
+        {
+            "role": "exuc_infer",
+            "content": -1
+        }
+    ]
+}

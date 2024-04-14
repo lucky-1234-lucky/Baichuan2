@@ -1,0 +1,28 @@
+{
+    "conversations": [
+        {
+            "role": "system",
+            "content": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\n##Instruction:\npets_1 contains tables such as has_pet, student, pets.\nTable has_pet has columns such as stuid, petid, where petid is the primary key, stuid is the primary key.\nTable pets has columns such as petid, pettype, pet_age, weight.\nTable student has columns such as stuid, lname, fname, age, sex, major, advisor, city_code.\nThe petid of pets is the foreign key of petid of has_pet.\nThe stuid of student is the foreign key of stuid of has_pet."
+        },
+        {
+            "role": "user",
+            "content": "What are the students' first names who have both cats and dogs as pets?"
+        },
+        {
+            "role": "assistant",
+            "content": "SELECT t1.fname\nFROM student AS t1\nJOIN has_pet AS t2 ON t1.stuid = t2.stuid\nJOIN pets AS t3 ON t3.petid = t2.petid\nWHERE t3.pettype = 'cat' INTERSECT\n  SELECT t1.fname\n  FROM student AS t1\n  JOIN has_pet AS t2 ON t1.stuid = t2.stuid\n  JOIN pets AS t3 ON t3.petid = t2.petid WHERE t3.pettype = 'dog';"
+        },
+        {
+            "role": "result",
+            "content": "SELECT t2.fname\nFROM has_pet AS t1\nJOIN pets AS t2 ON t1.petid = t2.petid\nWHERE t2.pettype = 'cat' INTERSECT\n  SELECT t2.fname\n  FROM has_pet AS t1\n  JOIN pets AS t2 ON t1.petid = t2.petid WHERE t2.pettype = 'dog';"
+        },
+        {
+            "role": "exuc_assist",
+            "content": -1
+        },
+        {
+            "role": "exuc_infer",
+            "content": -1
+        }
+    ]
+}

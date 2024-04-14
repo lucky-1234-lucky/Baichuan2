@@ -1,0 +1,11 @@
+{
+    "conversations": [
+        {
+            "database": "candidate_poll",
+            "system": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\n##Instruction:\ncandidate_poll contains tables such as people, candidate.\nTable candidate has columns such as candidate_id, people_id, poll_source, date, support_rate, consider_rate, oppose_rate, unsure_rate, where people_id is the primary key.\nTable people has columns such as people_id, sex, name, date_of_birth, height, weight.\nThe people_id of people is the foreign key of people_id of candidate.",
+            "query": "What is the sex of the candidate who had the highest unsure rate?",
+            "answer": "select t1.sex from people as t1 join candidate as t2 on t1.people_id = t2.people_id group by t1.sex order by avg(t2.unsure_rate) desc limit 1;",
+            "insert": []
+        }
+    ]
+}

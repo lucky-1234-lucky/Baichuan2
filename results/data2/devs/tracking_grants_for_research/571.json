@@ -1,0 +1,20 @@
+{
+    "conversations": [
+        {
+            "role": "system",
+            "content": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\n##Instruction:\ntracking_grants_for_research contains tables such as tasks, projects, project_outcomes.\nTable project_outcomes has columns such as project_id, outcome_code, outcome_details, where project_id is the primary key, outcome_code is the primary key.\nTable projects has columns such as project_id, organisation_id, project_details, where organisation_id is the primary key.\nTable tasks has columns such as task_id, project_id, task_details, eg, where project_id is the primary key.\nThe project_id of projects is the foreign key of project_id of project_outcomes.\nThe outcome_code of research_outcomes is the foreign key of outcome_code of project_outcomes.\nThe organisation_id of organisations is the foreign key of organisation_id of projects.\nThe project_id of projects is the foreign key of project_id of tasks."
+        },
+        {
+            "role": "user",
+            "content": "What are the task details, task id and project id for the projects which are detailed as 'omnis' or have more than 2 outcomes?"
+        },
+        {
+            "role": "assistant",
+            "content": "SELECT t1.task_details,\n       t1.task_id,\n       t2.project_id\nFROM tasks AS t1\nJOIN projects AS t2 ON t1.project_id = t2.project_id\nWHERE t2.project_details = 'omnis'\nUNION\nSELECT t1.task_details,\n       t1.task_id,\n       t2.project_id\nFROM tasks AS t1\nJOIN projects AS t2 ON t1.project_id = t2.project_id\nJOIN project_outcomes AS t3 ON t2.project_id = t3.project_id\nGROUP BY t2.project_id\nHAVING count(*) > 2;"
+        },
+        {
+            "role": "result",
+            "content": "SELECT t3.task_details,\n       t1.task_id,\n       t1.project_id\nFROM tasks AS t1\nJOIN projects AS t2 ON t1.project_id = t2.project_id\nJOIN project_outcomes AS t3 ON t1.project_id = t3.project_id\nWHERE t2.project_details = 'omnis'\n  AND t3.outcome_code > 2;"
+        }
+    ]
+}

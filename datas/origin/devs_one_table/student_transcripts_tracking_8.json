@@ -1,0 +1,560 @@
+{
+    "sql": [
+        {
+            "addresses": "CREATE TABLE `addresses` (\n  `address_id` int(11) NOT NULL,\n  `line_1` varchar(255) DEFAULT NULL,\n  `line_2` varchar(255) DEFAULT NULL,\n  `line_3` varchar(255) DEFAULT NULL,\n  `city` varchar(255) DEFAULT NULL,\n  `zip_postcode` varchar(20) DEFAULT NULL,\n  `state_province_county` varchar(255) DEFAULT NULL,\n  `country` varchar(255) DEFAULT NULL,\n  `other_address_details` varchar(255) DEFAULT NULL,\n  PRIMARY KEY (`address_id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8",
+            "fileds": {
+                "field": [
+                    [
+                        "address_id",
+                        "int",
+                        "PRIMARY KEY"
+                    ],
+                    [
+                        "line_1",
+                        "varchar"
+                    ],
+                    [
+                        "line_2",
+                        "varchar"
+                    ],
+                    [
+                        "line_3",
+                        "varchar"
+                    ],
+                    [
+                        "city",
+                        "varchar"
+                    ],
+                    [
+                        "zip_postcode",
+                        "varchar"
+                    ],
+                    [
+                        "state_province_county",
+                        "varchar"
+                    ],
+                    [
+                        "country",
+                        "varchar"
+                    ],
+                    [
+                        "other_address_details",
+                        "varchar"
+                    ]
+                ],
+                "foreign_key": []
+            }
+        },
+        {
+            "courses": "CREATE TABLE `courses` (\n  `course_id` int(11) NOT NULL,\n  `course_name` varchar(255) DEFAULT NULL,\n  `course_description` varchar(255) DEFAULT NULL,\n  `other_details` varchar(255) DEFAULT NULL,\n  PRIMARY KEY (`course_id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8",
+            "fileds": {
+                "field": [
+                    [
+                        "course_id",
+                        "int",
+                        "PRIMARY KEY"
+                    ],
+                    [
+                        "course_name",
+                        "varchar"
+                    ],
+                    [
+                        "course_description",
+                        "varchar"
+                    ],
+                    [
+                        "other_details",
+                        "varchar"
+                    ]
+                ],
+                "foreign_key": []
+            }
+        },
+        {
+            "degree_programs": "CREATE TABLE `degree_programs` (\n  `degree_program_id` int(11) NOT NULL,\n  `department_id` int(11) NOT NULL,\n  `degree_summary_name` varchar(255) DEFAULT NULL,\n  `degree_summary_description` varchar(255) DEFAULT NULL,\n  `other_details` varchar(255) DEFAULT NULL,\n  PRIMARY KEY (`degree_program_id`),\n  KEY `department_id` (`department_id`),\n  CONSTRAINT `degree_programs_ibfk_1` FOREIGN KEY (`department_id`) REFERENCES `departments` (`department_id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8",
+            "fileds": {
+                "field": [
+                    [
+                        "degree_program_id",
+                        "int",
+                        "PRIMARY KEY"
+                    ],
+                    [
+                        "department_id",
+                        "int"
+                    ],
+                    [
+                        "degree_summary_name",
+                        "varchar"
+                    ],
+                    [
+                        "degree_summary_description",
+                        "varchar"
+                    ],
+                    [
+                        "other_details",
+                        "varchar"
+                    ]
+                ],
+                "foreign_key": [
+                    [
+                        "department_id",
+                        "departments",
+                        "department_id"
+                    ]
+                ]
+            }
+        },
+        {
+            "departments": "CREATE TABLE `departments` (\n  `department_id` int(11) NOT NULL,\n  `department_name` varchar(255) DEFAULT NULL,\n  `department_description` varchar(255) DEFAULT NULL,\n  `other_details` varchar(255) DEFAULT NULL,\n  PRIMARY KEY (`department_id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8",
+            "fileds": {
+                "field": [
+                    [
+                        "department_id",
+                        "int",
+                        "PRIMARY KEY"
+                    ],
+                    [
+                        "department_name",
+                        "varchar"
+                    ],
+                    [
+                        "department_description",
+                        "varchar"
+                    ],
+                    [
+                        "other_details",
+                        "varchar"
+                    ]
+                ],
+                "foreign_key": []
+            }
+        },
+        {
+            "sections": "CREATE TABLE `sections` (\n  `section_id` int(11) NOT NULL,\n  `course_id` int(11) NOT NULL,\n  `section_name` varchar(255) DEFAULT NULL,\n  `section_description` varchar(255) DEFAULT NULL,\n  `other_details` varchar(255) DEFAULT NULL,\n  PRIMARY KEY (`section_id`),\n  KEY `course_id` (`course_id`),\n  CONSTRAINT `sections_ibfk_1` FOREIGN KEY (`course_id`) REFERENCES `courses` (`course_id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8",
+            "fileds": {
+                "field": [
+                    [
+                        "section_id",
+                        "int",
+                        "PRIMARY KEY"
+                    ],
+                    [
+                        "course_id",
+                        "int"
+                    ],
+                    [
+                        "section_name",
+                        "varchar"
+                    ],
+                    [
+                        "section_description",
+                        "varchar"
+                    ],
+                    [
+                        "other_details",
+                        "varchar"
+                    ]
+                ],
+                "foreign_key": [
+                    [
+                        "course_id",
+                        "courses",
+                        "course_id"
+                    ]
+                ]
+            }
+        },
+        {
+            "semesters": "CREATE TABLE `semesters` (\n  `semester_id` int(11) NOT NULL,\n  `semester_name` varchar(255) DEFAULT NULL,\n  `semester_description` varchar(255) DEFAULT NULL,\n  `other_details` varchar(255) DEFAULT NULL,\n  PRIMARY KEY (`semester_id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8",
+            "fileds": {
+                "field": [
+                    [
+                        "semester_id",
+                        "int",
+                        "PRIMARY KEY"
+                    ],
+                    [
+                        "semester_name",
+                        "varchar"
+                    ],
+                    [
+                        "semester_description",
+                        "varchar"
+                    ],
+                    [
+                        "other_details",
+                        "varchar"
+                    ]
+                ],
+                "foreign_key": []
+            }
+        },
+        {
+            "student_enrolment": "CREATE TABLE `student_enrolment` (\n  `student_enrolment_id` int(11) NOT NULL,\n  `degree_program_id` int(11) NOT NULL,\n  `semester_id` int(11) NOT NULL,\n  `student_id` int(11) NOT NULL,\n  `other_details` varchar(255) DEFAULT NULL,\n  PRIMARY KEY (`student_enrolment_id`),\n  KEY `degree_program_id` (`degree_program_id`),\n  KEY `semester_id` (`semester_id`),\n  KEY `student_id` (`student_id`),\n  CONSTRAINT `student_enrolment_ibfk_1` FOREIGN KEY (`degree_program_id`) REFERENCES `degree_programs` (`degree_program_id`),\n  CONSTRAINT `student_enrolment_ibfk_2` FOREIGN KEY (`semester_id`) REFERENCES `semesters` (`semester_id`),\n  CONSTRAINT `student_enrolment_ibfk_3` FOREIGN KEY (`student_id`) REFERENCES `students` (`student_id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8",
+            "fileds": {
+                "field": [
+                    [
+                        "student_enrolment_id",
+                        "int",
+                        "PRIMARY KEY"
+                    ],
+                    [
+                        "degree_program_id",
+                        "int"
+                    ],
+                    [
+                        "semester_id",
+                        "int"
+                    ],
+                    [
+                        "student_id",
+                        "int"
+                    ],
+                    [
+                        "other_details",
+                        "varchar"
+                    ]
+                ],
+                "foreign_key": [
+                    [
+                        "degree_program_id",
+                        "degree_programs",
+                        "degree_program_id"
+                    ],
+                    [
+                        "semester_id",
+                        "semesters",
+                        "semester_id"
+                    ],
+                    [
+                        "student_id",
+                        "students",
+                        "student_id"
+                    ]
+                ]
+            }
+        },
+        {
+            "student_enrolment_courses": "CREATE TABLE `student_enrolment_courses` (\n  `student_course_id` int(11) NOT NULL,\n  `course_id` int(11) NOT NULL,\n  `student_enrolment_id` int(11) NOT NULL,\n  PRIMARY KEY (`student_course_id`),\n  KEY `course_id` (`course_id`),\n  KEY `student_enrolment_id` (`student_enrolment_id`),\n  CONSTRAINT `student_enrolment_courses_ibfk_1` FOREIGN KEY (`course_id`) REFERENCES `courses` (`course_id`),\n  CONSTRAINT `student_enrolment_courses_ibfk_2` FOREIGN KEY (`student_enrolment_id`) REFERENCES `student_enrolment` (`student_enrolment_id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8",
+            "fileds": {
+                "field": [
+                    [
+                        "student_course_id",
+                        "int",
+                        "PRIMARY KEY"
+                    ],
+                    [
+                        "course_id",
+                        "int"
+                    ],
+                    [
+                        "student_enrolment_id",
+                        "int"
+                    ]
+                ],
+                "foreign_key": [
+                    [
+                        "course_id",
+                        "courses",
+                        "course_id"
+                    ],
+                    [
+                        "student_enrolment_id",
+                        "student_enrolment",
+                        "student_enrolment_id"
+                    ]
+                ]
+            }
+        },
+        {
+            "students": "CREATE TABLE `students` (\n  `student_id` int(11) NOT NULL,\n  `current_address_id` int(11) NOT NULL,\n  `permanent_address_id` int(11) NOT NULL,\n  `first_name` varchar(80) DEFAULT NULL,\n  `middle_name` varchar(40) DEFAULT NULL,\n  `last_name` varchar(40) DEFAULT NULL,\n  `cell_mobile_number` varchar(40) DEFAULT NULL,\n  `email_address` varchar(40) DEFAULT NULL,\n  `ssn` varchar(40) DEFAULT NULL,\n  `date_first_registered` datetime DEFAULT NULL,\n  `date_left` datetime DEFAULT NULL,\n  `other_student_details` varchar(255) DEFAULT NULL,\n  PRIMARY KEY (`student_id`),\n  KEY `current_address_id` (`current_address_id`),\n  KEY `permanent_address_id` (`permanent_address_id`),\n  CONSTRAINT `students_ibfk_1` FOREIGN KEY (`current_address_id`) REFERENCES `addresses` (`address_id`),\n  CONSTRAINT `students_ibfk_2` FOREIGN KEY (`permanent_address_id`) REFERENCES `addresses` (`address_id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8",
+            "fileds": {
+                "field": [
+                    [
+                        "student_id",
+                        "int",
+                        "PRIMARY KEY"
+                    ],
+                    [
+                        "current_address_id",
+                        "int"
+                    ],
+                    [
+                        "permanent_address_id",
+                        "int"
+                    ],
+                    [
+                        "first_name",
+                        "varchar"
+                    ],
+                    [
+                        "middle_name",
+                        "varchar"
+                    ],
+                    [
+                        "last_name",
+                        "varchar"
+                    ],
+                    [
+                        "cell_mobile_number",
+                        "varchar"
+                    ],
+                    [
+                        "email_address",
+                        "varchar"
+                    ],
+                    [
+                        "ssn",
+                        "varchar"
+                    ],
+                    [
+                        "date_first_registered",
+                        "datetime"
+                    ],
+                    [
+                        "date_left",
+                        "datetime"
+                    ],
+                    [
+                        "other_student_details",
+                        "varchar"
+                    ]
+                ],
+                "foreign_key": [
+                    [
+                        "current_address_id",
+                        "addresses",
+                        "address_id"
+                    ],
+                    [
+                        "permanent_address_id",
+                        "addresses",
+                        "address_id"
+                    ]
+                ]
+            }
+        },
+        {
+            "transcript_contents": "CREATE TABLE `transcript_contents` (\n  `student_course_id` int(11) NOT NULL,\n  `transcript_id` int(11) NOT NULL,\n  KEY `student_course_id` (`student_course_id`),\n  KEY `transcript_id` (`transcript_id`),\n  CONSTRAINT `transcript_contents_ibfk_1` FOREIGN KEY (`student_course_id`) REFERENCES `student_enrolment_courses` (`student_course_id`),\n  CONSTRAINT `transcript_contents_ibfk_2` FOREIGN KEY (`transcript_id`) REFERENCES `transcripts` (`transcript_id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8",
+            "fileds": {
+                "field": [
+                    [
+                        "student_course_id",
+                        "int"
+                    ],
+                    [
+                        "transcript_id",
+                        "int"
+                    ]
+                ],
+                "foreign_key": [
+                    [
+                        "student_course_id",
+                        "student_enrolment_courses",
+                        "student_course_id"
+                    ],
+                    [
+                        "transcript_id",
+                        "transcripts",
+                        "transcript_id"
+                    ]
+                ]
+            }
+        },
+        {
+            "transcripts": "CREATE TABLE `transcripts` (\n  `transcript_id` int(11) NOT NULL,\n  `transcript_date` datetime DEFAULT NULL,\n  `other_details` varchar(255) DEFAULT NULL,\n  PRIMARY KEY (`transcript_id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8",
+            "fileds": {
+                "field": [
+                    [
+                        "transcript_id",
+                        "int",
+                        "PRIMARY KEY"
+                    ],
+                    [
+                        "transcript_date",
+                        "datetime"
+                    ],
+                    [
+                        "other_details",
+                        "varchar"
+                    ]
+                ],
+                "foreign_key": []
+            }
+        }
+    ],
+    "input": "How many different departments offer degrees?",
+    "response": "select count(distinct department_id) from degree_programs;",
+    "insert": [
+        "INSERT INTO addresses (`address_id`, `line_1`, `line_2`, `line_3`, `city`, `zip_postcode`, `state_province_county`, `country`, `other_address_details`) VALUES (1, '2294 grant square apt. 235', 'apt. 370', null, 'port chelsea', '148', 'virginia', 'iceland', null);",
+        "INSERT INTO addresses (`address_id`, `line_1`, `line_2`, `line_3`, `city`, `zip_postcode`, `state_province_county`, `country`, `other_address_details`) VALUES (2, '3999 aufderhar ways suite 593', 'apt. 388', null, 'lake laishafurt', '943', 'kentucky', 'burundi', null);",
+        "INSERT INTO addresses (`address_id`, `line_1`, `line_2`, `line_3`, `city`, `zip_postcode`, `state_province_county`, `country`, `other_address_details`) VALUES (3, '67942 carlotta ferry apt. 686', 'apt. 583', null, 'goodwinhaven', '541', 'kansas', 'saudi arabia', null);",
+        "INSERT INTO addresses (`address_id`, `line_1`, `line_2`, `line_3`, `city`, `zip_postcode`, `state_province_county`, `country`, `other_address_details`) VALUES (4, '0144 lamar plaza apt. 346', 'suite 703', null, 'port evanston', '847', 'washington', 'angola', null);",
+        "INSERT INTO addresses (`address_id`, `line_1`, `line_2`, `line_3`, `city`, `zip_postcode`, `state_province_county`, `country`, `other_address_details`) VALUES (5, '858 peggie bypass suite 212', 'apt. 335', null, 'michelleburgh', '446', 'hawaii', 'haiti', null);",
+        "INSERT INTO addresses (`address_id`, `line_1`, `line_2`, `line_3`, `city`, `zip_postcode`, `state_province_county`, `country`, `other_address_details`) VALUES (6, '16998 mraz lodge', 'apt. 689', null, 'north omer', '902', 'kentucky', 'gibraltar', null);",
+        "INSERT INTO addresses (`address_id`, `line_1`, `line_2`, `line_3`, `city`, `zip_postcode`, `state_province_county`, `country`, `other_address_details`) VALUES (7, '193 marlin brook', 'apt. 406', null, 'herzoghaven', '068', 'arkansas', 'cook islands', null);",
+        "INSERT INTO addresses (`address_id`, `line_1`, `line_2`, `line_3`, `city`, `zip_postcode`, `state_province_county`, `country`, `other_address_details`) VALUES (8, '202 hessel views apt. 468', 'apt. 305', null, 'mariliehaven', '638', 'idaho', 'croatia', null);",
+        "INSERT INTO addresses (`address_id`, `line_1`, `line_2`, `line_3`, `city`, `zip_postcode`, `state_province_county`, `country`, `other_address_details`) VALUES (9, '0643 muller vista', 'suite 383', null, 'port elvisfurt', '777', 'northcarolina', 'gabon', null);",
+        "INSERT INTO addresses (`address_id`, `line_1`, `line_2`, `line_3`, `city`, `zip_postcode`, `state_province_county`, `country`, `other_address_details`) VALUES (10, '7081 eda center', 'suite 830', null, 'rutherfordtown', '839', 'delaware', 'kyrgyz republic', null);",
+        "INSERT INTO addresses (`address_id`, `line_1`, `line_2`, `line_3`, `city`, `zip_postcode`, `state_province_county`, `country`, `other_address_details`) VALUES (11, '9283 schulist falls apt. 037', 'suite 239', null, 'south palma', '400', 'westvirginia', 'bermuda', null);",
+        "INSERT INTO addresses (`address_id`, `line_1`, `line_2`, `line_3`, `city`, `zip_postcode`, `state_province_county`, `country`, `other_address_details`) VALUES (12, '979 haag shores suite 656', 'apt. 468', null, 'prohaskafort', '590', 'southdakota', 'lesotho', null);",
+        "INSERT INTO addresses (`address_id`, `line_1`, `line_2`, `line_3`, `city`, `zip_postcode`, `state_province_county`, `country`, `other_address_details`) VALUES (13, '492 wilkinson route', 'suite 865', null, 'new clemensburgh', '386', 'florida', 'samoa', null);",
+        "INSERT INTO addresses (`address_id`, `line_1`, `line_2`, `line_3`, `city`, `zip_postcode`, `state_province_county`, `country`, `other_address_details`) VALUES (14, '186 evan motorway apt. 409', 'suite 079', null, 'lake careyberg', '895', 'kentucky', 'new caledonia', null);",
+        "INSERT INTO addresses (`address_id`, `line_1`, `line_2`, `line_3`, `city`, `zip_postcode`, `state_province_county`, `country`, `other_address_details`) VALUES (15, '74046 metz walk apt. 113', 'suite 674', null, 'port oceane', '669', 'wyoming', 'norfolk island', null);",
+        "INSERT INTO courses (`course_id`, `course_name`, `course_description`, `other_details`) VALUES (1, 'ds', 'p', null);",
+        "INSERT INTO courses (`course_id`, `course_name`, `course_description`, `other_details`) VALUES (2, 'math', 'q', null);",
+        "INSERT INTO courses (`course_id`, `course_name`, `course_description`, `other_details`) VALUES (3, 'os', 'v', null);",
+        "INSERT INTO courses (`course_id`, `course_name`, `course_description`, `other_details`) VALUES (4, 'en', 'k', null);",
+        "INSERT INTO courses (`course_id`, `course_name`, `course_description`, `other_details`) VALUES (5, 'fr', 'c', null);",
+        "INSERT INTO courses (`course_id`, `course_name`, `course_description`, `other_details`) VALUES (6, 'la', 'n', null);",
+        "INSERT INTO courses (`course_id`, `course_name`, `course_description`, `other_details`) VALUES (7, 'cal', 'l', null);",
+        "INSERT INTO courses (`course_id`, `course_name`, `course_description`, `other_details`) VALUES (8, 'nlp', 'q', null);",
+        "INSERT INTO courses (`course_id`, `course_name`, `course_description`, `other_details`) VALUES (9, 'dl', 'l', null);",
+        "INSERT INTO courses (`course_id`, `course_name`, `course_description`, `other_details`) VALUES (10, 'ml', 'b', null);",
+        "INSERT INTO courses (`course_id`, `course_name`, `course_description`, `other_details`) VALUES (11, 'ai', 'w', null);",
+        "INSERT INTO courses (`course_id`, `course_name`, `course_description`, `other_details`) VALUES (12, 'db', 'q', null);",
+        "INSERT INTO courses (`course_id`, `course_name`, `course_description`, `other_details`) VALUES (13, 'rs', 'v', null);",
+        "INSERT INTO courses (`course_id`, `course_name`, `course_description`, `other_details`) VALUES (14, 'pl', 'p', null);",
+        "INSERT INTO courses (`course_id`, `course_name`, `course_description`, `other_details`) VALUES (15, 'oop', 'd', null);",
+        "INSERT INTO departments (`department_id`, `department_name`, `department_description`, `other_details`) VALUES (1, 'computer science', 'error', null);",
+        "INSERT INTO departments (`department_id`, `department_name`, `department_description`, `other_details`) VALUES (2, 'history', 'nostrum', null);",
+        "INSERT INTO departments (`department_id`, `department_name`, `department_description`, `other_details`) VALUES (3, 'art', 'aliquam', null);",
+        "INSERT INTO departments (`department_id`, `department_name`, `department_description`, `other_details`) VALUES (4, 'linguistic', 'natus', null);",
+        "INSERT INTO departments (`department_id`, `department_name`, `department_description`, `other_details`) VALUES (5, 'management', 'nihil', null);",
+        "INSERT INTO departments (`department_id`, `department_name`, `department_description`, `other_details`) VALUES (6, 'engineer', 'autem', null);",
+        "INSERT INTO departments (`department_id`, `department_name`, `department_description`, `other_details`) VALUES (7, 'math', 'doloribus', null);",
+        "INSERT INTO departments (`department_id`, `department_name`, `department_description`, `other_details`) VALUES (8, 'statistics', 'nihil', null);",
+        "INSERT INTO departments (`department_id`, `department_name`, `department_description`, `other_details`) VALUES (9, 'law', 'dolorem', null);",
+        "INSERT INTO departments (`department_id`, `department_name`, `department_description`, `other_details`) VALUES (10, 'economics', 'non', null);",
+        "INSERT INTO departments (`department_id`, `department_name`, `department_description`, `other_details`) VALUES (11, 'biology', 'consequatur', null);",
+        "INSERT INTO departments (`department_id`, `department_name`, `department_description`, `other_details`) VALUES (12, 'medical', 'ea', null);",
+        "INSERT INTO departments (`department_id`, `department_name`, `department_description`, `other_details`) VALUES (13, 'dance', 'consequatur', null);",
+        "INSERT INTO departments (`department_id`, `department_name`, `department_description`, `other_details`) VALUES (14, 'drama', 'in', null);",
+        "INSERT INTO departments (`department_id`, `department_name`, `department_description`, `other_details`) VALUES (15, 'geography', 'nisi', null);",
+        "INSERT INTO degree_programs (`degree_program_id`, `department_id`, `degree_summary_name`, `degree_summary_description`, `other_details`) VALUES (1, 13, 'master', 'architecto', null);",
+        "INSERT INTO degree_programs (`degree_program_id`, `department_id`, `degree_summary_name`, `degree_summary_description`, `other_details`) VALUES (2, 2, 'master', 'cumque', null);",
+        "INSERT INTO degree_programs (`degree_program_id`, `department_id`, `degree_summary_name`, `degree_summary_description`, `other_details`) VALUES (3, 13, 'master', 'placeat', null);",
+        "INSERT INTO degree_programs (`degree_program_id`, `department_id`, `degree_summary_name`, `degree_summary_description`, `other_details`) VALUES (4, 8, 'bachelor', 'unde', null);",
+        "INSERT INTO degree_programs (`degree_program_id`, `department_id`, `degree_summary_name`, `degree_summary_description`, `other_details`) VALUES (5, 11, 'master', 'officiis', null);",
+        "INSERT INTO degree_programs (`degree_program_id`, `department_id`, `degree_summary_name`, `degree_summary_description`, `other_details`) VALUES (6, 8, 'bachelor', 'aperiam', null);",
+        "INSERT INTO degree_programs (`degree_program_id`, `department_id`, `degree_summary_name`, `degree_summary_description`, `other_details`) VALUES (7, 14, 'bachelor', 'assumenda', null);",
+        "INSERT INTO degree_programs (`degree_program_id`, `department_id`, `degree_summary_name`, `degree_summary_description`, `other_details`) VALUES (8, 15, 'master', 'earum', null);",
+        "INSERT INTO degree_programs (`degree_program_id`, `department_id`, `degree_summary_name`, `degree_summary_description`, `other_details`) VALUES (9, 3, 'bachelor', 'voluptas', null);",
+        "INSERT INTO degree_programs (`degree_program_id`, `department_id`, `degree_summary_name`, `degree_summary_description`, `other_details`) VALUES (10, 8, 'bachelor', 'aut', null);",
+        "INSERT INTO degree_programs (`degree_program_id`, `department_id`, `degree_summary_name`, `degree_summary_description`, `other_details`) VALUES (11, 14, 'bachelor', 'aut', null);",
+        "INSERT INTO degree_programs (`degree_program_id`, `department_id`, `degree_summary_name`, `degree_summary_description`, `other_details`) VALUES (12, 4, 'master', 'qui', null);",
+        "INSERT INTO degree_programs (`degree_program_id`, `department_id`, `degree_summary_name`, `degree_summary_description`, `other_details`) VALUES (13, 7, 'bachelor', 'quam', null);",
+        "INSERT INTO degree_programs (`degree_program_id`, `department_id`, `degree_summary_name`, `degree_summary_description`, `other_details`) VALUES (14, 2, 'phd', 'et', null);",
+        "INSERT INTO degree_programs (`degree_program_id`, `department_id`, `degree_summary_name`, `degree_summary_description`, `other_details`) VALUES (15, 12, 'phd', 'esse', null);",
+        "INSERT INTO sections (`section_id`, `course_id`, `section_name`, `section_description`, `other_details`) VALUES (1, 9, 'a', 'non', null);",
+        "INSERT INTO sections (`section_id`, `course_id`, `section_name`, `section_description`, `other_details`) VALUES (2, 2, 'b', 'voluptatem', null);",
+        "INSERT INTO sections (`section_id`, `course_id`, `section_name`, `section_description`, `other_details`) VALUES (3, 8, 'c', 'qui', null);",
+        "INSERT INTO sections (`section_id`, `course_id`, `section_name`, `section_description`, `other_details`) VALUES (4, 1, 'd', 'voluptas', null);",
+        "INSERT INTO sections (`section_id`, `course_id`, `section_name`, `section_description`, `other_details`) VALUES (5, 5, 'e', 'ex', null);",
+        "INSERT INTO sections (`section_id`, `course_id`, `section_name`, `section_description`, `other_details`) VALUES (6, 7, 'f', 'doloremque', null);",
+        "INSERT INTO sections (`section_id`, `course_id`, `section_name`, `section_description`, `other_details`) VALUES (7, 12, 'g', 'provident', null);",
+        "INSERT INTO sections (`section_id`, `course_id`, `section_name`, `section_description`, `other_details`) VALUES (8, 14, 'h', 'et', null);",
+        "INSERT INTO sections (`section_id`, `course_id`, `section_name`, `section_description`, `other_details`) VALUES (9, 8, 'j', 'quis', null);",
+        "INSERT INTO sections (`section_id`, `course_id`, `section_name`, `section_description`, `other_details`) VALUES (10, 14, 'k', 'nesciunt', null);",
+        "INSERT INTO sections (`section_id`, `course_id`, `section_name`, `section_description`, `other_details`) VALUES (11, 1, 'l', 'ad', null);",
+        "INSERT INTO sections (`section_id`, `course_id`, `section_name`, `section_description`, `other_details`) VALUES (12, 4, 'o', 'et', null);",
+        "INSERT INTO sections (`section_id`, `course_id`, `section_name`, `section_description`, `other_details`) VALUES (13, 5, 'p', 'facilis', null);",
+        "INSERT INTO sections (`section_id`, `course_id`, `section_name`, `section_description`, `other_details`) VALUES (14, 6, 'u', 'reprehenderit', null);",
+        "INSERT INTO sections (`section_id`, `course_id`, `section_name`, `section_description`, `other_details`) VALUES (15, 10, 'y', 'qui', null);",
+        "INSERT INTO semesters (`semester_id`, `semester_name`, `semester_description`, `other_details`) VALUES (1, 'spring 2010', 'x', null);",
+        "INSERT INTO semesters (`semester_id`, `semester_name`, `semester_description`, `other_details`) VALUES (2, 'summer 2010', 'g', null);",
+        "INSERT INTO semesters (`semester_id`, `semester_name`, `semester_description`, `other_details`) VALUES (3, 'fall 2010', 'w', null);",
+        "INSERT INTO semesters (`semester_id`, `semester_name`, `semester_description`, `other_details`) VALUES (4, 'winter 2010', 'c', null);",
+        "INSERT INTO semesters (`semester_id`, `semester_name`, `semester_description`, `other_details`) VALUES (5, 'spring 2018', 'c', null);",
+        "INSERT INTO semesters (`semester_id`, `semester_name`, `semester_description`, `other_details`) VALUES (6, 'spring 2012', 'l', null);",
+        "INSERT INTO semesters (`semester_id`, `semester_name`, `semester_description`, `other_details`) VALUES (7, 'spring 2013', 'y', null);",
+        "INSERT INTO semesters (`semester_id`, `semester_name`, `semester_description`, `other_details`) VALUES (8, 'spring 2014', 'x', null);",
+        "INSERT INTO semesters (`semester_id`, `semester_name`, `semester_description`, `other_details`) VALUES (9, 'spring 2015', 'x', null);",
+        "INSERT INTO semesters (`semester_id`, `semester_name`, `semester_description`, `other_details`) VALUES (10, 'spring 2016', 'f', null);",
+        "INSERT INTO semesters (`semester_id`, `semester_name`, `semester_description`, `other_details`) VALUES (11, 'spring 2017', 'g', null);",
+        "INSERT INTO semesters (`semester_id`, `semester_name`, `semester_description`, `other_details`) VALUES (12, 'spring 2018', 'm', null);",
+        "INSERT INTO semesters (`semester_id`, `semester_name`, `semester_description`, `other_details`) VALUES (13, 'fall 2018', 'q', null);",
+        "INSERT INTO semesters (`semester_id`, `semester_name`, `semester_description`, `other_details`) VALUES (14, 'winter 2018', 't', null);",
+        "INSERT INTO semesters (`semester_id`, `semester_name`, `semester_description`, `other_details`) VALUES (15, 'spring 2019', 'o', null);",
+        "INSERT INTO students (`student_id`, `current_address_id`, `permanent_address_id`, `first_name`, `middle_name`, `last_name`, `cell_mobile_number`, `email_address`, `ssn`, `date_first_registered`, `date_left`, `other_student_details`) VALUES (1, 10, 15, 'timmothy', 'anna', 'ward', ' (096) 889-8954x524', 'erwin.zboncak@example.com', '965', '1971-02-05 07:28:23', '1971-05-17 19:28:49', 'quia');",
+        "INSERT INTO students (`student_id`, `current_address_id`, `permanent_address_id`, `first_name`, `middle_name`, `last_name`, `cell_mobile_number`, `email_address`, `ssn`, `date_first_registered`, `date_left`, `other_student_details`) VALUES (2, 12, 5, 'hobart', 'lorenz', 'balistreri', '1-009-710-5151', 'swift.kolby@example.com', '304246', '1976-10-26 02:33:06', '2013-10-05 17:41:28', 'autem');",
+        "INSERT INTO students (`student_id`, `current_address_id`, `permanent_address_id`, `first_name`, `middle_name`, `last_name`, `cell_mobile_number`, `email_address`, `ssn`, `date_first_registered`, `date_left`, `other_student_details`) VALUES (3, 9, 5, 'warren', 'violet', 'gleichner', '07661787471', 'johns.unique@example.net', '3', '2007-08-29 23:25:41', '2007-03-31 09:53:19', 'facilis');",
+        "INSERT INTO students (`student_id`, `current_address_id`, `permanent_address_id`, `first_name`, `middle_name`, `last_name`, `cell_mobile_number`, `email_address`, `ssn`, `date_first_registered`, `date_left`, `other_student_details`) VALUES (4, 7, 11, 'jarvis', 'aaliyah', 'carroll', '09700166582', 'jillian26@example.net', '141072406', '2014-03-28 05:48:23', '2007-08-02 04:12:58', 'atque');",
+        "INSERT INTO students (`student_id`, `current_address_id`, `permanent_address_id`, `first_name`, `middle_name`, `last_name`, `cell_mobile_number`, `email_address`, `ssn`, `date_first_registered`, `date_left`, `other_student_details`) VALUES (5, 9, 9, 'milton', 'vaughn', 'christiansen', '171-642-5684', 'lhartmann@example.org', '', '1973-05-19 19:12:46', '2007-11-28 12:50:21', 'laborum');",
+        "INSERT INTO students (`student_id`, `current_address_id`, `permanent_address_id`, `first_name`, `middle_name`, `last_name`, `cell_mobile_number`, `email_address`, `ssn`, `date_first_registered`, `date_left`, `other_student_details`) VALUES (6, 6, 3, 'stanford', 'mona', 'rogahn', '436.613.7683', 'skassulke@example.net', '248', '1997-03-20 16:47:25', '2016-04-09 12:27:04', 'qui');",
+        "INSERT INTO students (`student_id`, `current_address_id`, `permanent_address_id`, `first_name`, `middle_name`, `last_name`, `cell_mobile_number`, `email_address`, `ssn`, `date_first_registered`, `date_left`, `other_student_details`) VALUES (7, 15, 3, 'frida', 'aisha', 'huel', '1-879-796-8987x164', 'baumbach.lucious@example.org', '668', '2018-03-13 09:56:22', '1997-11-16 08:54:33', 'dolorum');",
+        "INSERT INTO students (`student_id`, `current_address_id`, `permanent_address_id`, `first_name`, `middle_name`, `last_name`, `cell_mobile_number`, `email_address`, `ssn`, `date_first_registered`, `date_left`, `other_student_details`) VALUES (8, 1, 5, 'delaney', 'judd', 'ankunding', '03174364122', 'dell43@example.net', '402', '1982-02-14 08:46:35', '2004-12-08 05:29:11', 'voluptatem');",
+        "INSERT INTO students (`student_id`, `current_address_id`, `permanent_address_id`, `first_name`, `middle_name`, `last_name`, `cell_mobile_number`, `email_address`, `ssn`, `date_first_registered`, `date_left`, `other_student_details`) VALUES (9, 2, 15, 'reva', 'golda', 'osinski', ' (507) 365-8405', 'qo''kon@example.com', '39', '2017-01-04 08:10:25', '1990-09-01 05:03:27', 'nesciunt');",
+        "INSERT INTO students (`student_id`, `current_address_id`, `permanent_address_id`, `first_name`, `middle_name`, `last_name`, `cell_mobile_number`, `email_address`, `ssn`, `date_first_registered`, `date_left`, `other_student_details`) VALUES (10, 15, 14, 'helga', 'cleve', 'mohr', '677.401.9382', 'nya.lesch@example.net', '43', '2009-09-25 00:14:25', '2017-07-09 21:38:43', 'rerum');",
+        "INSERT INTO students (`student_id`, `current_address_id`, `permanent_address_id`, `first_name`, `middle_name`, `last_name`, `cell_mobile_number`, `email_address`, `ssn`, `date_first_registered`, `date_left`, `other_student_details`) VALUES (11, 14, 4, 'gregg', 'mossie', 'schuppe', ' (462) 246-7921', 'nbruen@example.org', '494', '1989-05-24 23:31:29', '1975-10-09 00:49:27', 'omnis');",
+        "INSERT INTO students (`student_id`, `current_address_id`, `permanent_address_id`, `first_name`, `middle_name`, `last_name`, `cell_mobile_number`, `email_address`, `ssn`, `date_first_registered`, `date_left`, `other_student_details`) VALUES (12, 14, 9, 'orrin', 'neal', 'kemmer', ' (982) 153-1469x1733', 'beth42@example.org', '6274274', '2005-12-15 08:42:10', '2006-08-04 17:26:49', 'non');",
+        "INSERT INTO students (`student_id`, `current_address_id`, `permanent_address_id`, `first_name`, `middle_name`, `last_name`, `cell_mobile_number`, `email_address`, `ssn`, `date_first_registered`, `date_left`, `other_student_details`) VALUES (13, 9, 8, 'deon', 'brooklyn', 'weimann', ' (213) 445-0399x85208', 'jhuel@example.com', '68095', '1986-02-24 21:12:23', '2014-05-30 23:32:02', 'assumenda');",
+        "INSERT INTO students (`student_id`, `current_address_id`, `permanent_address_id`, `first_name`, `middle_name`, `last_name`, `cell_mobile_number`, `email_address`, `ssn`, `date_first_registered`, `date_left`, `other_student_details`) VALUES (14, 12, 11, 'jordy', 'osborne', 'rempel', ' (605) 919-3594x3661', 'gracie29@example.com', '34458427', '2004-12-24 12:36:46', '1999-08-24 00:07:10', 'et');",
+        "INSERT INTO students (`student_id`, `current_address_id`, `permanent_address_id`, `first_name`, `middle_name`, `last_name`, `cell_mobile_number`, `email_address`, `ssn`, `date_first_registered`, `date_left`, `other_student_details`) VALUES (15, 2, 9, 'jett', 'alberta', 'jaskolski', '877.549.9067x8723', 'mya88@example.org', '156', '1982-06-19 13:15:18', '1982-06-11 00:25:39', 'omnis');",
+        "INSERT INTO student_enrolment (`student_enrolment_id`, `degree_program_id`, `semester_id`, `student_id`, `other_details`) VALUES (1, 12, 13, 14, null);",
+        "INSERT INTO student_enrolment (`student_enrolment_id`, `degree_program_id`, `semester_id`, `student_id`, `other_details`) VALUES (2, 4, 2, 9, null);",
+        "INSERT INTO student_enrolment (`student_enrolment_id`, `degree_program_id`, `semester_id`, `student_id`, `other_details`) VALUES (3, 10, 2, 7, null);",
+        "INSERT INTO student_enrolment (`student_enrolment_id`, `degree_program_id`, `semester_id`, `student_id`, `other_details`) VALUES (4, 4, 15, 9, null);",
+        "INSERT INTO student_enrolment (`student_enrolment_id`, `degree_program_id`, `semester_id`, `student_id`, `other_details`) VALUES (5, 5, 1, 14, null);",
+        "INSERT INTO student_enrolment (`student_enrolment_id`, `degree_program_id`, `semester_id`, `student_id`, `other_details`) VALUES (6, 3, 13, 1, null);",
+        "INSERT INTO student_enrolment (`student_enrolment_id`, `degree_program_id`, `semester_id`, `student_id`, `other_details`) VALUES (7, 9, 9, 4, null);",
+        "INSERT INTO student_enrolment (`student_enrolment_id`, `degree_program_id`, `semester_id`, `student_id`, `other_details`) VALUES (8, 8, 5, 12, null);",
+        "INSERT INTO student_enrolment (`student_enrolment_id`, `degree_program_id`, `semester_id`, `student_id`, `other_details`) VALUES (9, 12, 6, 7, null);",
+        "INSERT INTO student_enrolment (`student_enrolment_id`, `degree_program_id`, `semester_id`, `student_id`, `other_details`) VALUES (10, 11, 2, 7, null);",
+        "INSERT INTO student_enrolment (`student_enrolment_id`, `degree_program_id`, `semester_id`, `student_id`, `other_details`) VALUES (11, 10, 13, 4, null);",
+        "INSERT INTO student_enrolment (`student_enrolment_id`, `degree_program_id`, `semester_id`, `student_id`, `other_details`) VALUES (12, 9, 2, 5, null);",
+        "INSERT INTO student_enrolment (`student_enrolment_id`, `degree_program_id`, `semester_id`, `student_id`, `other_details`) VALUES (13, 2, 12, 6, null);",
+        "INSERT INTO student_enrolment (`student_enrolment_id`, `degree_program_id`, `semester_id`, `student_id`, `other_details`) VALUES (14, 9, 15, 6, null);",
+        "INSERT INTO student_enrolment (`student_enrolment_id`, `degree_program_id`, `semester_id`, `student_id`, `other_details`) VALUES (15, 2, 4, 6, null);",
+        "INSERT INTO student_enrolment_courses (`student_course_id`, `course_id`, `student_enrolment_id`) VALUES (8, 2, 5);",
+        "INSERT INTO student_enrolment_courses (`student_course_id`, `course_id`, `student_enrolment_id`) VALUES (28982908, 8, 9);",
+        "INSERT INTO student_enrolment_courses (`student_course_id`, `course_id`, `student_enrolment_id`) VALUES (1, 6, 8);",
+        "INSERT INTO student_enrolment_courses (`student_course_id`, `course_id`, `student_enrolment_id`) VALUES (2, 14, 5);",
+        "INSERT INTO student_enrolment_courses (`student_course_id`, `course_id`, `student_enrolment_id`) VALUES (9860, 14, 10);",
+        "INSERT INTO student_enrolment_courses (`student_course_id`, `course_id`, `student_enrolment_id`) VALUES (7, 11, 5);",
+        "INSERT INTO student_enrolment_courses (`student_course_id`, `course_id`, `student_enrolment_id`) VALUES (681404, 10, 4);",
+        "INSERT INTO student_enrolment_courses (`student_course_id`, `course_id`, `student_enrolment_id`) VALUES (96, 2, 4);",
+        "INSERT INTO student_enrolment_courses (`student_course_id`, `course_id`, `student_enrolment_id`) VALUES (438800, 3, 4);",
+        "INSERT INTO student_enrolment_courses (`student_course_id`, `course_id`, `student_enrolment_id`) VALUES (83814225, 12, 14);",
+        "INSERT INTO student_enrolment_courses (`student_course_id`, `course_id`, `student_enrolment_id`) VALUES (0, 6, 2);",
+        "INSERT INTO student_enrolment_courses (`student_course_id`, `course_id`, `student_enrolment_id`) VALUES (604750, 4, 6);",
+        "INSERT INTO student_enrolment_courses (`student_course_id`, `course_id`, `student_enrolment_id`) VALUES (70882679, 13, 9);",
+        "INSERT INTO student_enrolment_courses (`student_course_id`, `course_id`, `student_enrolment_id`) VALUES (45105806, 13, 14);",
+        "INSERT INTO student_enrolment_courses (`student_course_id`, `course_id`, `student_enrolment_id`) VALUES (76, 10, 13);",
+        "INSERT INTO transcripts (`transcript_id`, `transcript_date`, `other_details`) VALUES (1, '1988-04-30 01:19:47', null);",
+        "INSERT INTO transcripts (`transcript_id`, `transcript_date`, `other_details`) VALUES (2, '1975-10-28 15:16:51', null);",
+        "INSERT INTO transcripts (`transcript_id`, `transcript_date`, `other_details`) VALUES (3, '1984-12-19 00:37:21', null);",
+        "INSERT INTO transcripts (`transcript_id`, `transcript_date`, `other_details`) VALUES (4, '1999-01-06 20:06:46', null);",
+        "INSERT INTO transcripts (`transcript_id`, `transcript_date`, `other_details`) VALUES (5, '2013-06-30 13:01:40', null);",
+        "INSERT INTO transcripts (`transcript_id`, `transcript_date`, `other_details`) VALUES (6, '2010-12-13 10:55:15', null);",
+        "INSERT INTO transcripts (`transcript_id`, `transcript_date`, `other_details`) VALUES (7, '1990-03-05 11:59:41', null);",
+        "INSERT INTO transcripts (`transcript_id`, `transcript_date`, `other_details`) VALUES (8, '1975-05-06 12:04:47', null);",
+        "INSERT INTO transcripts (`transcript_id`, `transcript_date`, `other_details`) VALUES (9, '1984-01-18 23:07:07', null);",
+        "INSERT INTO transcripts (`transcript_id`, `transcript_date`, `other_details`) VALUES (10, '1975-05-20 18:31:21', null);",
+        "INSERT INTO transcripts (`transcript_id`, `transcript_date`, `other_details`) VALUES (11, '1986-07-12 07:27:29', null);",
+        "INSERT INTO transcripts (`transcript_id`, `transcript_date`, `other_details`) VALUES (12, '1985-08-21 09:32:39', null);",
+        "INSERT INTO transcripts (`transcript_id`, `transcript_date`, `other_details`) VALUES (13, '1985-04-29 01:20:20', null);",
+        "INSERT INTO transcripts (`transcript_id`, `transcript_date`, `other_details`) VALUES (14, '2002-09-24 06:11:49', null);",
+        "INSERT INTO transcripts (`transcript_id`, `transcript_date`, `other_details`) VALUES (15, '1998-11-22 12:18:29', null);",
+        "INSERT INTO transcript_contents (`student_course_id`, `transcript_id`) VALUES (0, 2);",
+        "INSERT INTO transcript_contents (`student_course_id`, `transcript_id`) VALUES (96, 8);",
+        "INSERT INTO transcript_contents (`student_course_id`, `transcript_id`) VALUES (76, 9);",
+        "INSERT INTO transcript_contents (`student_course_id`, `transcript_id`) VALUES (7, 4);",
+        "INSERT INTO transcript_contents (`student_course_id`, `transcript_id`) VALUES (0, 15);",
+        "INSERT INTO transcript_contents (`student_course_id`, `transcript_id`) VALUES (76, 15);",
+        "INSERT INTO transcript_contents (`student_course_id`, `transcript_id`) VALUES (0, 6);",
+        "INSERT INTO transcript_contents (`student_course_id`, `transcript_id`) VALUES (96, 13);",
+        "INSERT INTO transcript_contents (`student_course_id`, `transcript_id`) VALUES (76, 12);",
+        "INSERT INTO transcript_contents (`student_course_id`, `transcript_id`) VALUES (28982908, 11);",
+        "INSERT INTO transcript_contents (`student_course_id`, `transcript_id`) VALUES (2, 8);",
+        "INSERT INTO transcript_contents (`student_course_id`, `transcript_id`) VALUES (0, 5);",
+        "INSERT INTO transcript_contents (`student_course_id`, `transcript_id`) VALUES (8, 5);",
+        "INSERT INTO transcript_contents (`student_course_id`, `transcript_id`) VALUES (45105806, 8);",
+        "INSERT INTO transcript_contents (`student_course_id`, `transcript_id`) VALUES (70882679, 6);"
+    ],
+    "table_names": [
+        "degree_programs"
+    ],
+    "database": "student_transcripts_tracking"
+}

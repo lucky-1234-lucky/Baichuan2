@@ -1,0 +1,11 @@
+{
+    "conversations": [
+        {
+            "database": "film_rank",
+            "system": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\n##Instruction:\nfilm_rank contains tables such as film_market_estimation, film.\nTable film has columns such as film_id, title, studio, director, gross_in_dollar.\nTable film_market_estimation has columns such as estimation_id, low_estimate, high_estimate, film_id, type, market_id, year, where film_id is the primary key, market_id is the primary key.\nThe film_id of film is the foreign key of film_id of film_market_estimation.\nThe market_id of market is the foreign key of market_id of film_market_estimation.",
+            "query": "Who are the different directors of films which had market estimation in 1995?",
+            "answer": "select distinct t1.director from film as t1 join film_market_estimation as t2 on t1.film_id = t2.film_id where t2.year = 1995;",
+            "insert": []
+        }
+    ]
+}

@@ -1,0 +1,11 @@
+{
+    "conversations": [
+        {
+            "database": "medicine_enzyme_interaction",
+            "system": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\n##Instruction:\nmedicine_enzyme_interaction contains tables such as enzyme.\nTable enzyme has columns such as id, name, location, product, chromosome, omim, porphyria.",
+            "query": "Which enzyme names have the substring \"ALA\"?",
+            "answer": "SELECT name\nFROM enzyme\nWHERE name like '%ala%';",
+            "insert": []
+        }
+    ]
+}

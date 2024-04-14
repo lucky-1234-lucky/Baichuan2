@@ -1,0 +1,28 @@
+{
+    "conversations": [
+        {
+            "role": "system",
+            "content": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\n##Instruction:\ntracking_orders contains tables such as order_items.\nTable order_items has columns such as order_item_id, product_id, order_id, order_item_status, order_item_details, where order_id is the primary key, product_id is the primary key.\nThe order_id of orders is the foreign key of order_id of order_items.\nThe product_id of products is the foreign key of product_id of order_items."
+        },
+        {
+            "role": "user",
+            "content": "Find the ids of all the order items whose product id is 11."
+        },
+        {
+            "role": "assistant",
+            "content": "SELECT order_item_id\nFROM order_items\nWHERE product_id = 11;"
+        },
+        {
+            "role": "result",
+            "content": "SELECT order_item_id\nFROM order_items\nWHERE product_id = 11;"
+        },
+        {
+            "role": "exuc_assist",
+            "content": 2
+        },
+        {
+            "role": "exuc_infer",
+            "content": 2
+        }
+    ]
+}

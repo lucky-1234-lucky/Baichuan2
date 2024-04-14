@@ -1,0 +1,190 @@
+{
+    "sql": [
+        {
+            "campuses": "CREATE TABLE `campuses` (\n  `id` int(11) NOT NULL,\n  `campus` text,\n  `location` text,\n  `county` text,\n  `year` int(11) DEFAULT NULL,\n  PRIMARY KEY (`id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8",
+            "fileds": {
+                "field": [
+                    [
+                        "id",
+                        "int",
+                        "PRIMARY KEY"
+                    ],
+                    [
+                        "campus",
+                        "text,"
+                    ],
+                    [
+                        "location",
+                        "text,"
+                    ],
+                    [
+                        "county",
+                        "text,"
+                    ],
+                    [
+                        "year",
+                        "int"
+                    ]
+                ],
+                "foreign_key": []
+            }
+        },
+        {
+            "csu_fees": "CREATE TABLE `csu_fees` (\n  `campus` int(11) NOT NULL,\n  `year` int(11) DEFAULT NULL,\n  `campusfee` int(11) DEFAULT NULL,\n  PRIMARY KEY (`campus`),\n  CONSTRAINT `csu_fees_ibfk_1` FOREIGN KEY (`campus`) REFERENCES `campuses` (`id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8",
+            "fileds": {
+                "field": [
+                    [
+                        "campus",
+                        "int",
+                        "PRIMARY KEY"
+                    ],
+                    [
+                        "year",
+                        "int"
+                    ],
+                    [
+                        "campusfee",
+                        "int"
+                    ]
+                ],
+                "foreign_key": [
+                    [
+                        "campus",
+                        "campuses",
+                        "id"
+                    ]
+                ]
+            }
+        },
+        {
+            "degrees": "CREATE TABLE `degrees` (\n  `year` int(11) NOT NULL,\n  `campus` int(11) NOT NULL,\n  `degrees` int(11) DEFAULT NULL,\n  PRIMARY KEY (`year`,`campus`),\n  KEY `campus` (`campus`),\n  CONSTRAINT `degrees_ibfk_1` FOREIGN KEY (`campus`) REFERENCES `campuses` (`id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8",
+            "fileds": {
+                "field": [
+                    [
+                        "year",
+                        "int",
+                        "PRIMARY KEY"
+                    ],
+                    [
+                        "campus",
+                        "int",
+                        "PRIMARY KEY"
+                    ],
+                    [
+                        "degrees",
+                        "int"
+                    ]
+                ],
+                "foreign_key": [
+                    [
+                        "campus",
+                        "campuses",
+                        "id"
+                    ]
+                ]
+            }
+        },
+        {
+            "discipline_enrollments": "CREATE TABLE `discipline_enrollments` (\n  `campus` int(11) NOT NULL,\n  `discipline` int(11) NOT NULL,\n  `year` int(11) DEFAULT NULL,\n  `undergraduate` int(11) DEFAULT NULL,\n  `graduate` int(11) DEFAULT NULL,\n  PRIMARY KEY (`campus`,`discipline`),\n  CONSTRAINT `discipline_enrollments_ibfk_1` FOREIGN KEY (`campus`) REFERENCES `campuses` (`id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8",
+            "fileds": {
+                "field": [
+                    [
+                        "campus",
+                        "int",
+                        "PRIMARY KEY"
+                    ],
+                    [
+                        "discipline",
+                        "int",
+                        "PRIMARY KEY"
+                    ],
+                    [
+                        "year",
+                        "int"
+                    ],
+                    [
+                        "undergraduate",
+                        "int"
+                    ],
+                    [
+                        "graduate",
+                        "int"
+                    ]
+                ],
+                "foreign_key": [
+                    [
+                        "campus",
+                        "campuses",
+                        "id"
+                    ]
+                ]
+            }
+        },
+        {
+            "enrollments": "CREATE TABLE `enrollments` (\n  `campus` int(11) NOT NULL,\n  `year` int(11) NOT NULL,\n  `totalenrollment_ay` int(11) DEFAULT NULL,\n  `fte_ay` int(11) DEFAULT NULL,\n  PRIMARY KEY (`campus`,`year`),\n  CONSTRAINT `enrollments_ibfk_1` FOREIGN KEY (`campus`) REFERENCES `campuses` (`id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8",
+            "fileds": {
+                "field": [
+                    [
+                        "campus",
+                        "int",
+                        "PRIMARY KEY"
+                    ],
+                    [
+                        "year",
+                        "int",
+                        "PRIMARY KEY"
+                    ],
+                    [
+                        "totalenrollment_ay",
+                        "int"
+                    ],
+                    [
+                        "fte_ay",
+                        "int"
+                    ]
+                ],
+                "foreign_key": [
+                    [
+                        "campus",
+                        "campuses",
+                        "id"
+                    ]
+                ]
+            }
+        },
+        {
+            "faculty": "CREATE TABLE `faculty` (\n  `campus` int(11) DEFAULT NULL,\n  `year` int(11) DEFAULT NULL,\n  `faculty` double DEFAULT NULL,\n  KEY `campus` (`campus`),\n  CONSTRAINT `faculty_ibfk_1` FOREIGN KEY (`campus`) REFERENCES `campuses` (`id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8",
+            "fileds": {
+                "field": [
+                    [
+                        "campus",
+                        "int"
+                    ],
+                    [
+                        "year",
+                        "int"
+                    ],
+                    [
+                        "faculty",
+                        "double"
+                    ]
+                ],
+                "foreign_key": [
+                    [
+                        "campus",
+                        "campuses",
+                        "id"
+                    ]
+                ]
+            }
+        }
+    ],
+    "input": "What are the campuses that had between 600 and 1000 faculty members in 2004?",
+    "response": "select t1.campus from campuses as t1 join faculty as t2 on t1.id = t2.campus where t2.faculty >= 600 and t2.faculty <= 1000 and t1.year = 2004;",
+    "insert": [],
+    "table_names": [
+        "faculty",
+        "campuses"
+    ],
+    "database": "csu_1"
+}

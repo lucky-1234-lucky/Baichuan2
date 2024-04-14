@@ -1,0 +1,28 @@
+{
+    "conversations": [
+        {
+            "role": "system",
+            "content": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\n##Instruction:\nvoter_2 contains tables such as voting_record, student.\nTable student has columns such as stuid, lname, fname, age, sex, major, advisor, city_code.\nTable voting_record has columns such as stuid, registration_date, election_cycle, president_vote, vice_president_vote, secretary_vote, treasurer_vote, class_president_vote, class_senator_vote, where stuid is the primary key, president_vote is the primary key, vice_president_vote is the primary key, secretary_vote is the primary key, treasurer_vote is the primary key, class_president_vote is the primary key, class_senator_vote is the primary key.\nThe stuid of student is the foreign key of stuid of voting_record.\nThe stuid of student is the foreign key of president_vote of voting_record.\nThe stuid of student is the foreign key of vice_president_vote of voting_record.\nThe stuid of student is the foreign key of secretary_vote of voting_record.\nThe stuid of student is the foreign key of treasurer_vote of voting_record.\nThe stuid of student is the foreign key of class_president_vote of voting_record.\nThe stuid of student is the foreign key of class_senator_vote of voting_record."
+        },
+        {
+            "role": "user",
+            "content": "What are the first and last names of all the female students who have president votes?"
+        },
+        {
+            "role": "assistant",
+            "content": "select distinct t1.fname , t1.lname from student as t1 join voting_record as t2 on t1.stuid = t2.president_vote where t1.sex = 'f';"
+        },
+        {
+            "role": "result",
+            "content": "select t1.fname , t1.lname from student as t1 join voting_record as t2 on t1.stuid = t2.president_vote where t2.president_vote = 'president' and t1.sex = 'female';"
+        },
+        {
+            "role": "exuc_assist",
+            "content": 0
+        },
+        {
+            "role": "exuc_infer",
+            "content": 0
+        }
+    ]
+}

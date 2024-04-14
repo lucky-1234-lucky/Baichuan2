@@ -1,0 +1,293 @@
+{
+    "sql": [
+        {
+            "investors": "CREATE TABLE `investors` (\n  `investor_id` int(11) NOT NULL,\n  `investor_details` varchar(255) DEFAULT NULL,\n  PRIMARY KEY (`investor_id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8",
+            "fileds": {
+                "field": [
+                    [
+                        "investor_id",
+                        "int",
+                        "PRIMARY KEY"
+                    ],
+                    [
+                        "investor_details",
+                        "varchar"
+                    ]
+                ],
+                "foreign_key": []
+            }
+        },
+        {
+            "lots": "CREATE TABLE `lots` (\n  `lot_id` int(11) NOT NULL,\n  `investor_id` int(11) NOT NULL,\n  `lot_details` varchar(255) DEFAULT NULL,\n  PRIMARY KEY (`lot_id`),\n  KEY `investor_id` (`investor_id`),\n  CONSTRAINT `lots_ibfk_1` FOREIGN KEY (`investor_id`) REFERENCES `investors` (`investor_id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8",
+            "fileds": {
+                "field": [
+                    [
+                        "lot_id",
+                        "int",
+                        "PRIMARY KEY"
+                    ],
+                    [
+                        "investor_id",
+                        "int"
+                    ],
+                    [
+                        "lot_details",
+                        "varchar"
+                    ]
+                ],
+                "foreign_key": [
+                    [
+                        "investor_id",
+                        "investors",
+                        "investor_id"
+                    ]
+                ]
+            }
+        },
+        {
+            "purchases": "CREATE TABLE `purchases` (\n  `purchase_transaction_id` int(11) NOT NULL,\n  `purchase_details` varchar(255) NOT NULL,\n  KEY `purchase_transaction_id` (`purchase_transaction_id`),\n  CONSTRAINT `purchases_ibfk_1` FOREIGN KEY (`purchase_transaction_id`) REFERENCES `transactions` (`transaction_id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8",
+            "fileds": {
+                "field": [
+                    [
+                        "purchase_transaction_id",
+                        "int"
+                    ],
+                    [
+                        "purchase_details",
+                        "varchar"
+                    ]
+                ],
+                "foreign_key": [
+                    [
+                        "purchase_transaction_id",
+                        "transactions",
+                        "transaction_id"
+                    ]
+                ]
+            }
+        },
+        {
+            "ref_transaction_types": "CREATE TABLE `ref_transaction_types` (\n  `transaction_type_code` varchar(10) NOT NULL,\n  `transaction_type_description` varchar(80) NOT NULL,\n  PRIMARY KEY (`transaction_type_code`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8",
+            "fileds": {
+                "field": [
+                    [
+                        "transaction_type_code",
+                        "varchar",
+                        "PRIMARY KEY"
+                    ],
+                    [
+                        "transaction_type_description",
+                        "varchar"
+                    ]
+                ],
+                "foreign_key": []
+            }
+        },
+        {
+            "sales": "CREATE TABLE `sales` (\n  `sales_transaction_id` int(11) NOT NULL,\n  `sales_details` varchar(255) DEFAULT NULL,\n  PRIMARY KEY (`sales_transaction_id`),\n  CONSTRAINT `sales_ibfk_1` FOREIGN KEY (`sales_transaction_id`) REFERENCES `transactions` (`transaction_id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8",
+            "fileds": {
+                "field": [
+                    [
+                        "sales_transaction_id",
+                        "int",
+                        "PRIMARY KEY"
+                    ],
+                    [
+                        "sales_details",
+                        "varchar"
+                    ]
+                ],
+                "foreign_key": [
+                    [
+                        "sales_transaction_id",
+                        "transactions",
+                        "transaction_id"
+                    ]
+                ]
+            }
+        },
+        {
+            "transactions": "CREATE TABLE `transactions` (\n  `transaction_id` int(11) NOT NULL,\n  `investor_id` int(11) NOT NULL,\n  `transaction_type_code` varchar(10) NOT NULL,\n  `date_of_transaction` datetime DEFAULT NULL,\n  `amount_of_transaction` decimal(19,4) DEFAULT NULL,\n  `share_count` varchar(40) DEFAULT NULL,\n  `other_details` varchar(255) DEFAULT NULL,\n  PRIMARY KEY (`transaction_id`),\n  KEY `investor_id` (`investor_id`),\n  KEY `transaction_type_code` (`transaction_type_code`),\n  CONSTRAINT `transactions_ibfk_1` FOREIGN KEY (`investor_id`) REFERENCES `investors` (`investor_id`),\n  CONSTRAINT `transactions_ibfk_2` FOREIGN KEY (`transaction_type_code`) REFERENCES `ref_transaction_types` (`transaction_type_code`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8",
+            "fileds": {
+                "field": [
+                    [
+                        "transaction_id",
+                        "int",
+                        "PRIMARY KEY"
+                    ],
+                    [
+                        "investor_id",
+                        "int"
+                    ],
+                    [
+                        "transaction_type_code",
+                        "varchar"
+                    ],
+                    [
+                        "date_of_transaction",
+                        "datetime"
+                    ],
+                    [
+                        "amount_of_transaction",
+                        "decimal"
+                    ],
+                    [
+                        "share_count",
+                        "varchar"
+                    ],
+                    [
+                        "other_details",
+                        "varchar"
+                    ]
+                ],
+                "foreign_key": [
+                    [
+                        "investor_id",
+                        "investors",
+                        "investor_id"
+                    ],
+                    [
+                        "transaction_type_code",
+                        "ref_transaction_types",
+                        "transaction_type_code"
+                    ]
+                ]
+            }
+        },
+        {
+            "transactions_lots": "CREATE TABLE `transactions_lots` (\n  `transaction_id` int(11) NOT NULL,\n  `lot_id` int(11) NOT NULL,\n  KEY `lot_id` (`lot_id`),\n  KEY `transaction_id` (`transaction_id`),\n  CONSTRAINT `transactions_lots_ibfk_1` FOREIGN KEY (`lot_id`) REFERENCES `lots` (`lot_id`),\n  CONSTRAINT `transactions_lots_ibfk_2` FOREIGN KEY (`transaction_id`) REFERENCES `transactions` (`transaction_id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8",
+            "fileds": {
+                "field": [
+                    [
+                        "transaction_id",
+                        "int"
+                    ],
+                    [
+                        "lot_id",
+                        "int"
+                    ]
+                ],
+                "foreign_key": [
+                    [
+                        "lot_id",
+                        "lots",
+                        "lot_id"
+                    ],
+                    [
+                        "transaction_id",
+                        "transactions",
+                        "transaction_id"
+                    ]
+                ]
+            }
+        }
+    ],
+    "input": "What are the details of the lots which are not used in any transactions?",
+    "response": "select lot_details from lots except select t1.lot_details from lots as t1 join transactions_lots as t2 on t1.lot_id = t2.lot_id;",
+    "insert": [
+        "INSERT INTO investors (`investor_id`, `investor_details`) VALUES (1, 'z');",
+        "INSERT INTO investors (`investor_id`, `investor_details`) VALUES (2, 'z');",
+        "INSERT INTO investors (`investor_id`, `investor_details`) VALUES (3, 'd');",
+        "INSERT INTO investors (`investor_id`, `investor_details`) VALUES (4, 'd');",
+        "INSERT INTO investors (`investor_id`, `investor_details`) VALUES (5, 'b');",
+        "INSERT INTO investors (`investor_id`, `investor_details`) VALUES (6, 'k');",
+        "INSERT INTO investors (`investor_id`, `investor_details`) VALUES (7, 'l');",
+        "INSERT INTO investors (`investor_id`, `investor_details`) VALUES (8, 't');",
+        "INSERT INTO investors (`investor_id`, `investor_details`) VALUES (9, 'y');",
+        "INSERT INTO investors (`investor_id`, `investor_details`) VALUES (10, 'r');",
+        "INSERT INTO investors (`investor_id`, `investor_details`) VALUES (11, 'q');",
+        "INSERT INTO investors (`investor_id`, `investor_details`) VALUES (12, 'c');",
+        "INSERT INTO investors (`investor_id`, `investor_details`) VALUES (13, 'o');",
+        "INSERT INTO investors (`investor_id`, `investor_details`) VALUES (14, 'w');",
+        "INSERT INTO investors (`investor_id`, `investor_details`) VALUES (15, 'i');",
+        "INSERT INTO investors (`investor_id`, `investor_details`) VALUES (16, 'y');",
+        "INSERT INTO investors (`investor_id`, `investor_details`) VALUES (17, 'k');",
+        "INSERT INTO investors (`investor_id`, `investor_details`) VALUES (18, 'w');",
+        "INSERT INTO investors (`investor_id`, `investor_details`) VALUES (19, 'l');",
+        "INSERT INTO investors (`investor_id`, `investor_details`) VALUES (20, 'j');",
+        "INSERT INTO lots (`lot_id`, `investor_id`, `lot_details`) VALUES (1, 13, 'r');",
+        "INSERT INTO lots (`lot_id`, `investor_id`, `lot_details`) VALUES (2, 16, 'z');",
+        "INSERT INTO lots (`lot_id`, `investor_id`, `lot_details`) VALUES (3, 10, 's');",
+        "INSERT INTO lots (`lot_id`, `investor_id`, `lot_details`) VALUES (4, 19, 's');",
+        "INSERT INTO lots (`lot_id`, `investor_id`, `lot_details`) VALUES (5, 6, 'q');",
+        "INSERT INTO lots (`lot_id`, `investor_id`, `lot_details`) VALUES (6, 20, 'd');",
+        "INSERT INTO lots (`lot_id`, `investor_id`, `lot_details`) VALUES (7, 7, 'm');",
+        "INSERT INTO lots (`lot_id`, `investor_id`, `lot_details`) VALUES (8, 7, 'h');",
+        "INSERT INTO lots (`lot_id`, `investor_id`, `lot_details`) VALUES (9, 20, 'z');",
+        "INSERT INTO lots (`lot_id`, `investor_id`, `lot_details`) VALUES (10, 9, 'x');",
+        "INSERT INTO lots (`lot_id`, `investor_id`, `lot_details`) VALUES (11, 1, 'd');",
+        "INSERT INTO lots (`lot_id`, `investor_id`, `lot_details`) VALUES (12, 19, 'm');",
+        "INSERT INTO lots (`lot_id`, `investor_id`, `lot_details`) VALUES (13, 7, 'z');",
+        "INSERT INTO lots (`lot_id`, `investor_id`, `lot_details`) VALUES (14, 6, 'd');",
+        "INSERT INTO lots (`lot_id`, `investor_id`, `lot_details`) VALUES (15, 1, 'h');",
+        "INSERT INTO ref_transaction_types (`transaction_type_code`, `transaction_type_description`) VALUES ('sale', 'sale');",
+        "INSERT INTO ref_transaction_types (`transaction_type_code`, `transaction_type_description`) VALUES ('pur', 'purchase');",
+        "INSERT INTO transactions (`transaction_id`, `investor_id`, `transaction_type_code`, `date_of_transaction`, `amount_of_transaction`, `share_count`, `other_details`) VALUES (1, 6, 'sale', '1988-09-16 19:02:51', '302507.6996', '8718572', null);",
+        "INSERT INTO transactions (`transaction_id`, `investor_id`, `transaction_type_code`, `date_of_transaction`, `amount_of_transaction`, `share_count`, `other_details`) VALUES (2, 18, 'pur', '1982-06-06 17:19:00', '27.2570', '9', null);",
+        "INSERT INTO transactions (`transaction_id`, `investor_id`, `transaction_type_code`, `date_of_transaction`, `amount_of_transaction`, `share_count`, `other_details`) VALUES (3, 2, 'sale', '1979-04-27 06:03:59', '48777.9690', '8580', null);",
+        "INSERT INTO transactions (`transaction_id`, `investor_id`, `transaction_type_code`, `date_of_transaction`, `amount_of_transaction`, `share_count`, `other_details`) VALUES (4, 14, 'pur', '2001-11-28 15:06:25', '4.5263', '8040', null);",
+        "INSERT INTO transactions (`transaction_id`, `investor_id`, `transaction_type_code`, `date_of_transaction`, `amount_of_transaction`, `share_count`, `other_details`) VALUES (5, 8, 'pur', '1977-08-17 13:13:30', '0.0000', '930', null);",
+        "INSERT INTO transactions (`transaction_id`, `investor_id`, `transaction_type_code`, `date_of_transaction`, `amount_of_transaction`, `share_count`, `other_details`) VALUES (6, 19, 'pur', '1985-10-08 13:13:39', '207484122.2796', '2751', null);",
+        "INSERT INTO transactions (`transaction_id`, `investor_id`, `transaction_type_code`, `date_of_transaction`, `amount_of_transaction`, `share_count`, `other_details`) VALUES (7, 7, 'pur', '1990-12-02 09:03:38', '822.8030', '1522', null);",
+        "INSERT INTO transactions (`transaction_id`, `investor_id`, `transaction_type_code`, `date_of_transaction`, `amount_of_transaction`, `share_count`, `other_details`) VALUES (8, 17, 'sale', '2004-01-18 20:37:50', '78035671.4424', '96178', null);",
+        "INSERT INTO transactions (`transaction_id`, `investor_id`, `transaction_type_code`, `date_of_transaction`, `amount_of_transaction`, `share_count`, `other_details`) VALUES (9, 20, 'pur', '1977-08-13 02:18:47', '82057.2070', '', null);",
+        "INSERT INTO transactions (`transaction_id`, `investor_id`, `transaction_type_code`, `date_of_transaction`, `amount_of_transaction`, `share_count`, `other_details`) VALUES (10, 2, 'sale', '1981-01-28 08:07:03', '29.3534', '1654756', null);",
+        "INSERT INTO transactions (`transaction_id`, `investor_id`, `transaction_type_code`, `date_of_transaction`, `amount_of_transaction`, `share_count`, `other_details`) VALUES (11, 3, 'sale', '2000-04-03 20:55:43', '0.0000', '674529892', null);",
+        "INSERT INTO transactions (`transaction_id`, `investor_id`, `transaction_type_code`, `date_of_transaction`, `amount_of_transaction`, `share_count`, `other_details`) VALUES (12, 18, 'sale', '1983-11-01 17:57:27', '1.0000', '587', null);",
+        "INSERT INTO transactions (`transaction_id`, `investor_id`, `transaction_type_code`, `date_of_transaction`, `amount_of_transaction`, `share_count`, `other_details`) VALUES (13, 3, 'sale', '2002-04-07 20:28:37', '183.2000', '', null);",
+        "INSERT INTO transactions (`transaction_id`, `investor_id`, `transaction_type_code`, `date_of_transaction`, `amount_of_transaction`, `share_count`, `other_details`) VALUES (14, 3, 'pur', '2002-09-13 03:04:56', '0.0000', '630021', null);",
+        "INSERT INTO transactions (`transaction_id`, `investor_id`, `transaction_type_code`, `date_of_transaction`, `amount_of_transaction`, `share_count`, `other_details`) VALUES (15, 19, 'pur', '1997-12-30 05:05:40', '8.9000', '93191', null);",
+        "INSERT INTO sales (`sales_transaction_id`, `sales_details`) VALUES (1, 'x');",
+        "INSERT INTO sales (`sales_transaction_id`, `sales_details`) VALUES (2, 'o');",
+        "INSERT INTO sales (`sales_transaction_id`, `sales_details`) VALUES (3, 'a');",
+        "INSERT INTO sales (`sales_transaction_id`, `sales_details`) VALUES (4, 'f');",
+        "INSERT INTO sales (`sales_transaction_id`, `sales_details`) VALUES (5, 'y');",
+        "INSERT INTO sales (`sales_transaction_id`, `sales_details`) VALUES (6, 'x');",
+        "INSERT INTO sales (`sales_transaction_id`, `sales_details`) VALUES (7, 'p');",
+        "INSERT INTO sales (`sales_transaction_id`, `sales_details`) VALUES (8, 'e');",
+        "INSERT INTO sales (`sales_transaction_id`, `sales_details`) VALUES (9, 'p');",
+        "INSERT INTO sales (`sales_transaction_id`, `sales_details`) VALUES (10, 's');",
+        "INSERT INTO sales (`sales_transaction_id`, `sales_details`) VALUES (11, 's');",
+        "INSERT INTO sales (`sales_transaction_id`, `sales_details`) VALUES (12, 't');",
+        "INSERT INTO sales (`sales_transaction_id`, `sales_details`) VALUES (13, 'p');",
+        "INSERT INTO sales (`sales_transaction_id`, `sales_details`) VALUES (14, 'n');",
+        "INSERT INTO sales (`sales_transaction_id`, `sales_details`) VALUES (15, 'e');",
+        "INSERT INTO purchases (`purchase_transaction_id`, `purchase_details`) VALUES (1, 'c');",
+        "INSERT INTO purchases (`purchase_transaction_id`, `purchase_details`) VALUES (2, 'y');",
+        "INSERT INTO purchases (`purchase_transaction_id`, `purchase_details`) VALUES (3, 'i');",
+        "INSERT INTO purchases (`purchase_transaction_id`, `purchase_details`) VALUES (4, 'x');",
+        "INSERT INTO purchases (`purchase_transaction_id`, `purchase_details`) VALUES (5, 'y');",
+        "INSERT INTO purchases (`purchase_transaction_id`, `purchase_details`) VALUES (6, 'a');",
+        "INSERT INTO purchases (`purchase_transaction_id`, `purchase_details`) VALUES (7, 'r');",
+        "INSERT INTO purchases (`purchase_transaction_id`, `purchase_details`) VALUES (8, 'a');",
+        "INSERT INTO purchases (`purchase_transaction_id`, `purchase_details`) VALUES (9, 'r');",
+        "INSERT INTO purchases (`purchase_transaction_id`, `purchase_details`) VALUES (10, 'l');",
+        "INSERT INTO purchases (`purchase_transaction_id`, `purchase_details`) VALUES (11, 'z');",
+        "INSERT INTO purchases (`purchase_transaction_id`, `purchase_details`) VALUES (12, 'h');",
+        "INSERT INTO purchases (`purchase_transaction_id`, `purchase_details`) VALUES (13, 't');",
+        "INSERT INTO purchases (`purchase_transaction_id`, `purchase_details`) VALUES (14, 'o');",
+        "INSERT INTO purchases (`purchase_transaction_id`, `purchase_details`) VALUES (15, 'x');",
+        "INSERT INTO transactions_lots (`transaction_id`, `lot_id`) VALUES (3, 11);",
+        "INSERT INTO transactions_lots (`transaction_id`, `lot_id`) VALUES (3, 8);",
+        "INSERT INTO transactions_lots (`transaction_id`, `lot_id`) VALUES (2, 11);",
+        "INSERT INTO transactions_lots (`transaction_id`, `lot_id`) VALUES (3, 14);",
+        "INSERT INTO transactions_lots (`transaction_id`, `lot_id`) VALUES (12, 10);",
+        "INSERT INTO transactions_lots (`transaction_id`, `lot_id`) VALUES (15, 10);",
+        "INSERT INTO transactions_lots (`transaction_id`, `lot_id`) VALUES (10, 10);",
+        "INSERT INTO transactions_lots (`transaction_id`, `lot_id`) VALUES (1, 1);",
+        "INSERT INTO transactions_lots (`transaction_id`, `lot_id`) VALUES (1, 14);",
+        "INSERT INTO transactions_lots (`transaction_id`, `lot_id`) VALUES (3, 4);",
+        "INSERT INTO transactions_lots (`transaction_id`, `lot_id`) VALUES (14, 9);",
+        "INSERT INTO transactions_lots (`transaction_id`, `lot_id`) VALUES (7, 1);",
+        "INSERT INTO transactions_lots (`transaction_id`, `lot_id`) VALUES (12, 15);",
+        "INSERT INTO transactions_lots (`transaction_id`, `lot_id`) VALUES (6, 3);",
+        "INSERT INTO transactions_lots (`transaction_id`, `lot_id`) VALUES (2, 1);"
+    ],
+    "table_names": [
+        "transactions",
+        "lots",
+        "investors",
+        "transactions_lots"
+    ],
+    "database": "tracking_share_transactions"
+}

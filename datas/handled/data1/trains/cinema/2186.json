@@ -1,0 +1,11 @@
+{
+    "conversations": [
+        {
+            "database": "cinema",
+            "system": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\n##Instruction:\ncinema contains tables such as cinema.\nTable cinema has columns such as cinema_id, name, openning_year, capacity, location.",
+            "query": "Which locations have 2 or more cinemas with capacity over 300?",
+            "answer": "select location from cinema where capacity > 300 group by location having count(*) >= 2;",
+            "insert": []
+        }
+    ]
+}

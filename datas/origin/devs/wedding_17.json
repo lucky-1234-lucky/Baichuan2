@@ -1,0 +1,112 @@
+{
+    "sql": [
+        {
+            "church": "CREATE TABLE `church` (\n  `church_id` int(11) NOT NULL,\n  `name` text,\n  `organized_by` text,\n  `open_date` int(11) DEFAULT NULL,\n  `continuation_of` text,\n  PRIMARY KEY (`church_id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8",
+            "fileds": {
+                "field": [
+                    [
+                        "church_id",
+                        "int",
+                        "PRIMARY KEY"
+                    ],
+                    [
+                        "name",
+                        "text,"
+                    ],
+                    [
+                        "organized_by",
+                        "text,"
+                    ],
+                    [
+                        "open_date",
+                        "int"
+                    ],
+                    [
+                        "continuation_of",
+                        "text,"
+                    ]
+                ],
+                "foreign_key": []
+            }
+        },
+        {
+            "people": "CREATE TABLE `people` (\n  `people_id` int(11) NOT NULL,\n  `name` text,\n  `country` text,\n  `is_male` text,\n  `age` int(11) DEFAULT NULL,\n  PRIMARY KEY (`people_id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8",
+            "fileds": {
+                "field": [
+                    [
+                        "people_id",
+                        "int",
+                        "PRIMARY KEY"
+                    ],
+                    [
+                        "name",
+                        "text,"
+                    ],
+                    [
+                        "country",
+                        "text,"
+                    ],
+                    [
+                        "is_male",
+                        "text,"
+                    ],
+                    [
+                        "age",
+                        "int"
+                    ]
+                ],
+                "foreign_key": []
+            }
+        },
+        {
+            "wedding": "CREATE TABLE `wedding` (\n  `church_id` int(11) NOT NULL,\n  `male_id` int(11) NOT NULL,\n  `female_id` int(11) NOT NULL,\n  `year` int(11) DEFAULT NULL,\n  PRIMARY KEY (`church_id`,`male_id`,`female_id`),\n  KEY `male_id` (`male_id`),\n  KEY `female_id` (`female_id`),\n  CONSTRAINT `wedding_ibfk_1` FOREIGN KEY (`church_id`) REFERENCES `church` (`church_id`),\n  CONSTRAINT `wedding_ibfk_2` FOREIGN KEY (`male_id`) REFERENCES `people` (`people_id`),\n  CONSTRAINT `wedding_ibfk_3` FOREIGN KEY (`female_id`) REFERENCES `people` (`people_id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8",
+            "fileds": {
+                "field": [
+                    [
+                        "church_id",
+                        "int",
+                        "PRIMARY KEY"
+                    ],
+                    [
+                        "male_id",
+                        "int",
+                        "PRIMARY KEY"
+                    ],
+                    [
+                        "female_id",
+                        "int",
+                        "PRIMARY KEY"
+                    ],
+                    [
+                        "year",
+                        "int"
+                    ]
+                ],
+                "foreign_key": [
+                    [
+                        "church_id",
+                        "church",
+                        "church_id"
+                    ],
+                    [
+                        "male_id",
+                        "people",
+                        "people_id"
+                    ],
+                    [
+                        "female_id",
+                        "people",
+                        "people_id"
+                    ]
+                ]
+            }
+        }
+    ],
+    "input": "Show the opening year in whcih at least two churches opened.",
+    "response": "select open_date from church group by open_date having count(*) >= 2;",
+    "insert": [],
+    "table_names": [
+        "church"
+    ],
+    "database": "wedding"
+}

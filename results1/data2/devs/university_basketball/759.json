@@ -1,0 +1,28 @@
+{
+    "conversations": [
+        {
+            "role": "system",
+            "content": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\n##Instruction:\nuniversity_basketball contains tables such as university, basketball_match.\nTable basketball_match has columns such as team_id, school_id, team_name, acc_regular_season, acc_percent, acc_home, acc_road, all_games, all_games_percent, all_home, all_road, all_neutral, where school_id is the primary key.\nTable university has columns such as school_id, school, location, founded, affiliation, enrollment, nickname, primary_conference.\nThe school_id of university is the foreign key of school_id of basketball_match."
+        },
+        {
+            "role": "user",
+            "content": "What are the all games score and location of the school called Clemson?"
+        },
+        {
+            "role": "assistant",
+            "content": "SELECT t2.all_games,\n       t1.location\nFROM university AS t1\nJOIN basketball_match AS t2 ON t1.school_id = t2.school_id\nWHERE team_name = 'clemson';"
+        },
+        {
+            "role": "result",
+            "content": "SELECT t2.all_games,\n       t1.location\nFROM university AS t1\nJOIN basketball_match AS t2 ON t1.school_id = t2.school_id\nWHERE t1.school = 'clemson';"
+        },
+        {
+            "role": "exuc_assist",
+            "content": 0
+        },
+        {
+            "role": "exuc_infer",
+            "content": 0
+        }
+    ]
+}

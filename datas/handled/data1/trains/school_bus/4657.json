@@ -1,0 +1,11 @@
+{
+    "conversations": [
+        {
+            "database": "school_bus",
+            "system": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\n##Instruction:\nschool_bus contains tables such as driver, school_bus.\nTable driver has columns such as driver_id, name, party, home_city, age.\nTable school_bus has columns such as school_id, driver_id, years_working, if_full_time, where school_id is the primary key, driver_id is the primary key.\nThe school_id of school is the foreign key of school_id of school_bus.\nThe driver_id of driver is the foreign key of driver_id of school_bus.",
+            "query": "Show the names of the drivers without a school bus.",
+            "answer": "select name from driver where driver_id not in (select driver_id from school_bus);",
+            "insert": []
+        }
+    ]
+}

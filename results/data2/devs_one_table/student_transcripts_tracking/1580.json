@@ -1,0 +1,20 @@
+{
+    "conversations": [
+        {
+            "role": "system",
+            "content": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\n##Instruction:\nstudent_transcripts_tracking contains tables such as sections.\nTable sections has columns such as section_id, course_id, section_name, section_description, other_details, where course_id is the primary key.\nThe course_id of courses is the foreign key of course_id of sections."
+        },
+        {
+            "role": "user",
+            "content": "Describe the section h."
+        },
+        {
+            "role": "assistant",
+            "content": "SELECT section_description\nFROM sections\nWHERE section_name = 'h';"
+        },
+        {
+            "role": "result",
+            "content": "SELECT section_name\nFROM sections\nWHERE section_id = 'h';"
+        }
+    ]
+}

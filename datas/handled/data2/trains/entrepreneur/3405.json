@@ -1,0 +1,11 @@
+{
+    "conversations": [
+        {
+            "database": "entrepreneur",
+            "system": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\n##Instruction:\nentrepreneur contains tables such as people, entrepreneur.\nTable entrepreneur has columns such as entrepreneur_id, people_id, company, money_requested, investor, where people_id is the primary key.\nTable people has columns such as people_id, name, height, weight, date_of_birth.\nThe people_id of people is the foreign key of people_id of entrepreneur.",
+            "query": "What is the name of the entrepreneur with the greatest weight?",
+            "answer": "SELECT t2.name\nFROM entrepreneur AS t1\nJOIN people AS t2 ON t1.people_id = t2.people_id\nORDER BY t2.weight DESC\nLIMIT 1;",
+            "insert": []
+        }
+    ]
+}

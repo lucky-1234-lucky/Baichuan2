@@ -1,0 +1,28 @@
+{
+    "conversations": [
+        {
+            "role": "system",
+            "content": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\n##Instruction:\ntracking_orders contains tables such as customers, orders.\nTable customers has columns such as customer_id, customer_name, customer_details.\nTable orders has columns such as order_id, customer_id, order_status, date_order_placed, order_details, where customer_id is the primary key.\nThe customer_id of customers is the foreign key of customer_id of orders."
+        },
+        {
+            "role": "user",
+            "content": "Find the name of the customers who have at most two orders."
+        },
+        {
+            "role": "assistant",
+            "content": "select t2.customer_name from orders as t1 join customers as t2 on t1.customer_id = t2.customer_id group by t2.customer_id having count(*) <= 2;"
+        },
+        {
+            "role": "result",
+            "content": "select customer_name from customers group by customer_name having count(*) <= 2;"
+        },
+        {
+            "role": "exuc_assist",
+            "content": 8
+        },
+        {
+            "role": "exuc_infer",
+            "content": 15
+        }
+    ]
+}

@@ -1,0 +1,28 @@
+{
+    "conversations": [
+        {
+            "role": "system",
+            "content": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\n##Instruction:\ntracking_grants_for_research contains tables such as projects, project_outcomes, research_outcomes.\nTable project_outcomes has columns such as project_id, outcome_code, outcome_details, where project_id is the primary key, outcome_code is the primary key.\nTable projects has columns such as project_id, organisation_id, project_details, where organisation_id is the primary key.\nTable research_outcomes has columns such as outcome_code, outcome_description.\nThe project_id of projects is the foreign key of project_id of project_outcomes.\nThe outcome_code of research_outcomes is the foreign key of outcome_code of project_outcomes.\nThe organisation_id of organisations is the foreign key of organisation_id of projects."
+        },
+        {
+            "role": "user",
+            "content": "What are the details for the project whose research has been published?"
+        },
+        {
+            "role": "assistant",
+            "content": "select t1.project_details from projects as t1 join project_outcomes as t2 on t1.project_id = t2.project_id join research_outcomes as t3 on t2.outcome_code = t3.outcome_code where t3.outcome_description like '%published%';"
+        },
+        {
+            "role": "result",
+            "content": "SELECT project_details \nFROM projects \nINNER JOIN project_outcomes ON projects.project_id = project_outcomes.project_id \nINNER JOIN research_outcomes ON project_outcomes.outcome_code = research_outcomes.outcome_code;"
+        },
+        {
+            "role": "exuc_assist",
+            "content": 860
+        },
+        {
+            "role": "exuc_infer",
+            "content": 1290
+        }
+    ]
+}

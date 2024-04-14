@@ -1,0 +1,11 @@
+{
+    "conversations": [
+        {
+            "database": "debate",
+            "system": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\n##Instruction:\ndebate contains tables such as people.\nTable people has columns such as people_id, district, name, party, age.",
+            "query": "What is the party of the youngest people?",
+            "answer": "SELECT party\nFROM people\nORDER BY age ASC\nLIMIT 1;",
+            "insert": []
+        }
+    ]
+}

@@ -1,0 +1,11 @@
+{
+    "conversations": [
+        {
+            "database": "program_share",
+            "system": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\n##Instruction:\nprogram_share contains tables such as broadcast.\nTable broadcast has columns such as channel_id, program_id, time_of_day, where channel_id is the primary key, program_id is the primary key.\nThe channel_id of channel is the foreign key of channel_id of broadcast.\nThe program_id of program is the foreign key of program_id of broadcast.",
+            "query": "how many programs are broadcast in each time section of the day?",
+            "answer": "SELECT count(*),\n       time_of_day\nFROM broadcast\nGROUP BY time_of_day;",
+            "insert": []
+        }
+    ]
+}

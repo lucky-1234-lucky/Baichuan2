@@ -1,0 +1,11 @@
+{
+    "conversations": [
+        {
+            "database": "party_host",
+            "system": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\n##Instruction:\nparty_host contains tables such as host, party_host, party.\nTable host has columns such as host_id, name, nationality, age.\nTable party has columns such as party_id, party_theme, location, first_year, last_year, number_of_hosts.\nTable party_host has columns such as party_id, host_id, is_main_in_charge, where host_id is the primary key, party_id is the primary key.\nThe host_id of host is the foreign key of host_id of party_host.\nThe party_id of party is the foreign key of party_id of party_host.",
+            "query": "Show the locations of parties and the names of the party hosts in ascending order of the age of the host.",
+            "answer": "select t3.location , t2.name from party_host as t1 join host as t2 on t1.host_id = t2.host_id join party as t3 on t1.party_id = t3.party_id order by t2.age;",
+            "insert": []
+        }
+    ]
+}

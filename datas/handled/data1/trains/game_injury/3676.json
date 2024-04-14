@@ -1,0 +1,11 @@
+{
+    "conversations": [
+        {
+            "database": "game_injury",
+            "system": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\n##Instruction:\ngame_injury contains tables such as injury_accident.\nTable injury_accident has columns such as game_id, id, player, injury, number_of_matches, source, where game_id is the primary key.\nThe id of game is the foreign key of game_id of injury_accident.",
+            "query": "How many different kinds of information sources are there for injury accidents?",
+            "answer": "select count(distinct source) from injury_accident;",
+            "insert": []
+        }
+    ]
+}

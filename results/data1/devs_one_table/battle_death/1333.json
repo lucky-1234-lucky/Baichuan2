@@ -1,0 +1,20 @@
+{
+    "conversations": [
+        {
+            "role": "system",
+            "content": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\n##Instruction:\nbattle_death contains tables such as battle.\nTable battle has columns such as id, name, date, bulgarian_commander, latin_commander, result."
+        },
+        {
+            "role": "user",
+            "content": "How many different results are there for the battles?"
+        },
+        {
+            "role": "assistant",
+            "content": "select count(distinct result) from battle;"
+        },
+        {
+            "role": "result",
+            "content": "select count(distinct result) from battle;"
+        }
+    ]
+}

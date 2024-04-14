@@ -1,0 +1,20 @@
+{
+    "conversations": [
+        {
+            "role": "system",
+            "content": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\n##Instruction:\ntracking_orders contains tables such as customers, orders.\nTable customers has columns such as customer_id, customer_name, customer_details.\nTable orders has columns such as order_id, customer_id, order_status, date_order_placed, order_details, where customer_id is the primary key.\nThe customer_id of customers is the foreign key of customer_id of orders."
+        },
+        {
+            "role": "user",
+            "content": "Find the dates of orders which belong to the customer named \"Jeramie\"."
+        },
+        {
+            "role": "assistant",
+            "content": "SELECT t2.date_order_placed\nFROM customers AS t1\nJOIN orders AS t2 ON t1.customer_id = t2.customer_id\nWHERE t1.customer_name = 'jeramie';"
+        },
+        {
+            "role": "result",
+            "content": "SELECT t2.date_order_placed\nFROM customers AS t1\nJOIN orders AS t2 ON t1.customer_id = t2.customer_id\nWHERE t1.customer_name = 'jeramie';"
+        }
+    ]
+}

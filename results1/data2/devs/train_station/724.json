@@ -1,0 +1,28 @@
+{
+    "conversations": [
+        {
+            "role": "system",
+            "content": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\n##Instruction:\ntrain_station contains tables such as station.\nTable station has columns such as station_id, name, annual_entry_exit, annual_interchanges, total_passengers, location, main_services, number_of_platforms."
+        },
+        {
+            "role": "user",
+            "content": "Show all locations that have train stations with at least 15 platforms and train stations with more than 25 total passengers."
+        },
+        {
+            "role": "assistant",
+            "content": "SELECT DISTINCT LOCATION\nFROM station\nWHERE number_of_platforms >= 15\n  AND total_passengers > 25;"
+        },
+        {
+            "role": "result",
+            "content": "SELECT DISTINCT t1.location\nFROM station AS t1\nJOIN station AS t2 ON t1.station_id = t2.station_id\nWHERE t1.number_of_platforms >= 15\n  AND t2.total_passengers > 25;"
+        },
+        {
+            "role": "exuc_assist",
+            "content": 0
+        },
+        {
+            "role": "exuc_infer",
+            "content": 0
+        }
+    ]
+}

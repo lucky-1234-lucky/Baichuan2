@@ -1,0 +1,11 @@
+{
+    "conversations": [
+        {
+            "database": "county_public_safety",
+            "system": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\n##Instruction:\ncounty_public_safety contains tables such as county_public_safety.\nTable county_public_safety has columns such as county_id, name, population, police_officers, residents_per_officer, case_burden, crime_rate, police_force, location.",
+            "query": "Count the number of countries.",
+            "answer": "select count(*) from county_public_safety;",
+            "insert": []
+        }
+    ]
+}

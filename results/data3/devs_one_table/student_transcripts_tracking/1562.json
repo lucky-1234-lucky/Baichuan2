@@ -1,0 +1,20 @@
+{
+    "conversations": [
+        {
+            "role": "system",
+            "content": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\n##Instruction:\nstudent_transcripts_tracking contains tables such as transcripts.\nTable transcripts has columns such as transcript_id, transcript_date, other_details."
+        },
+        {
+            "role": "user",
+            "content": "What is the earliest date of a transcript release, and what details can you tell me?"
+        },
+        {
+            "role": "assistant",
+            "content": "SELECT transcript_date,\n       other_details\nFROM transcripts\nORDER BY transcript_date ASC\nLIMIT 1;"
+        },
+        {
+            "role": "result",
+            "content": "SELECT MIN(transcript_date),\n       other_details\nFROM transcripts;"
+        }
+    ]
+}

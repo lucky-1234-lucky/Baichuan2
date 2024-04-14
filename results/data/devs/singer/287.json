@@ -1,0 +1,20 @@
+{
+    "conversations": [
+        {
+            "role": "system",
+            "content": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\n##Instruction:\nsinger contains tables such as singer, song.\nTable singer has columns such as singer_id, name, birth_year, net_worth_millions, citizenship.\nTable song has columns such as song_id, title, singer_id, sales, highest_position, where singer_id is the primary key.\nThe singer_id of singer is the foreign key of singer_id of song."
+        },
+        {
+            "role": "user",
+            "content": "List the name of singers that do not have any song."
+        },
+        {
+            "role": "assistant",
+            "content": "select name from singer where singer_id not in (select singer_id from song);"
+        },
+        {
+            "role": "result",
+            "content": "SELECT name FROM singer WHERE singer_id NOT IN (SELECT DISTINCT singer_id FROM song);"
+        }
+    ]
+}

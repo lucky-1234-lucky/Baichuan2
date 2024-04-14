@@ -1,0 +1,11 @@
+{
+    "conversations": [
+        {
+            "database": "roller_coaster",
+            "system": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\n##Instruction:\nroller_coaster contains tables such as country, roller_coaster.\nTable country has columns such as country_id, name, population, area, languages.\nTable roller_coaster has columns such as roller_coaster_id, name, park, country_id, length, height, speed, opened, status, where country_id is the primary key.\nThe country_id of country is the foreign key of country_id of roller_coaster.",
+            "query": "Show the names of countries that have more than one roller coaster.",
+            "answer": "SELECT t1.name\nFROM country AS t1\nJOIN roller_coaster AS t2 ON t1.country_id = t2.country_id\nGROUP BY t1.name\nHAVING count(*) > 1;",
+            "insert": []
+        }
+    ]
+}

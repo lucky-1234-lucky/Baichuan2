@@ -1,0 +1,11 @@
+{
+    "conversations": [
+        {
+            "database": "music_4",
+            "system": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\n##Instruction:\nmusic_4 contains tables such as artist.\nTable artist has columns such as artist_id, artist, age, famous_title, famous_release_date.",
+            "query": "What is the average age of all artists?",
+            "answer": "SELECT avg(age)\nFROM artist;",
+            "insert": []
+        }
+    ]
+}

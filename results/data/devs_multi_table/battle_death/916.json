@@ -1,0 +1,20 @@
+{
+    "conversations": [
+        {
+            "role": "system",
+            "content": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\n##Instruction:\nbattle_death contains tables such as battle, ship.\nTable battle has columns such as id, name, date, bulgarian_commander, latin_commander, result.\nTable ship has columns such as lost_in_battle, id, name, tonnage, ship_type, location, disposition_of_ship, where lost_in_battle is the primary key.\nThe id of battle is the foreign key of lost_in_battle of ship."
+        },
+        {
+            "role": "user",
+            "content": "List the name and date the battle that has lost the ship named 'Lettice' and the ship named 'HMS Atalanta'"
+        },
+        {
+            "role": "assistant",
+            "content": "select t1.name , t1.date from battle as t1 join ship as t2 on t1.id = t2.lost_in_battle where t2.name = 'lettice' intersect select t1.name , t1.date from battle as t1 join ship as t2 on t1.id = t2.lost_in_battle where t2.name = 'hms atalanta';"
+        },
+        {
+            "role": "result",
+            "content": "SELECT b.name, b.date FROM battle AS b INNER JOIN ship AS s ON b.id = s.lost_in_battle WHERE s.name = 'Lettice';\n\nSELECT b.name, b.date FROM battle AS b INNER JOIN ship AS s ON b.id = s.lost_in_battle WHERE s.name = 'HMS Atalanta';"
+        }
+    ]
+}

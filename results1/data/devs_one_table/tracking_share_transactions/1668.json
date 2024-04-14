@@ -1,0 +1,28 @@
+{
+    "conversations": [
+        {
+            "role": "system",
+            "content": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\n##Instruction:\ntracking_share_transactions contains tables such as ref_transaction_types.\nTable ref_transaction_types has columns such as transaction_type_code, transaction_type_description."
+        },
+        {
+            "role": "user",
+            "content": "Show the description of transaction type with code \"PUR\"."
+        },
+        {
+            "role": "assistant",
+            "content": "select transaction_type_description from ref_transaction_types where transaction_type_code = 'pur';"
+        },
+        {
+            "role": "result",
+            "content": "SELECT transaction_type_description FROM ref_transaction_types WHERE transaction_type_code = 'PUR';"
+        },
+        {
+            "role": "exuc_assist",
+            "content": 0
+        },
+        {
+            "role": "exuc_infer",
+            "content": 0
+        }
+    ]
+}

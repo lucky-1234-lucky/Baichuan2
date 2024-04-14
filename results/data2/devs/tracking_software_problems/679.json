@@ -1,0 +1,20 @@
+{
+    "conversations": [
+        {
+            "role": "system",
+            "content": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\n##Instruction:\ntracking_software_problems contains tables such as product, problem_log, staff, problems.\nTable problem_log has columns such as problem_log_id, assigned_to_staff_id, problem_id, problem_category_code, problem_status_code, log_entry_date, log_entry_description, log_entry_fix, other_log_details, where problem_category_code is the primary key, assigned_to_staff_id is the primary key, problem_id is the primary key, problem_status_code is the primary key.\nTable problems has columns such as problem_id, product_id, closure_authorised_by_staff_id, reported_by_staff_id, date_problem_reported, date_problem_closed, problem_description, other_problem_details, where closure_authorised_by_staff_id is the primary key, product_id is the primary key, reported_by_staff_id is the primary key.\nTable product has columns such as product_id, product_name, product_details.\nTable staff has columns such as staff_id, staff_first_name, staff_last_name, other_staff_details.\nThe problem_category_code of problem_category_codes is the foreign key of problem_category_code of problem_log.\nThe staff_id of staff is the foreign key of assigned_to_staff_id of problem_log.\nThe problem_id of problems is the foreign key of problem_id of problem_log.\nThe problem_status_code of problem_status_codes is the foreign key of problem_status_code of problem_log.\nThe staff_id of staff is the foreign key of closure_authorised_by_staff_id of problems.\nThe product_id of product is the foreign key of product_id of problems.\nThe staff_id of staff is the foreign key of reported_by_staff_id of problems."
+        },
+        {
+            "role": "user",
+            "content": "Find the products which have problems reported by both Lacey Bosco and Kenton Champlin?"
+        },
+        {
+            "role": "assistant",
+            "content": "SELECT t2.product_name\nFROM problems AS t1\nJOIN product AS t2\nJOIN staff AS t3 ON t1.product_id = t2.product_id\nAND t1.reported_by_staff_id = t3.staff_id\nWHERE t3.staff_first_name = 'lacey'\n  AND t3.staff_last_name = 'bosco' INTERSECT\n  SELECT t2.product_name\n  FROM problems AS t1\n  JOIN product AS t2\n  JOIN staff AS t3 ON t1.product_id = t2.product_id\n  AND t1.reported_by_staff_id = t3.staff_id WHERE t3.staff_first_name = 'kenton'\n  AND t3.staff_last_name = 'champlin';"
+        },
+        {
+            "role": "result",
+            "content": "SELECT t1.product_name\nFROM product AS t1\nJOIN problems AS t2 ON t1.product_id = t2.product_id\nJOIN staff AS t3 ON t2.reported_by_staff_id = t3.staff_id\nWHERE t3.staff_first_name = 'lacey' INTERSECT\n  SELECT t1.product_name\n  FROM product AS t1\n  JOIN problems AS t2 ON t1.product_id = t2.product_id\n  JOIN staff AS t3 ON t2.reported_by_staff_id = t3.staff_id WHERE t3.staff_last_name = 'champlin';"
+        }
+    ]
+}

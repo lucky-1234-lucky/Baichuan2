@@ -1,0 +1,11 @@
+{
+    "conversations": [
+        {
+            "database": "csu_1",
+            "system": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\n##Instruction:\ncsu_1 contains tables such as degrees.\nTable degrees has columns such as year, campus, degrees, where campus is the primary key.\nThe id of campuses is the foreign key of campus of degrees.",
+            "query": "What campus has the most degrees conferrred over its entire existence?",
+            "answer": "select campus from degrees group by campus order by sum(degrees) desc limit 1;",
+            "insert": []
+        }
+    ]
+}

@@ -1,0 +1,11 @@
+{
+    "conversations": [
+        {
+            "database": "school_bus",
+            "system": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\n##Instruction:\nschool_bus contains tables such as school, school_bus.\nTable school has columns such as school_id, grade, school, location, type.\nTable school_bus has columns such as school_id, driver_id, years_working, if_full_time, where school_id is the primary key, driver_id is the primary key.\nThe school_id of school is the foreign key of school_id of school_bus.\nThe driver_id of driver is the foreign key of driver_id of school_bus.",
+            "query": "Show the type of school and the number of buses for each type.",
+            "answer": "SELECT t2.type,\n       count(*)\nFROM school_bus AS t1\nJOIN school AS t2 ON t1.school_id = t2.school_id\nGROUP BY t2.type;",
+            "insert": []
+        }
+    ]
+}

@@ -1,0 +1,11 @@
+{
+    "conversations": [
+        {
+            "database": "device",
+            "system": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\n##Instruction:\ndevice contains tables such as stock.\nTable stock has columns such as shop_id, device_id, quantity, where shop_id is the primary key, device_id is the primary key.\nThe shop_id of shop is the foreign key of shop_id of stock.\nThe device_id of device is the foreign key of device_id of stock.",
+            "query": "What is the average quantity of stocks?",
+            "answer": "select avg(quantity) from stock;",
+            "insert": []
+        }
+    ]
+}

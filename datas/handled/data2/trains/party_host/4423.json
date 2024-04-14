@@ -1,0 +1,11 @@
+{
+    "conversations": [
+        {
+            "database": "party_host",
+            "system": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\n##Instruction:\nparty_host contains tables such as host, party_host.\nTable host has columns such as host_id, name, nationality, age.\nTable party_host has columns such as party_id, host_id, is_main_in_charge, where host_id is the primary key, party_id is the primary key.\nThe host_id of host is the foreign key of host_id of party_host.\nThe party_id of party is the foreign key of party_id of party_host.",
+            "query": "List the names of hosts who did not serve as a host of any party in our record.",
+            "answer": "SELECT name\nFROM HOST\nWHERE host_id NOT IN\n    (SELECT host_id\n     FROM party_host);",
+            "insert": []
+        }
+    ]
+}

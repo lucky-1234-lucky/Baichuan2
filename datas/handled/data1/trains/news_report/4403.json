@@ -1,0 +1,11 @@
+{
+    "conversations": [
+        {
+            "database": "news_report",
+            "system": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\n##Instruction:\nnews_report contains tables such as event, journalist, news_report.\nTable event has columns such as event_id, date, venue, name, event_attendance.\nTable journalist has columns such as journalist_id, name, nationality, age, years_working.\nTable news_report has columns such as journalist_id, event_id, work_type, where journalist_id is the primary key, event_id is the primary key.\nThe journalist_id of journalist is the foreign key of journalist_id of news_report.\nThe event_id of event is the foreign key of event_id of news_report.",
+            "query": "Show the names of journalists and the names of the events they reported in ascending order",
+            "answer": "select t3.name , t2.name from news_report as t1 join event as t2 on t1.event_id = t2.event_id join journalist as t3 on t1.journalist_id = t3.journalist_id order by t2.event_attendance asc;",
+            "insert": []
+        }
+    ]
+}

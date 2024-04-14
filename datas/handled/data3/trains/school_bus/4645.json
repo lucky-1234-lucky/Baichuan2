@@ -1,0 +1,11 @@
+{
+    "conversations": [
+        {
+            "database": "school_bus",
+            "system": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\n##Instruction:\nschool_bus contains tables such as school.\nTable school has columns such as school_id, grade, school, location, type.",
+            "query": "Show the types of schools that have two schools.",
+            "answer": "SELECT TYPE\nFROM school\nGROUP BY TYPE\nHAVING count(*) = 2;",
+            "insert": []
+        }
+    ]
+}

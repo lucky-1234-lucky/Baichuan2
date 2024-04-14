@@ -1,0 +1,20 @@
+{
+    "conversations": [
+        {
+            "role": "system",
+            "content": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\n##Instruction:\nworkshop_paper contains tables such as workshop.\nTable workshop has columns such as workshop_id, date, venue, name."
+        },
+        {
+            "role": "user",
+            "content": "Show the date and venue of each workshop in ascending alphabetical order of the venue."
+        },
+        {
+            "role": "assistant",
+            "content": "SELECT date , venue\nFROM workshop\nORDER BY venue;"
+        },
+        {
+            "role": "result",
+            "content": "SELECT date,\n       venue\nFROM workshop\nORDER BY venue ASC;"
+        }
+    ]
+}

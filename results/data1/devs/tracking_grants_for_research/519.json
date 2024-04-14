@@ -1,0 +1,20 @@
+{
+    "conversations": [
+        {
+            "role": "system",
+            "content": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\n##Instruction:\ntracking_grants_for_research contains tables such as document_types.\nTable document_types has columns such as document_type_code, document_description."
+        },
+        {
+            "role": "user",
+            "content": "What is the type of the document whose description starts with the word 'Initial'?"
+        },
+        {
+            "role": "assistant",
+            "content": "select document_type_code from document_types where document_description like 'initial%';"
+        },
+        {
+            "role": "result",
+            "content": "select document_type_code from document_types where document_description like '%initial%';"
+        }
+    ]
+}

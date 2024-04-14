@@ -1,0 +1,11 @@
+{
+    "conversations": [
+        {
+            "database": "roller_coaster",
+            "system": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\n##Instruction:\nroller_coaster contains tables such as country.\nTable country has columns such as country_id, name, population, area, languages.",
+            "query": "List the names of countries whose language is not \"German\".",
+            "answer": "select name from country where languages != 'german';",
+            "insert": []
+        }
+    ]
+}

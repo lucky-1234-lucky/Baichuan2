@@ -1,0 +1,20 @@
+{
+    "conversations": [
+        {
+            "role": "system",
+            "content": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\n##Instruction:\nworkshop_paper contains tables such as submission.\nTable submission has columns such as submission_id, scores, author, college."
+        },
+        {
+            "role": "user",
+            "content": "Which colleges have both authors with submission score above 90 and authors with submission score below 80?"
+        },
+        {
+            "role": "assistant",
+            "content": "SELECT college\nFROM submission\nWHERE scores > 90 INTERSECT\n  SELECT college\n  FROM submission WHERE scores < 80;"
+        },
+        {
+            "role": "result",
+            "content": "SELECT college\nFROM submission\nWHERE scores > 90 INTERSECT\n  SELECT college\n  FROM submission WHERE scores <= 80;"
+        }
+    ]
+}

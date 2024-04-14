@@ -1,0 +1,11 @@
+{
+    "conversations": [
+        {
+            "database": "body_builder",
+            "system": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\n##Instruction:\nbody_builder contains tables such as people.\nTable people has columns such as people_id, name, height, weight, birth_date, birth_place.",
+            "query": "What are the birth places that are shared by at least two people?",
+            "answer": "select birth_place from people group by birth_place having count(*) >= 2;",
+            "insert": []
+        }
+    ]
+}

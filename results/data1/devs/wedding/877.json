@@ -1,0 +1,20 @@
+{
+    "conversations": [
+        {
+            "role": "system",
+            "content": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\n##Instruction:\nwedding contains tables such as people.\nTable people has columns such as people_id, name, country, is_male, age."
+        },
+        {
+            "role": "user",
+            "content": "Show the country where people older than 30 and younger than 25 are from."
+        },
+        {
+            "role": "assistant",
+            "content": "select country from people where age < 25 intersect select country from people where age > 30;"
+        },
+        {
+            "role": "result",
+            "content": "select country from people where age > 30 and age < 25;"
+        }
+    ]
+}

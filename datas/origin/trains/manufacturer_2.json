@@ -1,0 +1,99 @@
+{
+    "sql": [
+        {
+            "furniture": "CREATE TABLE `furniture` (\n  `furniture_id` int(11) NOT NULL,\n  `name` text,\n  `num_of_component` int(11) DEFAULT NULL,\n  `market_rate` double DEFAULT NULL,\n  PRIMARY KEY (`furniture_id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8",
+            "fileds": {
+                "field": [
+                    [
+                        "furniture_id",
+                        "int",
+                        "PRIMARY KEY"
+                    ],
+                    [
+                        "name",
+                        "text,"
+                    ],
+                    [
+                        "num_of_component",
+                        "int"
+                    ],
+                    [
+                        "market_rate",
+                        "double"
+                    ]
+                ],
+                "foreign_key": []
+            }
+        },
+        {
+            "furniture_manufacte": "CREATE TABLE `furniture_manufacte` (\n  `manufacturer_id` int(11) NOT NULL,\n  `furniture_id` int(11) NOT NULL,\n  `price_in_dollar` double DEFAULT NULL,\n  PRIMARY KEY (`manufacturer_id`,`furniture_id`),\n  KEY `furniture_id` (`furniture_id`),\n  CONSTRAINT `furniture_manufacte_ibfk_1` FOREIGN KEY (`manufacturer_id`) REFERENCES `manufacturer` (`manufacturer_id`),\n  CONSTRAINT `furniture_manufacte_ibfk_2` FOREIGN KEY (`furniture_id`) REFERENCES `furniture` (`furniture_id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8",
+            "fileds": {
+                "field": [
+                    [
+                        "manufacturer_id",
+                        "int",
+                        "PRIMARY KEY"
+                    ],
+                    [
+                        "furniture_id",
+                        "int",
+                        "PRIMARY KEY"
+                    ],
+                    [
+                        "price_in_dollar",
+                        "double"
+                    ]
+                ],
+                "foreign_key": [
+                    [
+                        "manufacturer_id",
+                        "manufacturer",
+                        "manufacturer_id"
+                    ],
+                    [
+                        "furniture_id",
+                        "furniture",
+                        "furniture_id"
+                    ]
+                ]
+            }
+        },
+        {
+            "manufacturer": "CREATE TABLE `manufacturer` (\n  `manufacturer_id` int(11) NOT NULL,\n  `open_year` double DEFAULT NULL,\n  `name` text,\n  `num_of_factories` int(11) DEFAULT NULL,\n  `num_of_shops` int(11) DEFAULT NULL,\n  PRIMARY KEY (`manufacturer_id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8",
+            "fileds": {
+                "field": [
+                    [
+                        "manufacturer_id",
+                        "int",
+                        "PRIMARY KEY"
+                    ],
+                    [
+                        "open_year",
+                        "double"
+                    ],
+                    [
+                        "name",
+                        "text,"
+                    ],
+                    [
+                        "num_of_factories",
+                        "int"
+                    ],
+                    [
+                        "num_of_shops",
+                        "int"
+                    ]
+                ],
+                "foreign_key": []
+            }
+        }
+    ],
+    "input": "Give me the names and prices of furnitures which some companies are manufacturing.",
+    "response": "select t1.name , t2.price_in_dollar from furniture as t1 join furniture_manufacte as t2 on t1.furniture_id = t2.furniture_id;",
+    "insert": [],
+    "table_names": [
+        "furniture_manufacte",
+        "furniture"
+    ],
+    "database": "manufacturer"
+}

@@ -1,0 +1,20 @@
+{
+    "conversations": [
+        {
+            "role": "system",
+            "content": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\n##Instruction:\ntracking_grants_for_research contains tables such as projects.\nTable projects has columns such as project_id, organisation_id, project_details, where organisation_id is the primary key.\nThe organisation_id of organisations is the foreign key of organisation_id of projects."
+        },
+        {
+            "role": "user",
+            "content": "List the project details of the projects launched by the organisation"
+        },
+        {
+            "role": "assistant",
+            "content": "select project_details from projects where organisation_id in ( select organisation_id from projects group by organisation_id order by count(*) desc limit 1 );"
+        },
+        {
+            "role": "result",
+            "content": "To list the project details of the projects launched by an organization, you would use a SQL query that joins the `projects` table with the `organisations` table on the `organisation_id` column. Here's the SQL command for that:\n\n```sql\nSELECT p.project_details\nFROM projects p\nJOIN organisations o ON p.organisation_id = o.organisation_id;\n```\n\nThis query will return all the `project_details` from the `projects` table (alias `p`) that have an `organisation_id` matching any of the `organisation_id` in the `organisations` table (alias `o`)."
+        }
+    ]
+}

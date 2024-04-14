@@ -1,0 +1,20 @@
+{
+    "conversations": [
+        {
+            "role": "system",
+            "content": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\n##Instruction:\npoker_player contains tables such as people.\nTable people has columns such as people_id, nationality, name, birth_date, height."
+        },
+        {
+            "role": "user",
+            "content": "What are the names of people who are not from Russia?"
+        },
+        {
+            "role": "assistant",
+            "content": "select name from people where nationality != 'russia';"
+        },
+        {
+            "role": "result",
+            "content": "select name from people where nationality != 'russia';"
+        }
+    ]
+}

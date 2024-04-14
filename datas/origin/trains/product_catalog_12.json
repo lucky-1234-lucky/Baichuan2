@@ -1,0 +1,240 @@
+{
+    "sql": [
+        {
+            "attribute_definitions": "CREATE TABLE `attribute_definitions` (\n  `attribute_id` int(11) NOT NULL,\n  `attribute_name` varchar(30) DEFAULT NULL,\n  `attribute_data_type` varchar(10) DEFAULT NULL,\n  PRIMARY KEY (`attribute_id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8",
+            "fileds": {
+                "field": [
+                    [
+                        "attribute_id",
+                        "int",
+                        "PRIMARY KEY"
+                    ],
+                    [
+                        "attribute_name",
+                        "varchar"
+                    ],
+                    [
+                        "attribute_data_type",
+                        "varchar"
+                    ]
+                ],
+                "foreign_key": []
+            }
+        },
+        {
+            "catalog_contents": "CREATE TABLE `catalog_contents` (\n  `catalog_entry_id` int(11) NOT NULL,\n  `catalog_level_number` int(11) NOT NULL,\n  `parent_entry_id` int(11) DEFAULT NULL,\n  `previous_entry_id` int(11) DEFAULT NULL,\n  `next_entry_id` int(11) DEFAULT NULL,\n  `catalog_entry_name` varchar(80) DEFAULT NULL,\n  `product_stock_number` varchar(50) DEFAULT NULL,\n  `price_in_dollars` double DEFAULT NULL,\n  `price_in_euros` double DEFAULT NULL,\n  `price_in_pounds` double DEFAULT NULL,\n  `capacity` varchar(20) DEFAULT NULL,\n  `length` varchar(20) DEFAULT NULL,\n  `height` varchar(20) DEFAULT NULL,\n  `width` varchar(20) DEFAULT NULL,\n  PRIMARY KEY (`catalog_entry_id`),\n  KEY `catalog_level_number` (`catalog_level_number`),\n  CONSTRAINT `catalog_contents_ibfk_1` FOREIGN KEY (`catalog_level_number`) REFERENCES `catalog_structure` (`catalog_level_number`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8",
+            "fileds": {
+                "field": [
+                    [
+                        "catalog_entry_id",
+                        "int",
+                        "PRIMARY KEY"
+                    ],
+                    [
+                        "catalog_level_number",
+                        "int"
+                    ],
+                    [
+                        "parent_entry_id",
+                        "int"
+                    ],
+                    [
+                        "previous_entry_id",
+                        "int"
+                    ],
+                    [
+                        "next_entry_id",
+                        "int"
+                    ],
+                    [
+                        "catalog_entry_name",
+                        "varchar"
+                    ],
+                    [
+                        "product_stock_number",
+                        "varchar"
+                    ],
+                    [
+                        "price_in_dollars",
+                        "double"
+                    ],
+                    [
+                        "price_in_euros",
+                        "double"
+                    ],
+                    [
+                        "price_in_pounds",
+                        "double"
+                    ],
+                    [
+                        "capacity",
+                        "varchar"
+                    ],
+                    [
+                        "length",
+                        "varchar"
+                    ],
+                    [
+                        "height",
+                        "varchar"
+                    ],
+                    [
+                        "width",
+                        "varchar"
+                    ]
+                ],
+                "foreign_key": [
+                    [
+                        "catalog_level_number",
+                        "catalog_structure",
+                        "catalog_level_number"
+                    ]
+                ]
+            }
+        },
+        {
+            "catalog_contents_additional_attributes": "CREATE TABLE `catalog_contents_additional_attributes` (\n  `catalog_entry_id` int(11) NOT NULL,\n  `catalog_level_number` int(11) NOT NULL,\n  `attribute_id` int(11) NOT NULL,\n  `attribute_value` varchar(255) NOT NULL,\n  KEY `catalog_entry_id` (`catalog_entry_id`),\n  KEY `catalog_level_number` (`catalog_level_number`),\n  CONSTRAINT `catalog_contents_additional_attributes_ibfk_1` FOREIGN KEY (`catalog_entry_id`) REFERENCES `catalog_contents` (`catalog_entry_id`),\n  CONSTRAINT `catalog_contents_additional_attributes_ibfk_2` FOREIGN KEY (`catalog_level_number`) REFERENCES `catalog_structure` (`catalog_level_number`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8",
+            "fileds": {
+                "field": [
+                    [
+                        "catalog_entry_id",
+                        "int"
+                    ],
+                    [
+                        "catalog_level_number",
+                        "int"
+                    ],
+                    [
+                        "attribute_id",
+                        "int"
+                    ],
+                    [
+                        "attribute_value",
+                        "varchar"
+                    ]
+                ],
+                "foreign_key": [
+                    [
+                        "catalog_entry_id",
+                        "catalog_contents",
+                        "catalog_entry_id"
+                    ],
+                    [
+                        "catalog_level_number",
+                        "catalog_structure",
+                        "catalog_level_number"
+                    ]
+                ]
+            }
+        },
+        {
+            "catalog_structure": "CREATE TABLE `catalog_structure` (\n  `catalog_level_number` int(11) NOT NULL,\n  `catalog_id` int(11) NOT NULL,\n  `catalog_level_name` varchar(50) DEFAULT NULL,\n  PRIMARY KEY (`catalog_level_number`),\n  KEY `catalog_id` (`catalog_id`),\n  CONSTRAINT `catalog_structure_ibfk_1` FOREIGN KEY (`catalog_id`) REFERENCES `catalogs` (`catalog_id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8",
+            "fileds": {
+                "field": [
+                    [
+                        "catalog_level_number",
+                        "int",
+                        "PRIMARY KEY"
+                    ],
+                    [
+                        "catalog_id",
+                        "int"
+                    ],
+                    [
+                        "catalog_level_name",
+                        "varchar"
+                    ]
+                ],
+                "foreign_key": [
+                    [
+                        "catalog_id",
+                        "catalogs",
+                        "catalog_id"
+                    ]
+                ]
+            }
+        },
+        {
+            "catalogs": "CREATE TABLE `catalogs` (\n  `catalog_id` int(11) NOT NULL,\n  `catalog_name` varchar(50) DEFAULT NULL,\n  `catalog_publisher` varchar(80) DEFAULT NULL,\n  `date_of_publication` datetime DEFAULT NULL,\n  `date_of_latest_revision` datetime DEFAULT NULL,\n  PRIMARY KEY (`catalog_id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8",
+            "fileds": {
+                "field": [
+                    [
+                        "catalog_id",
+                        "int",
+                        "PRIMARY KEY"
+                    ],
+                    [
+                        "catalog_name",
+                        "varchar"
+                    ],
+                    [
+                        "catalog_publisher",
+                        "varchar"
+                    ],
+                    [
+                        "date_of_publication",
+                        "datetime"
+                    ],
+                    [
+                        "date_of_latest_revision",
+                        "datetime"
+                    ]
+                ],
+                "foreign_key": []
+            }
+        }
+    ],
+    "input": "What are the name and level of catalog structure with level number between 5 and 10",
+    "response": "select catalog_level_name , catalog_level_number from catalog_structure where catalog_level_number between 5 and 10;",
+    "insert": [
+        "INSERT INTO attribute_definitions (`attribute_id`, `attribute_name`, `attribute_data_type`) VALUES (1, 'green', 'bool');",
+        "INSERT INTO attribute_definitions (`attribute_id`, `attribute_name`, `attribute_data_type`) VALUES (2, 'black', 'bool');",
+        "INSERT INTO attribute_definitions (`attribute_id`, `attribute_name`, `attribute_data_type`) VALUES (3, 'yellow', 'bool');",
+        "INSERT INTO attribute_definitions (`attribute_id`, `attribute_name`, `attribute_data_type`) VALUES (4, 'sweet', 'bool');",
+        "INSERT INTO catalogs (`catalog_id`, `catalog_name`, `catalog_publisher`, `date_of_publication`, `date_of_latest_revision`) VALUES (1, 'chocolate', 'koepp-rutherford handmade chocolate store', '2013-03-15 05:09:17', '2017-09-26 12:10:36');",
+        "INSERT INTO catalogs (`catalog_id`, `catalog_name`, `catalog_publisher`, `date_of_publication`, `date_of_latest_revision`) VALUES (2, 'coffee bean', 'murray coffee shop', '2012-04-13 06:37:09', '2017-10-26 01:16:51');",
+        "INSERT INTO catalogs (`catalog_id`, `catalog_name`, `catalog_publisher`, `date_of_publication`, `date_of_latest_revision`) VALUES (3, 'lemonade', 'russel-gislason lemon shop', '2012-11-27 19:29:22', '2017-12-04 06:48:13');",
+        "INSERT INTO catalogs (`catalog_id`, `catalog_name`, `catalog_publisher`, `date_of_publication`, `date_of_latest_revision`) VALUES (4, 'breakfast tea', 'grady & kautzer', '2011-07-22 04:57:19', '2017-03-30 09:15:37');",
+        "INSERT INTO catalogs (`catalog_id`, `catalog_name`, `catalog_publisher`, `date_of_publication`, `date_of_latest_revision`) VALUES (5, 'coco powder', 'lidl', '2013-03-15 05:09:17', '2017-09-26 12:10:36');",
+        "INSERT INTO catalogs (`catalog_id`, `catalog_name`, `catalog_publisher`, `date_of_publication`, `date_of_latest_revision`) VALUES (6, 'latte', 'murray coffee shop', '2012-04-13 06:37:09', '2017-10-26 01:16:51');",
+        "INSERT INTO catalogs (`catalog_id`, `catalog_name`, `catalog_publisher`, `date_of_publication`, `date_of_latest_revision`) VALUES (7, 'sparkling water', 'russel-gislason lemon shop', '2012-11-27 19:29:22', '2017-12-04 06:48:13');",
+        "INSERT INTO catalogs (`catalog_id`, `catalog_name`, `catalog_publisher`, `date_of_publication`, `date_of_latest_revision`) VALUES (8, 'jam', 'grady & kautzer', '2011-07-22 04:57:19', '2017-03-30 09:15:37');",
+        "INSERT INTO catalog_structure (`catalog_level_number`, `catalog_id`, `catalog_level_name`) VALUES (1, 1, 'category');",
+        "INSERT INTO catalog_structure (`catalog_level_number`, `catalog_id`, `catalog_level_name`) VALUES (8, 2, 'sub-category');",
+        "INSERT INTO catalog_structure (`catalog_level_number`, `catalog_id`, `catalog_level_name`) VALUES (9, 8, 'product');",
+        "INSERT INTO catalog_contents (`catalog_entry_id`, `catalog_level_number`, `parent_entry_id`, `previous_entry_id`, `next_entry_id`, `catalog_entry_name`, `product_stock_number`, `price_in_dollars`, `price_in_euros`, `price_in_pounds`, `capacity`, `length`, `height`, `width`) VALUES (1, 1, 5, 9, 7, 'cola', '89 cp', '200.78', '159.84', '172.17', '1', '3', '9', '5');",
+        "INSERT INTO catalog_contents (`catalog_entry_id`, `catalog_level_number`, `parent_entry_id`, `previous_entry_id`, `next_entry_id`, `catalog_entry_name`, `product_stock_number`, `price_in_dollars`, `price_in_euros`, `price_in_pounds`, `capacity`, `length`, `height`, `width`) VALUES (2, 8, 6, 9, 8, 'root beer', '37 hq', '687.59', '590.11', '471.78', '8', '6', '5', '6');",
+        "INSERT INTO catalog_contents (`catalog_entry_id`, `catalog_level_number`, `parent_entry_id`, `previous_entry_id`, `next_entry_id`, `catalog_entry_name`, `product_stock_number`, `price_in_dollars`, `price_in_euros`, `price_in_pounds`, `capacity`, `length`, `height`, `width`) VALUES (3, 8, 6, 6, 1, 'cream soda', '52 ee', '360.5', '202.32', '110.32', '5', '9', '7', '8');",
+        "INSERT INTO catalog_contents (`catalog_entry_id`, `catalog_level_number`, `parent_entry_id`, `previous_entry_id`, `next_entry_id`, `catalog_entry_name`, `product_stock_number`, `price_in_dollars`, `price_in_euros`, `price_in_pounds`, `capacity`, `length`, `height`, `width`) VALUES (4, 1, 7, 8, 6, 'carbonated water', '15 mr', '667.89', '458.45', '349.01', '8', '6', '2', '1');",
+        "INSERT INTO catalog_contents (`catalog_entry_id`, `catalog_level_number`, `parent_entry_id`, `previous_entry_id`, `next_entry_id`, `catalog_entry_name`, `product_stock_number`, `price_in_dollars`, `price_in_euros`, `price_in_pounds`, `capacity`, `length`, `height`, `width`) VALUES (5, 9, 4, 7, 6, 'ginger beer', '42 cp', '616.22', '537.66', '405.75', '5', '5', '7', '9');",
+        "INSERT INTO catalog_contents (`catalog_entry_id`, `catalog_level_number`, `parent_entry_id`, `previous_entry_id`, `next_entry_id`, `catalog_entry_name`, `product_stock_number`, `price_in_dollars`, `price_in_euros`, `price_in_pounds`, `capacity`, `length`, `height`, `width`) VALUES (6, 1, 3, 4, 8, 'tizer', '61 py', '642.37', '434.21', '331.43', '6', '6', '7', '1');",
+        "INSERT INTO catalog_contents (`catalog_entry_id`, `catalog_level_number`, `parent_entry_id`, `previous_entry_id`, `next_entry_id`, `catalog_entry_name`, `product_stock_number`, `price_in_dollars`, `price_in_euros`, `price_in_pounds`, `capacity`, `length`, `height`, `width`) VALUES (7, 9, 7, 3, 3, 'vimto', '01 ap', '745.02', '510.32', '497.4', '6', '9', '6', '5');",
+        "INSERT INTO catalog_contents (`catalog_entry_id`, `catalog_level_number`, `parent_entry_id`, `previous_entry_id`, `next_entry_id`, `catalog_entry_name`, `product_stock_number`, `price_in_dollars`, `price_in_euros`, `price_in_pounds`, `capacity`, `length`, `height`, `width`) VALUES (8, 8, 6, 5, 3, 'ramune', '53 bg', '574.35', '441.82', '440.52', '4', '4', '7', '5');",
+        "INSERT INTO catalog_contents (`catalog_entry_id`, `catalog_level_number`, `parent_entry_id`, `previous_entry_id`, `next_entry_id`, `catalog_entry_name`, `product_stock_number`, `price_in_dollars`, `price_in_euros`, `price_in_pounds`, `capacity`, `length`, `height`, `width`) VALUES (9, 1, 7, 9, 9, 'sprite lemo', '24 ec', '952.37', '703.17', '433.82', '8', '7', '1', '3');",
+        "INSERT INTO catalog_contents (`catalog_entry_id`, `catalog_level_number`, `parent_entry_id`, `previous_entry_id`, `next_entry_id`, `catalog_entry_name`, `product_stock_number`, `price_in_dollars`, `price_in_euros`, `price_in_pounds`, `capacity`, `length`, `height`, `width`) VALUES (10, 8, 5, 6, 6, 'dr pepper', '26 op', '777.41', '616.54', '572.41', '1', '6', '1', '6');",
+        "INSERT INTO catalog_contents (`catalog_entry_id`, `catalog_level_number`, `parent_entry_id`, `previous_entry_id`, `next_entry_id`, `catalog_entry_name`, `product_stock_number`, `price_in_dollars`, `price_in_euros`, `price_in_pounds`, `capacity`, `length`, `height`, `width`) VALUES (11, 1, 3, 6, 9, 'diet pepsi', '49 jg', '808.31', '643.77', '515.62', '9', '8', '3', '3');",
+        "INSERT INTO catalog_contents (`catalog_entry_id`, `catalog_level_number`, `parent_entry_id`, `previous_entry_id`, `next_entry_id`, `catalog_entry_name`, `product_stock_number`, `price_in_dollars`, `price_in_euros`, `price_in_pounds`, `capacity`, `length`, `height`, `width`) VALUES (12, 8, 4, 5, 3, 'diet mountain dew', '96 zx', '883.43', '752.87', '678.01', '8', '8', '1', '3');",
+        "INSERT INTO catalog_contents (`catalog_entry_id`, `catalog_level_number`, `parent_entry_id`, `previous_entry_id`, `next_entry_id`, `catalog_entry_name`, `product_stock_number`, `price_in_dollars`, `price_in_euros`, `price_in_pounds`, `capacity`, `length`, `height`, `width`) VALUES (13, 1, 5, 9, 1, 'mountain dew', '49 cz', '475.79', '457.4', '335.63', '7', '8', '4', '5');",
+        "INSERT INTO catalog_contents (`catalog_entry_id`, `catalog_level_number`, `parent_entry_id`, `previous_entry_id`, `next_entry_id`, `catalog_entry_name`, `product_stock_number`, `price_in_dollars`, `price_in_euros`, `price_in_pounds`, `capacity`, `length`, `height`, `width`) VALUES (14, 9, 3, 5, 8, 'fenta orange', '65 wc', '415.92', '385.85', '371.9', '7', '4', '3', '7');",
+        "INSERT INTO catalog_contents (`catalog_entry_id`, `catalog_level_number`, `parent_entry_id`, `previous_entry_id`, `next_entry_id`, `catalog_entry_name`, `product_stock_number`, `price_in_dollars`, `price_in_euros`, `price_in_pounds`, `capacity`, `length`, `height`, `width`) VALUES (15, 1, 6, 8, 9, 'wanglaoji', '51 kr', '533.6', '498.62', '422.71', '4', '5', '8', '8');",
+        "INSERT INTO catalog_contents_additional_attributes (`catalog_entry_id`, `catalog_level_number`, `attribute_id`, `attribute_value`) VALUES (5, 8, 4, '1');",
+        "INSERT INTO catalog_contents_additional_attributes (`catalog_entry_id`, `catalog_level_number`, `attribute_id`, `attribute_value`) VALUES (15, 9, 3, '0');",
+        "INSERT INTO catalog_contents_additional_attributes (`catalog_entry_id`, `catalog_level_number`, `attribute_id`, `attribute_value`) VALUES (11, 1, 2, '0');",
+        "INSERT INTO catalog_contents_additional_attributes (`catalog_entry_id`, `catalog_level_number`, `attribute_id`, `attribute_value`) VALUES (12, 1, 4, '0');",
+        "INSERT INTO catalog_contents_additional_attributes (`catalog_entry_id`, `catalog_level_number`, `attribute_id`, `attribute_value`) VALUES (1, 8, 3, '1');",
+        "INSERT INTO catalog_contents_additional_attributes (`catalog_entry_id`, `catalog_level_number`, `attribute_id`, `attribute_value`) VALUES (8, 1, 3, '1');",
+        "INSERT INTO catalog_contents_additional_attributes (`catalog_entry_id`, `catalog_level_number`, `attribute_id`, `attribute_value`) VALUES (14, 9, 2, '0');",
+        "INSERT INTO catalog_contents_additional_attributes (`catalog_entry_id`, `catalog_level_number`, `attribute_id`, `attribute_value`) VALUES (15, 9, 2, '0');",
+        "INSERT INTO catalog_contents_additional_attributes (`catalog_entry_id`, `catalog_level_number`, `attribute_id`, `attribute_value`) VALUES (15, 1, 3, '1');",
+        "INSERT INTO catalog_contents_additional_attributes (`catalog_entry_id`, `catalog_level_number`, `attribute_id`, `attribute_value`) VALUES (1, 8, 4, '0');",
+        "INSERT INTO catalog_contents_additional_attributes (`catalog_entry_id`, `catalog_level_number`, `attribute_id`, `attribute_value`) VALUES (11, 1, 3, '1');",
+        "INSERT INTO catalog_contents_additional_attributes (`catalog_entry_id`, `catalog_level_number`, `attribute_id`, `attribute_value`) VALUES (8, 9, 3, '0');",
+        "INSERT INTO catalog_contents_additional_attributes (`catalog_entry_id`, `catalog_level_number`, `attribute_id`, `attribute_value`) VALUES (2, 8, 4, '1');",
+        "INSERT INTO catalog_contents_additional_attributes (`catalog_entry_id`, `catalog_level_number`, `attribute_id`, `attribute_value`) VALUES (6, 1, 1, '1');",
+        "INSERT INTO catalog_contents_additional_attributes (`catalog_entry_id`, `catalog_level_number`, `attribute_id`, `attribute_value`) VALUES (4, 8, 4, '0');"
+    ],
+    "table_names": [
+        "catalog_structure"
+    ],
+    "database": "product_catalog"
+}

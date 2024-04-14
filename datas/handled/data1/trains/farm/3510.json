@@ -1,0 +1,11 @@
+{
+    "conversations": [
+        {
+            "database": "farm",
+            "system": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\n##Instruction:\nfarm contains tables such as city, farm_competition.\nTable city has columns such as city_id, official_name, status, area_km_2, population, census_ranking.\nTable farm_competition has columns such as competition_id, year, theme, host_city_id, hosts, where host_city_id is the primary key.\nThe city_id of city is the foreign key of host_city_id of farm_competition.",
+            "query": "What are the official names of cities that have not hosted a farm competition?",
+            "answer": "select official_name from city where city_id not in (select host_city_id from farm_competition);",
+            "insert": []
+        }
+    ]
+}

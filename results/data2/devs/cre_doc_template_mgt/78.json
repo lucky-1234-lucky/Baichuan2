@@ -1,0 +1,20 @@
+{
+    "conversations": [
+        {
+            "role": "system",
+            "content": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\n##Instruction:\ncre_doc_template_mgt contains tables such as ref_template_types, templates, documents.\nTable documents has columns such as document_id, template_id, document_name, document_description, other_details, where template_id is the primary key.\nTable ref_template_types has columns such as template_type_code, template_type_description.\nTable templates has columns such as template_id, version_number, template_type_code, date_effective_from, date_effective_to, template_details, where template_type_code is the primary key.\nThe template_id of templates is the foreign key of template_id of documents.\nThe template_type_code of ref_template_types is the foreign key of template_type_code of templates."
+        },
+        {
+            "role": "user",
+            "content": "Return the different descriptions for templates that have been used in a document."
+        },
+        {
+            "role": "assistant",
+            "content": "SELECT DISTINCT t1.template_type_description\nFROM ref_template_types AS t1\nJOIN templates AS t2 ON t1.template_type_code = t2.template_type_code\nJOIN documents AS t3 ON t2.template_id = t3.template_id;"
+        },
+        {
+            "role": "result",
+            "content": "SELECT t1.template_type_description\nFROM templates AS t1\nJOIN documents AS t2 ON t1.template_id = t2.template_id\nGROUP BY t1.template_type_code\nHAVING count(*) > 1;"
+        }
+    ]
+}

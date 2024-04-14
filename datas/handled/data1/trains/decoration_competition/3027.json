@@ -1,0 +1,11 @@
+{
+    "conversations": [
+        {
+            "database": "decoration_competition",
+            "system": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\n##Instruction:\ndecoration_competition contains tables such as member, round.\nTable member has columns such as member_id, name, country, college_id, where college_id is the primary key.\nTable round has columns such as round_id, member_id, decoration_theme, rank_in_round, where member_id is the primary key.\nThe college_id of college is the foreign key of college_id of member.\nThe member_id of member is the foreign key of member_id of round.",
+            "query": "List the names of members who did not participate in any round.",
+            "answer": "select name from member where member_id not in (select member_id from round);",
+            "insert": []
+        }
+    ]
+}

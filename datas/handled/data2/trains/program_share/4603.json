@@ -1,0 +1,11 @@
+{
+    "conversations": [
+        {
+            "database": "program_share",
+            "system": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\n##Instruction:\nprogram_share contains tables such as program, channel, broadcast, broadcast_share.\nTable broadcast has columns such as channel_id, program_id, time_of_day, where channel_id is the primary key, program_id is the primary key.\nTable broadcast_share has columns such as channel_id, program_id, date, share_in_percent, where channel_id is the primary key, program_id is the primary key.\nTable channel has columns such as channel_id, name, owner, share_in_percent, rating_in_percent.\nTable program has columns such as program_id, name, origin, launch, owner.\nThe channel_id of channel is the foreign key of channel_id of broadcast.\nThe program_id of program is the foreign key of program_id of broadcast.\nThe channel_id of channel is the foreign key of channel_id of broadcast_share.\nThe program_id of program is the foreign key of program_id of broadcast_share.",
+            "query": "Which programs are never broadcasted in the morning? Give me the names of the programs.",
+            "answer": "SELECT name\nFROM program\nEXCEPT\nSELECT t1.name\nFROM program AS t1\nJOIN broadcast AS t2 ON t1.program_id = t2.program_id\nWHERE t2.time_of_day = 'morning';",
+            "insert": []
+        }
+    ]
+}

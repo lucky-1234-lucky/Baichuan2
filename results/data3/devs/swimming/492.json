@@ -1,0 +1,20 @@
+{
+    "conversations": [
+        {
+            "role": "system",
+            "content": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\n##Instruction:\nswimming contains tables such as stadium.\nTable stadium has columns such as id, name, capacity, city, country, opening_year."
+        },
+        {
+            "role": "user",
+            "content": "How many cities have a stadium that was opened before the year of 2006?"
+        },
+        {
+            "role": "assistant",
+            "content": "SELECT count(DISTINCT city)\nFROM stadium\nWHERE opening_year < 2006;"
+        },
+        {
+            "role": "result",
+            "content": "SELECT count(*)\nFROM stadium\nWHERE opening_year < 2006;"
+        }
+    ]
+}

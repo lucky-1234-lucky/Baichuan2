@@ -1,0 +1,11 @@
+{
+    "conversations": [
+        {
+            "database": "medicine_enzyme_interaction",
+            "system": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\n##Instruction:\nmedicine_enzyme_interaction contains tables such as enzyme, medicine_enzyme_interaction.\nTable enzyme has columns such as id, name, location, product, chromosome, omim, porphyria.\nTable medicine_enzyme_interaction has columns such as enzyme_id, medicine_id, interaction_type, where enzyme_id is the primary key, medicine_id is the primary key.\nThe id of enzyme is the foreign key of enzyme_id of medicine_enzyme_interaction.\nThe id of medicine is the foreign key of medicine_id of medicine_enzyme_interaction.",
+            "query": "What are the different names, locations, and products of the enzymes that are capable inhibitor interactions?",
+            "answer": "select distinct t1.name , t1.location , t1.product from enzyme as t1 join medicine_enzyme_interaction as t2 on t2.enzyme_id = t1.id where t2.interaction_type = 'inhibitor';",
+            "insert": []
+        }
+    ]
+}

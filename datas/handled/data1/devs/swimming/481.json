@@ -1,0 +1,11 @@
+{
+    "conversations": [
+        {
+            "database": "swimming",
+            "system": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\n##Instruction:\nswimming contains tables such as stadium.\nTable stadium has columns such as id, name, capacity, city, country, opening_year.",
+            "query": "Find the names of stadiums whose capacity is smaller than the average capacity.",
+            "answer": "select name from stadium where capacity < (select avg(capacity) from stadium);",
+            "insert": []
+        }
+    ]
+}

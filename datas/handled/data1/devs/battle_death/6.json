@@ -1,0 +1,11 @@
+{
+    "conversations": [
+        {
+            "database": "battle_death",
+            "system": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\n##Instruction:\nbattle_death contains tables such as battle.\nTable battle has columns such as id, name, date, bulgarian_commander, latin_commander, result.",
+            "query": "List the name, date and result of each battle.",
+            "answer": "select name , date from battle;",
+            "insert": []
+        }
+    ]
+}

@@ -1,0 +1,28 @@
+{
+    "conversations": [
+        {
+            "role": "system",
+            "content": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\n##Instruction:\ntracking_grants_for_research contains tables such as organisations, grants.\nTable grants has columns such as grant_id, organisation_id, grant_amount, grant_start_date, grant_end_date, other_details, where organisation_id is the primary key.\nTable organisations has columns such as organisation_id, organisation_type, organisation_details, where organisation_type is the primary key.\nThe organisation_id of organisations is the foreign key of organisation_id of grants.\nThe organisation_type of organisation_types is the foreign key of organisation_type of organisations."
+        },
+        {
+            "role": "user",
+            "content": "Find the organisation ids and details of the organisations which are involved in"
+        },
+        {
+            "role": "assistant",
+            "content": "SELECT t2.organisation_id,\n       t2.organisation_details\nFROM grants AS t1\nJOIN organisations AS t2 ON t1.organisation_id = t2.organisation_id\nGROUP BY t2.organisation_id\nHAVING sum(t1.grant_amount) > 6000;"
+        },
+        {
+            "role": "result",
+            "content": "SELECT t1.organisation_id,\n       t2.organisation_details\nFROM organisations AS t1\nJOIN grants AS t2 ON t1.organisation_id = t2.organisation_id;"
+        },
+        {
+            "role": "exuc_assist",
+            "content": 6
+        },
+        {
+            "role": "exuc_infer",
+            "content": -1
+        }
+    ]
+}

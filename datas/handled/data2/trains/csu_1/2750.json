@@ -1,0 +1,11 @@
+{
+    "conversations": [
+        {
+            "database": "csu_1",
+            "system": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\n##Instruction:\ncsu_1 contains tables such as campuses.\nTable campuses has columns such as id, campus, location, county, year.",
+            "query": "Find the name of the campuses that is in Northridge, Los Angeles or in San Francisco, San Francisco.",
+            "answer": "SELECT campus\nFROM campuses\nWHERE LOCATION = 'northridge'\n  AND county = 'los angeles'\nUNION\nSELECT campus\nFROM campuses\nWHERE LOCATION = 'san francisco'\n  AND county = 'san francisco';",
+            "insert": []
+        }
+    ]
+}

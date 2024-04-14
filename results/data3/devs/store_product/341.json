@@ -1,0 +1,20 @@
+{
+    "conversations": [
+        {
+            "role": "system",
+            "content": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\n##Instruction:\nstore_product contains tables such as store, district, store_district.\nTable district has columns such as district_id, district_name, headquartered_city, city_population, city_area.\nTable store has columns such as store_id, store_name, type, area_size, number_of_product_category, ranking.\nTable store_district has columns such as store_id, district_id, where store_id is the primary key, district_id is the primary key.\nThe store_id of store is the foreign key of store_id of store_district.\nThe district_id of district is the foreign key of district_id of store_district."
+        },
+        {
+            "role": "user",
+            "content": "How many stores are headquarted in each city?"
+        },
+        {
+            "role": "assistant",
+            "content": "SELECT t3.headquartered_city,\n       count(*)\nFROM store AS t1\nJOIN store_district AS t2 ON t1.store_id = t2.store_id\nJOIN district AS t3 ON t2.district_id = t3.district_id\nGROUP BY t3.headquartered_city;"
+        },
+        {
+            "role": "result",
+            "content": "SELECT t1.city_population,\n       count(*)\nFROM district AS t1\nJOIN store AS t2 ON t1.district_id = t2.district_id\nGROUP BY t1.city_population;"
+        }
+    ]
+}

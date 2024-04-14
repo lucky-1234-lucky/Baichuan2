@@ -1,0 +1,11 @@
+{
+    "conversations": [
+        {
+            "database": "cinema",
+            "system": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\n##Instruction:\ncinema contains tables such as cinema, schedule.\nTable cinema has columns such as cinema_id, name, openning_year, capacity, location.\nTable schedule has columns such as cinema_id, film_id, date, show_times_per_day, price, where film_id is the primary key, cinema_id is the primary key.\nThe film_id of film is the foreign key of film_id of schedule.\nThe cinema_id of cinema is the foreign key of cinema_id of schedule.",
+            "query": "What is total number of show times per dat for each cinema?",
+            "answer": "select t2.name , sum(t1.show_times_per_day) from schedule as t1 join cinema as t2 on t1.cinema_id = t2.cinema_id group by t1.cinema_id;",
+            "insert": []
+        }
+    ]
+}

@@ -1,0 +1,28 @@
+{
+    "conversations": [
+        {
+            "role": "system",
+            "content": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\n##Instruction:\ncre_doc_template_mgt contains tables such as ref_template_types, templates, documents.\nTable documents has columns such as document_id, template_id, document_name, document_description, other_details, where template_id is the primary key.\nTable ref_template_types has columns such as template_type_code, template_type_description.\nTable templates has columns such as template_id, version_number, template_type_code, date_effective_from, date_effective_to, template_details, where template_type_code is the primary key.\nThe template_id of templates is the foreign key of template_id of documents.\nThe template_type_code of ref_template_types is the foreign key of template_type_code of templates."
+        },
+        {
+            "role": "user",
+            "content": "What are the distinct template type descriptions for the templates ever used by any document?"
+        },
+        {
+            "role": "assistant",
+            "content": "select distinct t1.template_type_description from ref_template_types as t1 join templates as t2 on t1.template_type_code = t2.template_type_code join documents as t3 on t2.template_id = t3.template_id;"
+        },
+        {
+            "role": "result",
+            "content": "select distinct t1.template_type_description from templates as t1 join documents as t2 on t1.template_id = t2.template_id join ref_template_types as t3 on t1.template_type_code = t3.template_type_code;"
+        },
+        {
+            "role": "exuc_assist",
+            "content": 4
+        },
+        {
+            "role": "exuc_infer",
+            "content": -1
+        }
+    ]
+}

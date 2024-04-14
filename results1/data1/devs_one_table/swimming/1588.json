@@ -1,0 +1,28 @@
+{
+    "conversations": [
+        {
+            "role": "system",
+            "content": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\n##Instruction:\nswimming contains tables such as event.\nTable event has columns such as id, name, stadium_id, year, where stadium_id is the primary key.\nThe id of stadium is the foreign key of stadium_id of event."
+        },
+        {
+            "role": "user",
+            "content": "List all the event names by year from the most recent to the oldest."
+        },
+        {
+            "role": "assistant",
+            "content": "select name from event order by year desc;"
+        },
+        {
+            "role": "result",
+            "content": "select name from event order by year desc;"
+        },
+        {
+            "role": "exuc_assist",
+            "content": 0
+        },
+        {
+            "role": "exuc_infer",
+            "content": 0
+        }
+    ]
+}

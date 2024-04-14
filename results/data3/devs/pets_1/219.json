@@ -1,0 +1,20 @@
+{
+    "conversations": [
+        {
+            "role": "system",
+            "content": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\n##Instruction:\npets_1 contains tables such as pets.\nTable pets has columns such as petid, pettype, pet_age, weight."
+        },
+        {
+            "role": "user",
+            "content": "What type of pet is the youngest animal, and how much does it weigh?"
+        },
+        {
+            "role": "assistant",
+            "content": "SELECT pettype,\n       weight\nFROM pets\nORDER BY pet_age\nLIMIT 1;"
+        },
+        {
+            "role": "result",
+            "content": "SELECT pettype,\n       min(pet_age),\n       max(weight)\nFROM pets\nGROUP BY pettype;"
+        }
+    ]
+}

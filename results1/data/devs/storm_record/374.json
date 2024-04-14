@@ -1,0 +1,28 @@
+{
+    "conversations": [
+        {
+            "role": "system",
+            "content": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\n##Instruction:\nstorm_record contains tables such as affected_region, storm.\nTable affected_region has columns such as region_id, storm_id, number_city_affected, where region_id is the primary key, storm_id is the primary key.\nTable storm has columns such as storm_id, name, dates_active, max_speed, damage_millions_usd, number_deaths.\nThe region_id of region is the foreign key of region_id of affected_region.\nThe storm_id of storm is the foreign key of storm_id of affected_region."
+        },
+        {
+            "role": "user",
+            "content": "What are the names of storms that did not affect any regions?"
+        },
+        {
+            "role": "assistant",
+            "content": "select name from storm where storm_id not in (select storm_id from affected_region);"
+        },
+        {
+            "role": "result",
+            "content": "SELECT name FROM storm WHERE storm_id NOT IN (SELECT region_id FROM affected_region);"
+        },
+        {
+            "role": "exuc_assist",
+            "content": 0
+        },
+        {
+            "role": "exuc_infer",
+            "content": 0
+        }
+    ]
+}

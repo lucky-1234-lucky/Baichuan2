@@ -1,0 +1,11 @@
+{
+    "conversations": [
+        {
+            "database": "film_rank",
+            "system": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\n##Instruction:\nfilm_rank contains tables such as film.\nTable film has columns such as film_id, title, studio, director, gross_in_dollar.",
+            "query": "List the name of film studio that have the most number of films.",
+            "answer": "select studio from film group by studio order by count(*) desc limit 1;",
+            "insert": []
+        }
+    ]
+}

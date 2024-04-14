@@ -1,0 +1,28 @@
+{
+    "conversations": [
+        {
+            "role": "system",
+            "content": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\n##Instruction:\ntracking_share_transactions contains tables such as ref_transaction_types, transactions.\nTable ref_transaction_types has columns such as transaction_type_code, transaction_type_description.\nTable transactions has columns such as transaction_id, investor_id, transaction_type_code, date_of_transaction, amount_of_transaction, share_count, other_details, where investor_id is the primary key, transaction_type_code is the primary key.\nThe investor_id of investors is the foreign key of investor_id of transactions.\nThe transaction_type_code of ref_transaction_types is the foreign key of transaction_type_code of transactions."
+        },
+        {
+            "role": "user",
+            "content": "Show the description of the transaction type that occurs most frequently."
+        },
+        {
+            "role": "assistant",
+            "content": "select t1.transaction_type_description from ref_transaction_types as t1 join transactions as t2 on t1.transaction_type_code = t2.transaction_type_code group by t1.transaction_type_code order by count(*) desc limit 1;"
+        },
+        {
+            "role": "result",
+            "content": "select t1.transaction_type_description from ref_transaction_types as t1 join transactions as t2 on t1.transaction_type_code = t2.transaction_type_code group by t1.transaction_type_code order by count(*) desc limit 1;"
+        },
+        {
+            "role": "exuc_assist",
+            "content": 0
+        },
+        {
+            "role": "exuc_infer",
+            "content": 0
+        }
+    ]
+}

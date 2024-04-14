@@ -1,0 +1,11 @@
+{
+    "conversations": [
+        {
+            "database": "flight_company",
+            "system": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\n##Instruction:\nflight_company contains tables such as operate_company.\nTable operate_company has columns such as id, name, type, principal_activities, incorporated_in, group_equity_shareholding.",
+            "query": "What is the most common company type, and how many are there?",
+            "answer": "select type , count(*) from operate_company group by type order by count(*) desc limit 1;",
+            "insert": []
+        }
+    ]
+}

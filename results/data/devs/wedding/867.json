@@ -1,0 +1,20 @@
+{
+    "conversations": [
+        {
+            "role": "system",
+            "content": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\n##Instruction:\nwedding contains tables such as church.\nTable church has columns such as church_id, name, organized_by, open_date, continuation_of."
+        },
+        {
+            "role": "user",
+            "content": "Show all opening years and the number of churches that opened in that year."
+        },
+        {
+            "role": "assistant",
+            "content": "select open_date , count(*) from church group by open_date;"
+        },
+        {
+            "role": "result",
+            "content": "SELECT DISTINCT YEAR(open_date) AS OpeningYear, COUNT(*) AS NumberOfChurches FROM church GROUP BY OpeningYear;"
+        }
+    ]
+}

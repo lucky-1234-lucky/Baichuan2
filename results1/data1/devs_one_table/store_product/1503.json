@@ -1,0 +1,28 @@
+{
+    "conversations": [
+        {
+            "role": "system",
+            "content": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\n##Instruction:\nstore_product contains tables such as product.\nTable product has columns such as product_id, product, dimensions, dpi, pages_per_minute_color, max_page_size, interface."
+        },
+        {
+            "role": "user",
+            "content": "What is the most common maximum page size?"
+        },
+        {
+            "role": "assistant",
+            "content": "select max_page_size from product group by max_page_size order by count(*) desc limit 1;"
+        },
+        {
+            "role": "result",
+            "content": "select max_page_size from product group by max_page_size order by count(*) desc limit 1;"
+        },
+        {
+            "role": "exuc_assist",
+            "content": 0
+        },
+        {
+            "role": "exuc_infer",
+            "content": 0
+        }
+    ]
+}

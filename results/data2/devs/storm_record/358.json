@@ -1,0 +1,20 @@
+{
+    "conversations": [
+        {
+            "role": "system",
+            "content": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\n##Instruction:\nstorm_record contains tables such as region, affected_region, storm.\nTable affected_region has columns such as region_id, storm_id, number_city_affected, where region_id is the primary key, storm_id is the primary key.\nTable region has columns such as region_id, region_code, region_name.\nTable storm has columns such as storm_id, name, dates_active, max_speed, damage_millions_usd, number_deaths.\nThe region_id of region is the foreign key of region_id of affected_region.\nThe storm_id of storm is the foreign key of storm_id of affected_region."
+        },
+        {
+            "role": "user",
+            "content": "Return the names of the regions affected by storms that had a death count of at least 10."
+        },
+        {
+            "role": "assistant",
+            "content": "SELECT t2.region_name\nFROM affected_region AS t1\nJOIN region AS t2 ON t1.region_id = t2.region_id\nJOIN storm AS t3 ON t1.storm_id = t3.storm_id\nWHERE t3.number_deaths >= 10;"
+        },
+        {
+            "role": "result",
+            "content": "SELECT t2.region_name\nFROM affected_region AS t1\nJOIN region AS t2 ON t1.region_id = t2.region_id\nWHERE t1.storm_id IN\n    (SELECT storm_id\n     FROM storm\n     WHERE number_deaths >= 10);"
+        }
+    ]
+}

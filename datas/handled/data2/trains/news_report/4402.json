@@ -1,0 +1,11 @@
+{
+    "conversations": [
+        {
+            "database": "news_report",
+            "system": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\n##Instruction:\nnews_report contains tables such as event.\nTable event has columns such as event_id, date, venue, name, event_attendance.",
+            "query": "what are the average and maximum attendances of all events?",
+            "answer": "SELECT avg(event_attendance),\n       max(event_attendance)\nFROM event;",
+            "insert": []
+        }
+    ]
+}

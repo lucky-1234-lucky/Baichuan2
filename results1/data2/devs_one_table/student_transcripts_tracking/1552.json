@@ -1,0 +1,28 @@
+{
+    "conversations": [
+        {
+            "role": "system",
+            "content": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\n##Instruction:\nstudent_transcripts_tracking contains tables such as departments.\nTable departments has columns such as department_id, department_name, department_description, other_details."
+        },
+        {
+            "role": "user",
+            "content": "What is the department description for the one whose name has the word computer?"
+        },
+        {
+            "role": "assistant",
+            "content": "SELECT department_description\nFROM departments\nWHERE department_name like '%computer%';"
+        },
+        {
+            "role": "result",
+            "content": "SELECT department_description\nFROM departments\nWHERE department_name like '%computer%';"
+        },
+        {
+            "role": "exuc_assist",
+            "content": 1
+        },
+        {
+            "role": "exuc_infer",
+            "content": 1
+        }
+    ]
+}

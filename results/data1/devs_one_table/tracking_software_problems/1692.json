@@ -1,0 +1,20 @@
+{
+    "conversations": [
+        {
+            "role": "system",
+            "content": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\n##Instruction:\ntracking_software_problems contains tables such as problem_log.\nTable problem_log has columns such as problem_log_id, assigned_to_staff_id, problem_id, problem_category_code, problem_status_code, log_entry_date, log_entry_description, log_entry_fix, other_log_details, where problem_category_code is the primary key, assigned_to_staff_id is the primary key, problem_id is the primary key, problem_status_code is the primary key.\nThe problem_category_code of problem_category_codes is the foreign key of problem_category_code of problem_log.\nThe staff_id of staff is the foreign key of assigned_to_staff_id of problem_log.\nThe problem_id of problems is the foreign key of problem_id of problem_log.\nThe problem_status_code of problem_status_codes is the foreign key of problem_status_code of problem_log."
+        },
+        {
+            "role": "user",
+            "content": "What are the log id and entry description of each problem?"
+        },
+        {
+            "role": "assistant",
+            "content": "select problem_log_id , log_entry_description from problem_log;"
+        },
+        {
+            "role": "result",
+            "content": "select problem_log_id , log_entry_description from problem_log;"
+        }
+    ]
+}

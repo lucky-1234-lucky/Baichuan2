@@ -1,0 +1,124 @@
+{
+    "sql": [
+        {
+            "company": "CREATE TABLE `company` (\n  `company_id` int(11) NOT NULL,\n  `rank` int(11) DEFAULT NULL,\n  `company` text,\n  `headquarters` text,\n  `main_industry` text,\n  `sales_billion` double DEFAULT NULL,\n  `profits_billion` double DEFAULT NULL,\n  `assets_billion` double DEFAULT NULL,\n  `market_value` double DEFAULT NULL,\n  PRIMARY KEY (`company_id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8",
+            "fileds": {
+                "field": [
+                    [
+                        "company_id",
+                        "int",
+                        "PRIMARY KEY"
+                    ],
+                    [
+                        "rank",
+                        "int"
+                    ],
+                    [
+                        "company",
+                        "text,"
+                    ],
+                    [
+                        "headquarters",
+                        "text,"
+                    ],
+                    [
+                        "main_industry",
+                        "text,"
+                    ],
+                    [
+                        "sales_billion",
+                        "double"
+                    ],
+                    [
+                        "profits_billion",
+                        "double"
+                    ],
+                    [
+                        "assets_billion",
+                        "double"
+                    ],
+                    [
+                        "market_value",
+                        "double"
+                    ]
+                ],
+                "foreign_key": []
+            }
+        },
+        {
+            "gas_station": "CREATE TABLE `gas_station` (\n  `station_id` int(11) NOT NULL,\n  `open_year` int(11) DEFAULT NULL,\n  `location` text,\n  `manager_name` text,\n  `vice_manager_name` text,\n  `representative_name` text,\n  PRIMARY KEY (`station_id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8",
+            "fileds": {
+                "field": [
+                    [
+                        "station_id",
+                        "int",
+                        "PRIMARY KEY"
+                    ],
+                    [
+                        "open_year",
+                        "int"
+                    ],
+                    [
+                        "location",
+                        "text,"
+                    ],
+                    [
+                        "manager_name",
+                        "text,"
+                    ],
+                    [
+                        "vice_manager_name",
+                        "text,"
+                    ],
+                    [
+                        "representative_name",
+                        "text,"
+                    ]
+                ],
+                "foreign_key": []
+            }
+        },
+        {
+            "station_company": "CREATE TABLE `station_company` (\n  `station_id` int(11) NOT NULL,\n  `company_id` int(11) NOT NULL,\n  `rank_of_the_year` int(11) DEFAULT NULL,\n  PRIMARY KEY (`station_id`,`company_id`),\n  KEY `company_id` (`company_id`),\n  CONSTRAINT `station_company_ibfk_1` FOREIGN KEY (`station_id`) REFERENCES `gas_station` (`station_id`),\n  CONSTRAINT `station_company_ibfk_2` FOREIGN KEY (`company_id`) REFERENCES `company` (`company_id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8",
+            "fileds": {
+                "field": [
+                    [
+                        "station_id",
+                        "int",
+                        "PRIMARY KEY"
+                    ],
+                    [
+                        "company_id",
+                        "int",
+                        "PRIMARY KEY"
+                    ],
+                    [
+                        "rank_of_the_year",
+                        "int"
+                    ]
+                ],
+                "foreign_key": [
+                    [
+                        "station_id",
+                        "gas_station",
+                        "station_id"
+                    ],
+                    [
+                        "company_id",
+                        "company",
+                        "company_id"
+                    ]
+                ]
+            }
+        }
+    ],
+    "input": "find the location and Representative name of the gas stations owned by the companies with top 3 Asset amounts.",
+    "response": "select t3.location , t3.representative_name from station_company as t1 join company as t2 on t1.company_id = t2.company_id join gas_station as t3 on t1.station_id = t3.station_id order by t2.assets_billion desc limit 3;",
+    "insert": [],
+    "table_names": [
+        "company",
+        "station_company",
+        "gas_station"
+    ],
+    "database": "gas_company"
+}

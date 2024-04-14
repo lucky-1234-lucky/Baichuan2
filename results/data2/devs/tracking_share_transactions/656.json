@@ -1,0 +1,20 @@
+{
+    "conversations": [
+        {
+            "role": "system",
+            "content": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\n##Instruction:\ntracking_share_transactions contains tables such as ref_transaction_types, transactions.\nTable ref_transaction_types has columns such as transaction_type_code, transaction_type_description.\nTable transactions has columns such as transaction_id, investor_id, transaction_type_code, date_of_transaction, amount_of_transaction, share_count, other_details, where investor_id is the primary key, transaction_type_code is the primary key.\nThe investor_id of investors is the foreign key of investor_id of transactions.\nThe transaction_type_code of ref_transaction_types is the foreign key of transaction_type_code of transactions."
+        },
+        {
+            "role": "user",
+            "content": "Show the description of the transaction type that occurs most frequently."
+        },
+        {
+            "role": "assistant",
+            "content": "SELECT t1.transaction_type_description\nFROM ref_transaction_types AS t1\nJOIN transactions AS t2 ON t1.transaction_type_code = t2.transaction_type_code\nGROUP BY t1.transaction_type_code\nORDER BY count(*) DESC\nLIMIT 1;"
+        },
+        {
+            "role": "result",
+            "content": "SELECT t1.transaction_type_description\nFROM ref_transaction_types AS t1\nJOIN transactions AS t2 ON t1.transaction_type_code = t2.transaction_type_code\nGROUP BY t1.transaction_type_code\nORDER BY count(*) DESC\nLIMIT 1;"
+        }
+    ]
+}

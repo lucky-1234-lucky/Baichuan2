@@ -1,0 +1,20 @@
+{
+    "conversations": [
+        {
+            "role": "system",
+            "content": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\n##Instruction:\nnetwork_1 contains tables such as friend, highschooler.\nTable friend has columns such as student_id, friend_id, where student_id is the primary key, friend_id is the primary key.\nTable highschooler has columns such as id, name, grade.\nThe id of highschooler is the foreign key of student_id of friend.\nThe id of highschooler is the foreign key of friend_id of friend."
+        },
+        {
+            "role": "user",
+            "content": "Find the minimum grade of students who have no friends."
+        },
+        {
+            "role": "assistant",
+            "content": "SELECT min(grade)\nFROM highschooler\nWHERE id NOT IN\n    (SELECT t1.student_id\n     FROM friend AS t1\n     JOIN highschooler AS t2 ON t1.student_id = t2.id);"
+        },
+        {
+            "role": "result",
+            "content": "SELECT min(t2.grade)\nFROM highschooler AS t1\nJOIN friend AS t2 ON t1.id = t2.student_id\nWHERE t2.friend_id IS NULL;"
+        }
+    ]
+}

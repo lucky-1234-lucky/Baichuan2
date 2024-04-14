@@ -1,0 +1,11 @@
+{
+    "conversations": [
+        {
+            "database": "gymnast",
+            "system": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\n##Instruction:\ngymnast contains tables such as people.\nTable people has columns such as people_id, name, age, height, hometown.",
+            "query": "Show the hometowns shared by people older than 23 and younger than 20.",
+            "answer": "SELECT hometown\nFROM people\nWHERE age > 23 INTERSECT\n  SELECT hometown\n  FROM people WHERE age < 20;",
+            "insert": []
+        }
+    ]
+}

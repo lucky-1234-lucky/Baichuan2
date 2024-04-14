@@ -1,0 +1,11 @@
+{
+    "conversations": [
+        {
+            "database": "county_public_safety",
+            "system": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\n##Instruction:\ncounty_public_safety contains tables such as county_public_safety, city.\nTable city has columns such as city_id, county_id, name, white, black, amerindian, asian, multiracial, hispanic, where county_id is the primary key.\nTable county_public_safety has columns such as county_id, name, population, police_officers, residents_per_officer, case_burden, crime_rate, police_force, location.\nThe county_id of county_public_safety is the foreign key of county_id of city.",
+            "query": "What are the crime rates of counties that contain cities that have white percentages of over 90?",
+            "answer": "SELECT t2.crime_rate\nFROM city AS t1\nJOIN county_public_safety AS t2 ON t1.county_id = t2.county_id\nWHERE t1.white > 90;",
+            "insert": []
+        }
+    ]
+}

@@ -1,0 +1,142 @@
+{
+    "sql": [
+        {
+            "broadcast": "CREATE TABLE `broadcast` (\n  `channel_id` int(11) NOT NULL,\n  `program_id` int(11) NOT NULL,\n  `time_of_day` text,\n  PRIMARY KEY (`channel_id`,`program_id`),\n  KEY `program_id` (`program_id`),\n  CONSTRAINT `broadcast_ibfk_1` FOREIGN KEY (`channel_id`) REFERENCES `channel` (`channel_id`),\n  CONSTRAINT `broadcast_ibfk_2` FOREIGN KEY (`program_id`) REFERENCES `program` (`program_id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8",
+            "fileds": {
+                "field": [
+                    [
+                        "channel_id",
+                        "int",
+                        "PRIMARY KEY"
+                    ],
+                    [
+                        "program_id",
+                        "int",
+                        "PRIMARY KEY"
+                    ],
+                    [
+                        "time_of_day",
+                        "text,"
+                    ]
+                ],
+                "foreign_key": [
+                    [
+                        "channel_id",
+                        "channel",
+                        "channel_id"
+                    ],
+                    [
+                        "program_id",
+                        "program",
+                        "program_id"
+                    ]
+                ]
+            }
+        },
+        {
+            "broadcast_share": "CREATE TABLE `broadcast_share` (\n  `channel_id` int(11) NOT NULL,\n  `program_id` int(11) NOT NULL,\n  `date` text,\n  `share_in_percent` double DEFAULT NULL,\n  PRIMARY KEY (`channel_id`,`program_id`),\n  KEY `program_id` (`program_id`),\n  CONSTRAINT `broadcast_share_ibfk_1` FOREIGN KEY (`channel_id`) REFERENCES `channel` (`channel_id`),\n  CONSTRAINT `broadcast_share_ibfk_2` FOREIGN KEY (`program_id`) REFERENCES `program` (`program_id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8",
+            "fileds": {
+                "field": [
+                    [
+                        "channel_id",
+                        "int",
+                        "PRIMARY KEY"
+                    ],
+                    [
+                        "program_id",
+                        "int",
+                        "PRIMARY KEY"
+                    ],
+                    [
+                        "date",
+                        "text,"
+                    ],
+                    [
+                        "share_in_percent",
+                        "double"
+                    ]
+                ],
+                "foreign_key": [
+                    [
+                        "channel_id",
+                        "channel",
+                        "channel_id"
+                    ],
+                    [
+                        "program_id",
+                        "program",
+                        "program_id"
+                    ]
+                ]
+            }
+        },
+        {
+            "channel": "CREATE TABLE `channel` (\n  `channel_id` int(11) NOT NULL,\n  `name` text,\n  `owner` text,\n  `share_in_percent` double DEFAULT NULL,\n  `rating_in_percent` double DEFAULT NULL,\n  PRIMARY KEY (`channel_id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8",
+            "fileds": {
+                "field": [
+                    [
+                        "channel_id",
+                        "int",
+                        "PRIMARY KEY"
+                    ],
+                    [
+                        "name",
+                        "text,"
+                    ],
+                    [
+                        "owner",
+                        "text,"
+                    ],
+                    [
+                        "share_in_percent",
+                        "double"
+                    ],
+                    [
+                        "rating_in_percent",
+                        "double"
+                    ]
+                ],
+                "foreign_key": []
+            }
+        },
+        {
+            "program": "CREATE TABLE `program` (\n  `program_id` int(11) NOT NULL,\n  `name` text,\n  `origin` text,\n  `launch` double DEFAULT NULL,\n  `owner` text,\n  PRIMARY KEY (`program_id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8",
+            "fileds": {
+                "field": [
+                    [
+                        "program_id",
+                        "int",
+                        "PRIMARY KEY"
+                    ],
+                    [
+                        "name",
+                        "text,"
+                    ],
+                    [
+                        "origin",
+                        "text,"
+                    ],
+                    [
+                        "launch",
+                        "double"
+                    ],
+                    [
+                        "owner",
+                        "text,"
+                    ]
+                ],
+                "foreign_key": []
+            }
+        }
+    ],
+    "input": "Which channels are broadcast in the morning? Give me the channel names.",
+    "response": "select t1.name from channel as t1 join broadcast as t2 on t1.channel_id = t2.channel_id where t2.time_of_day = 'morning';",
+    "insert": [],
+    "table_names": [
+        "program",
+        "channel",
+        "broadcast",
+        "broadcast_share"
+    ],
+    "database": "program_share"
+}

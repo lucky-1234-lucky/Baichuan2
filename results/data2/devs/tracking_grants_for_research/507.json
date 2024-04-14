@@ -1,0 +1,20 @@
+{
+    "conversations": [
+        {
+            "role": "system",
+            "content": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\n##Instruction:\ntracking_grants_for_research contains tables such as documents.\nTable documents has columns such as document_id, document_type_code, grant_id, sent_date, response_received_date, other_details, where document_type_code is the primary key, grant_id is the primary key.\nThe document_type_code of document_types is the foreign key of document_type_code of documents.\nThe grant_id of grants is the foreign key of grant_id of documents."
+        },
+        {
+            "role": "user",
+            "content": "For each grant id, how many documents does it have, and which one has the most?"
+        },
+        {
+            "role": "assistant",
+            "content": "SELECT grant_id,\n       count(*)\nFROM documents\nGROUP BY grant_id\nORDER BY count(*) DESC\nLIMIT 1;"
+        },
+        {
+            "role": "result",
+            "content": "SELECT count(*),\n       t1.document_id\nFROM documents AS t1\nJOIN documents AS t2 ON t1.grant_id = t2.grant_id\nGROUP BY t1.grant_id;"
+        }
+    ]
+}

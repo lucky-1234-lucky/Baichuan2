@@ -1,0 +1,20 @@
+{
+    "conversations": [
+        {
+            "role": "system",
+            "content": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\n##Instruction:\ncourse_teach contains tables such as course_arrange, teacher.\nTable course_arrange has columns such as course_id, teacher_id, grade, where course_id is the primary key, teacher_id is the primary key.\nTable teacher has columns such as teacher_id, name, age, hometown.\nThe course_id of course is the foreign key of course_id of course_arrange.\nThe teacher_id of teacher is the foreign key of teacher_id of course_arrange."
+        },
+        {
+            "role": "user",
+            "content": "Show names of teachers and the number of courses they teach."
+        },
+        {
+            "role": "assistant",
+            "content": "select t2.name , count(*) from course_arrange as t1 join teacher as t2 on t1.teacher_id = t2.teacher_id group by t2.name;"
+        },
+        {
+            "role": "result",
+            "content": "SELECT teacher.name, COUNT(DISTINCT course_arrange.teacher_id) AS number_of_courses FROM teacher INNER JOIN course_arrange ON teacher.teacher_id = course_arrange.teacher_id GROUP BY teacher.name;"
+        }
+    ]
+}

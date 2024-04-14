@@ -1,0 +1,11 @@
+{
+    "conversations": [
+        {
+            "database": "film_rank",
+            "system": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\n##Instruction:\nfilm_rank contains tables such as market.\nTable market has columns such as market_id, country, number_cities.",
+            "query": "What are the countries for each market ordered by decreasing number of cities?",
+            "answer": "select country from market order by number_cities desc;",
+            "insert": []
+        }
+    ]
+}

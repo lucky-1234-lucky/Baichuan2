@@ -1,0 +1,88 @@
+{
+    "sql": [
+        {
+            "gymnast": "CREATE TABLE `gymnast` (\n  `gymnast_id` int(11) NOT NULL,\n  `floor_exercise_points` double DEFAULT NULL,\n  `pommel_horse_points` double DEFAULT NULL,\n  `rings_points` double DEFAULT NULL,\n  `vault_points` double DEFAULT NULL,\n  `parallel_bars_points` double DEFAULT NULL,\n  `horizontal_bar_points` double DEFAULT NULL,\n  `total_points` double DEFAULT NULL,\n  PRIMARY KEY (`gymnast_id`),\n  CONSTRAINT `gymnast_ibfk_1` FOREIGN KEY (`gymnast_id`) REFERENCES `people` (`people_id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8",
+            "fileds": {
+                "field": [
+                    [
+                        "gymnast_id",
+                        "int",
+                        "PRIMARY KEY"
+                    ],
+                    [
+                        "floor_exercise_points",
+                        "double"
+                    ],
+                    [
+                        "pommel_horse_points",
+                        "double"
+                    ],
+                    [
+                        "rings_points",
+                        "double"
+                    ],
+                    [
+                        "vault_points",
+                        "double"
+                    ],
+                    [
+                        "parallel_bars_points",
+                        "double"
+                    ],
+                    [
+                        "horizontal_bar_points",
+                        "double"
+                    ],
+                    [
+                        "total_points",
+                        "double"
+                    ]
+                ],
+                "foreign_key": [
+                    [
+                        "gymnast_id",
+                        "people",
+                        "people_id"
+                    ]
+                ]
+            }
+        },
+        {
+            "people": "CREATE TABLE `people` (\n  `people_id` int(11) NOT NULL,\n  `name` text,\n  `age` double DEFAULT NULL,\n  `height` double DEFAULT NULL,\n  `hometown` text,\n  PRIMARY KEY (`people_id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8",
+            "fileds": {
+                "field": [
+                    [
+                        "people_id",
+                        "int",
+                        "PRIMARY KEY"
+                    ],
+                    [
+                        "name",
+                        "text,"
+                    ],
+                    [
+                        "age",
+                        "double"
+                    ],
+                    [
+                        "height",
+                        "double"
+                    ],
+                    [
+                        "hometown",
+                        "text,"
+                    ]
+                ],
+                "foreign_key": []
+            }
+        }
+    ],
+    "input": "What are the names of gymnasts?",
+    "response": "select t2.name from gymnast as t1 join people as t2 on t1.gymnast_id = t2.people_id;",
+    "insert": [],
+    "table_names": [
+        "people",
+        "gymnast"
+    ],
+    "database": "gymnast"
+}

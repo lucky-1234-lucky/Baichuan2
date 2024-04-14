@@ -1,0 +1,138 @@
+{
+    "sql": [
+        {
+            "friend": "CREATE TABLE `friend` (\n  `student_id` int(11) NOT NULL,\n  `friend_id` int(11) NOT NULL,\n  PRIMARY KEY (`student_id`,`friend_id`),\n  KEY `friend_id` (`friend_id`),\n  CONSTRAINT `friend_ibfk_1` FOREIGN KEY (`student_id`) REFERENCES `highschooler` (`id`),\n  CONSTRAINT `friend_ibfk_2` FOREIGN KEY (`friend_id`) REFERENCES `highschooler` (`id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8",
+            "fileds": {
+                "field": [
+                    [
+                        "student_id",
+                        "int",
+                        "PRIMARY KEY"
+                    ],
+                    [
+                        "friend_id",
+                        "int",
+                        "PRIMARY KEY"
+                    ]
+                ],
+                "foreign_key": [
+                    [
+                        "student_id",
+                        "highschooler",
+                        "id"
+                    ],
+                    [
+                        "friend_id",
+                        "highschooler",
+                        "id"
+                    ]
+                ]
+            }
+        },
+        {
+            "highschooler": "CREATE TABLE `highschooler` (\n  `id` int(11) NOT NULL,\n  `name` text,\n  `grade` int(11) DEFAULT NULL,\n  PRIMARY KEY (`id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8",
+            "fileds": {
+                "field": [
+                    [
+                        "id",
+                        "int",
+                        "PRIMARY KEY"
+                    ],
+                    [
+                        "name",
+                        "text,"
+                    ],
+                    [
+                        "grade",
+                        "int"
+                    ]
+                ],
+                "foreign_key": []
+            }
+        },
+        {
+            "likes": "CREATE TABLE `likes` (\n  `student_id` int(11) NOT NULL,\n  `liked_id` int(11) NOT NULL,\n  PRIMARY KEY (`student_id`,`liked_id`),\n  KEY `liked_id` (`liked_id`),\n  CONSTRAINT `likes_ibfk_1` FOREIGN KEY (`liked_id`) REFERENCES `highschooler` (`id`),\n  CONSTRAINT `likes_ibfk_2` FOREIGN KEY (`student_id`) REFERENCES `highschooler` (`id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8",
+            "fileds": {
+                "field": [
+                    [
+                        "student_id",
+                        "int",
+                        "PRIMARY KEY"
+                    ],
+                    [
+                        "liked_id",
+                        "int",
+                        "PRIMARY KEY"
+                    ]
+                ],
+                "foreign_key": [
+                    [
+                        "liked_id",
+                        "highschooler",
+                        "id"
+                    ],
+                    [
+                        "student_id",
+                        "highschooler",
+                        "id"
+                    ]
+                ]
+            }
+        }
+    ],
+    "input": "What is the name of the high schooler who has the greatest number of likes?",
+    "response": "select t2.name from likes as t1 join highschooler as t2 on t1.student_id = t2.id group by t1.student_id order by count(*) desc limit 1;",
+    "insert": [
+        "INSERT INTO highschooler VALUES (1510, 'jordan', 9);",
+        "INSERT INTO highschooler VALUES (1689, 'gabriel', 9);",
+        "INSERT INTO highschooler VALUES (1381, 'tiffany', 9);",
+        "INSERT INTO highschooler VALUES (1709, 'cassandra', 9);",
+        "INSERT INTO highschooler VALUES (1101, 'haley', 10);",
+        "INSERT INTO highschooler VALUES (1782, 'andrew', 10);",
+        "INSERT INTO highschooler VALUES (1468, 'kris', 10);",
+        "INSERT INTO highschooler VALUES (1641, 'brittany', 10);",
+        "INSERT INTO highschooler VALUES (1247, 'alexis', 11);",
+        "INSERT INTO highschooler VALUES (1316, 'austin', 11);",
+        "INSERT INTO highschooler VALUES (1911, 'gabriel', 11);",
+        "INSERT INTO highschooler VALUES (1501, 'jessica', 11);",
+        "INSERT INTO highschooler VALUES (1304, 'jordan', 12);",
+        "INSERT INTO highschooler VALUES (1025, 'john', 12);",
+        "INSERT INTO highschooler VALUES (1934, 'kyle', 12);",
+        "INSERT INTO highschooler VALUES (1661, 'logan', 12);",
+        "INSERT INTO friend VALUES (1510, 1381);",
+        "INSERT INTO friend VALUES (1510, 1689);",
+        "INSERT INTO friend VALUES (1689, 1709);",
+        "INSERT INTO friend VALUES (1381, 1247);",
+        "INSERT INTO friend VALUES (1709, 1247);",
+        "INSERT INTO friend VALUES (1689, 1782);",
+        "INSERT INTO friend VALUES (1782, 1468);",
+        "INSERT INTO friend VALUES (1782, 1316);",
+        "INSERT INTO friend VALUES (1782, 1304);",
+        "INSERT INTO friend VALUES (1468, 1101);",
+        "INSERT INTO friend VALUES (1468, 1641);",
+        "INSERT INTO friend VALUES (1101, 1641);",
+        "INSERT INTO friend VALUES (1247, 1911);",
+        "INSERT INTO friend VALUES (1247, 1501);",
+        "INSERT INTO friend VALUES (1911, 1501);",
+        "INSERT INTO friend VALUES (1501, 1934);",
+        "INSERT INTO friend VALUES (1316, 1934);",
+        "INSERT INTO friend VALUES (1934, 1304);",
+        "INSERT INTO friend VALUES (1304, 1661);",
+        "INSERT INTO friend VALUES (1661, 1025);",
+        "INSERT INTO likes VALUES (1689, 1709);",
+        "INSERT INTO likes VALUES (1709, 1689);",
+        "INSERT INTO likes VALUES (1782, 1709);",
+        "INSERT INTO likes VALUES (1911, 1247);",
+        "INSERT INTO likes VALUES (1247, 1468);",
+        "INSERT INTO likes VALUES (1641, 1468);",
+        "INSERT INTO likes VALUES (1316, 1304);",
+        "INSERT INTO likes VALUES (1501, 1934);",
+        "INSERT INTO likes VALUES (1934, 1501);",
+        "INSERT INTO likes VALUES (1025, 1101);"
+    ],
+    "table_names": [
+        "likes",
+        "highschooler"
+    ],
+    "database": "network_1"
+}

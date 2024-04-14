@@ -1,0 +1,11 @@
+{
+    "conversations": [
+        {
+            "database": "party_host",
+            "system": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\n##Instruction:\nparty_host contains tables such as host.\nTable host has columns such as host_id, name, nationality, age.",
+            "query": "How many hosts does each nationality have? List the nationality and the count.",
+            "answer": "SELECT nationality,\n       count(*)\nFROM HOST\nGROUP BY nationality;",
+            "insert": []
+        }
+    ]
+}

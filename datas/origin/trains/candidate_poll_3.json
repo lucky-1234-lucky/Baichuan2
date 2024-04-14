@@ -1,0 +1,92 @@
+{
+    "sql": [
+        {
+            "candidate": "CREATE TABLE `candidate` (\n  `candidate_id` int(11) NOT NULL,\n  `people_id` int(11) DEFAULT NULL,\n  `poll_source` text,\n  `date` text,\n  `support_rate` double DEFAULT NULL,\n  `consider_rate` double DEFAULT NULL,\n  `oppose_rate` double DEFAULT NULL,\n  `unsure_rate` double DEFAULT NULL,\n  PRIMARY KEY (`candidate_id`),\n  KEY `people_id` (`people_id`),\n  CONSTRAINT `candidate_ibfk_1` FOREIGN KEY (`people_id`) REFERENCES `people` (`people_id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8",
+            "fileds": {
+                "field": [
+                    [
+                        "candidate_id",
+                        "int",
+                        "PRIMARY KEY"
+                    ],
+                    [
+                        "people_id",
+                        "int"
+                    ],
+                    [
+                        "poll_source",
+                        "text,"
+                    ],
+                    [
+                        "date",
+                        "text,"
+                    ],
+                    [
+                        "support_rate",
+                        "double"
+                    ],
+                    [
+                        "consider_rate",
+                        "double"
+                    ],
+                    [
+                        "oppose_rate",
+                        "double"
+                    ],
+                    [
+                        "unsure_rate",
+                        "double"
+                    ]
+                ],
+                "foreign_key": [
+                    [
+                        "people_id",
+                        "people",
+                        "people_id"
+                    ]
+                ]
+            }
+        },
+        {
+            "people": "CREATE TABLE `people` (\n  `people_id` int(11) NOT NULL,\n  `sex` text,\n  `name` text,\n  `date_of_birth` text,\n  `height` double DEFAULT NULL,\n  `weight` double DEFAULT NULL,\n  PRIMARY KEY (`people_id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8",
+            "fileds": {
+                "field": [
+                    [
+                        "people_id",
+                        "int",
+                        "PRIMARY KEY"
+                    ],
+                    [
+                        "sex",
+                        "text,"
+                    ],
+                    [
+                        "name",
+                        "text,"
+                    ],
+                    [
+                        "date_of_birth",
+                        "text,"
+                    ],
+                    [
+                        "height",
+                        "double"
+                    ],
+                    [
+                        "weight",
+                        "double"
+                    ]
+                ],
+                "foreign_key": []
+            }
+        }
+    ],
+    "input": "Find the names of the candidates whose support percentage is lower than their oppose rate.",
+    "response": "select t1.name from people as t1 join candidate as t2 on t1.people_id = t2.people_id where t2.support_rate < t2.oppose_rate;",
+    "insert": [],
+    "table_names": [
+        "people",
+        "candidate"
+    ],
+    "database": "candidate_poll"
+}

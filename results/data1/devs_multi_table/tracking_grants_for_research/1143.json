@@ -1,0 +1,20 @@
+{
+    "conversations": [
+        {
+            "role": "system",
+            "content": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\n##Instruction:\ntracking_grants_for_research contains tables such as grants, document_types, documents.\nTable document_types has columns such as document_type_code, document_description.\nTable documents has columns such as document_id, document_type_code, grant_id, sent_date, response_received_date, other_details, where document_type_code is the primary key, grant_id is the primary key.\nTable grants has columns such as grant_id, organisation_id, grant_amount, grant_start_date, grant_end_date, other_details, where organisation_id is the primary key.\nThe document_type_code of document_types is the foreign key of document_type_code of documents.\nThe grant_id of grants is the foreign key of grant_id of documents.\nThe organisation_id of organisations is the foreign key of organisation_id of grants."
+        },
+        {
+            "role": "user",
+            "content": "What is the response received date for the document described as Regular that was granted more than 100 dollars?"
+        },
+        {
+            "role": "assistant",
+            "content": "select t1.response_received_date from documents as t1 join document_types as t2 on t1.document_type_code = t2.document_type_code join grants as t3 on t1.grant_id = t3.grant_id where t2.document_description = 'regular' or t3.grant_amount > 100;"
+        },
+        {
+            "role": "result",
+            "content": "select response_received_date from documents as t1 join grants on documents.grant_id = grants.grant_id join document_types on documents.document_type_code = document_types.document_type_code where document_types.document_description = 'regular' and grants.grant_amount > 100;"
+        }
+    ]
+}

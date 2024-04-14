@@ -1,0 +1,11 @@
+{
+    "conversations": [
+        {
+            "database": "flight_company",
+            "system": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\n##Instruction:\nflight_company contains tables such as flight, airport.\nTable airport has columns such as id, city, country, iata, icao, name.\nTable flight has columns such as id, vehicle_flight_number, date, pilot, velocity, altitude, airport_id, company_id, where airport_id is the primary key, company_id is the primary key.\nThe id of airport is the foreign key of airport_id of flight.\nThe id of operate_company is the foreign key of company_id of flight.",
+            "query": "What is the id, name and IATA code of the airport that had most number of flights?",
+            "answer": "SELECT t1.id,\n       t1.name,\n       t1.iata\nFROM airport AS t1\nJOIN flight AS t2 ON t1.id = t2.airport_id\nGROUP BY t2.id\nORDER BY count(*) DESC\nLIMIT 1;",
+            "insert": []
+        }
+    ]
+}

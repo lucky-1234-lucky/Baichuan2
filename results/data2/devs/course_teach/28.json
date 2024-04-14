@@ -1,0 +1,20 @@
+{
+    "conversations": [
+        {
+            "role": "system",
+            "content": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\n##Instruction:\ncourse_teach contains tables such as teacher, course_arrange.\nTable course_arrange has columns such as course_id, teacher_id, grade, where course_id is the primary key, teacher_id is the primary key.\nTable teacher has columns such as teacher_id, name, age, hometown.\nThe course_id of course is the foreign key of course_id of course_arrange.\nThe teacher_id of teacher is the foreign key of teacher_id of course_arrange."
+        },
+        {
+            "role": "user",
+            "content": "List the names of teachers who have not been arranged to teach courses."
+        },
+        {
+            "role": "assistant",
+            "content": "SELECT name\nFROM teacher\nWHERE teacher_id NOT IN\n    (SELECT teacher_id\n     FROM course_arrange);"
+        },
+        {
+            "role": "result",
+            "content": "SELECT t1.name\nFROM teacher AS t1\nEXCEPT\nSELECT t2.name\nFROM teacher AS t1\nJOIN course_arrange AS t2 ON t1.teacher_id = t2.teacher_id;"
+        }
+    ]
+}

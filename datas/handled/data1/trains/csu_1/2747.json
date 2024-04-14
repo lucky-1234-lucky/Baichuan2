@@ -1,0 +1,11 @@
+{
+    "conversations": [
+        {
+            "database": "csu_1",
+            "system": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\n##Instruction:\ncsu_1 contains tables such as campuses, degrees.\nTable campuses has columns such as id, campus, location, county, year.\nTable degrees has columns such as year, campus, degrees, where campus is the primary key.\nThe id of campuses is the foreign key of campus of degrees.",
+            "query": "What is the total number of degrees granted after 2000 for each Orange county campus?",
+            "answer": "select t1.campus , sum(t2.degrees) from campuses as t1 join degrees as t2 on t1.id = t2.campus where t1.county = 'orange' and t2.year >= 2000 group by t1.campus;",
+            "insert": []
+        }
+    ]
+}

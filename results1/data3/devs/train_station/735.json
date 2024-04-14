@@ -1,0 +1,28 @@
+{
+    "conversations": [
+        {
+            "role": "system",
+            "content": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\n##Instruction:\ntrain_station contains tables such as train.\nTable train has columns such as train_id, name, time, service."
+        },
+        {
+            "role": "user",
+            "content": "Show the name, time, and service for all trains."
+        },
+        {
+            "role": "assistant",
+            "content": "SELECT name,\n       TIME,\n       service\nFROM train;"
+        },
+        {
+            "role": "result",
+            "content": "SELECT name,\n       TIME,\n       SERVICE\nFROM train;"
+        },
+        {
+            "role": "exuc_assist",
+            "content": 0
+        },
+        {
+            "role": "exuc_infer",
+            "content": 0
+        }
+    ]
+}

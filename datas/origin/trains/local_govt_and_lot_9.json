@@ -1,0 +1,530 @@
+{
+    "sql": [
+        {
+            "customer_event_notes": "CREATE TABLE `customer_event_notes` (\n  `customer_event_note_id` int(11) NOT NULL,\n  `customer_event_id` int(11) NOT NULL,\n  `service_type_code` char(15) NOT NULL,\n  `resident_id` int(11) NOT NULL,\n  `property_id` int(11) NOT NULL,\n  `date_moved_in` datetime NOT NULL,\n  PRIMARY KEY (`customer_event_note_id`),\n  KEY `customer_event_id` (`customer_event_id`),\n  CONSTRAINT `customer_event_notes_ibfk_1` FOREIGN KEY (`customer_event_id`) REFERENCES `customer_events` (`customer_event_id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8",
+            "fileds": {
+                "field": [
+                    [
+                        "customer_event_note_id",
+                        "int",
+                        "PRIMARY KEY"
+                    ],
+                    [
+                        "customer_event_id",
+                        "int"
+                    ],
+                    [
+                        "service_type_code",
+                        "char"
+                    ],
+                    [
+                        "resident_id",
+                        "int"
+                    ],
+                    [
+                        "property_id",
+                        "int"
+                    ],
+                    [
+                        "date_moved_in",
+                        "datetime"
+                    ]
+                ],
+                "foreign_key": [
+                    [
+                        "customer_event_id",
+                        "customer_events",
+                        "customer_event_id"
+                    ]
+                ]
+            }
+        },
+        {
+            "customer_events": "CREATE TABLE `customer_events` (\n  `customer_event_id` int(11) NOT NULL,\n  `customer_id` int(11) DEFAULT NULL,\n  `date_moved_in` datetime DEFAULT NULL,\n  `property_id` int(11) DEFAULT NULL,\n  `resident_id` int(11) DEFAULT NULL,\n  `thing_id` int(11) NOT NULL,\n  PRIMARY KEY (`customer_event_id`),\n  KEY `thing_id` (`thing_id`),\n  KEY `customer_id` (`customer_id`),\n  KEY `resident_id` (`resident_id`,`property_id`,`date_moved_in`),\n  CONSTRAINT `customer_events_ibfk_1` FOREIGN KEY (`thing_id`) REFERENCES `things` (`thing_id`),\n  CONSTRAINT `customer_events_ibfk_2` FOREIGN KEY (`customer_id`) REFERENCES `customers` (`customer_id`),\n  CONSTRAINT `customer_events_ibfk_3` FOREIGN KEY (`resident_id`, `property_id`, `date_moved_in`) REFERENCES `residents` (`resident_id`, `property_id`, `date_moved_in`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8",
+            "fileds": {
+                "field": [
+                    [
+                        "customer_event_id",
+                        "int",
+                        "PRIMARY KEY"
+                    ],
+                    [
+                        "customer_id",
+                        "int"
+                    ],
+                    [
+                        "date_moved_in",
+                        "datetime"
+                    ],
+                    [
+                        "property_id",
+                        "int"
+                    ],
+                    [
+                        "resident_id",
+                        "int"
+                    ],
+                    [
+                        "thing_id",
+                        "int"
+                    ]
+                ],
+                "foreign_key": [
+                    [
+                        "thing_id",
+                        "things",
+                        "thing_id"
+                    ],
+                    [
+                        "customer_id",
+                        "customers",
+                        "customer_id"
+                    ],
+                    [
+                        "resident_id",
+                        "property_id",
+                        "date_moved_in",
+                        "residents",
+                        "resident_id",
+                        "property_id",
+                        "date_moved_in"
+                    ]
+                ]
+            }
+        },
+        {
+            "customers": "CREATE TABLE `customers` (\n  `customer_id` int(11) NOT NULL,\n  `customer_details` varchar(255) DEFAULT NULL,\n  PRIMARY KEY (`customer_id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8",
+            "fileds": {
+                "field": [
+                    [
+                        "customer_id",
+                        "int",
+                        "PRIMARY KEY"
+                    ],
+                    [
+                        "customer_details",
+                        "varchar"
+                    ]
+                ],
+                "foreign_key": []
+            }
+        },
+        {
+            "organizations": "CREATE TABLE `organizations` (\n  `organization_id` int(11) NOT NULL,\n  `parent_organization_id` int(11) DEFAULT NULL,\n  `organization_details` varchar(255) DEFAULT NULL,\n  PRIMARY KEY (`organization_id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8",
+            "fileds": {
+                "field": [
+                    [
+                        "organization_id",
+                        "int",
+                        "PRIMARY KEY"
+                    ],
+                    [
+                        "parent_organization_id",
+                        "int"
+                    ],
+                    [
+                        "organization_details",
+                        "varchar"
+                    ]
+                ],
+                "foreign_key": []
+            }
+        },
+        {
+            "properties": "CREATE TABLE `properties` (\n  `property_id` int(11) NOT NULL,\n  `property_type_code` char(15) NOT NULL,\n  `property_address` varchar(255) DEFAULT NULL,\n  `other_details` varchar(255) DEFAULT NULL,\n  PRIMARY KEY (`property_id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8",
+            "fileds": {
+                "field": [
+                    [
+                        "property_id",
+                        "int",
+                        "PRIMARY KEY"
+                    ],
+                    [
+                        "property_type_code",
+                        "char"
+                    ],
+                    [
+                        "property_address",
+                        "varchar"
+                    ],
+                    [
+                        "other_details",
+                        "varchar"
+                    ]
+                ],
+                "foreign_key": []
+            }
+        },
+        {
+            "residents": "CREATE TABLE `residents` (\n  `resident_id` int(11) NOT NULL,\n  `property_id` int(11) NOT NULL,\n  `date_moved_in` datetime NOT NULL,\n  `date_moved_out` datetime NOT NULL,\n  `other_details` varchar(255) DEFAULT NULL,\n  PRIMARY KEY (`resident_id`,`property_id`,`date_moved_in`),\n  KEY `property_id` (`property_id`),\n  CONSTRAINT `residents_ibfk_1` FOREIGN KEY (`property_id`) REFERENCES `properties` (`property_id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8",
+            "fileds": {
+                "field": [
+                    [
+                        "resident_id",
+                        "int",
+                        "PRIMARY KEY"
+                    ],
+                    [
+                        "property_id",
+                        "int",
+                        "PRIMARY KEY"
+                    ],
+                    [
+                        "date_moved_in",
+                        "datetime",
+                        "PRIMARY KEY"
+                    ],
+                    [
+                        "date_moved_out",
+                        "datetime"
+                    ],
+                    [
+                        "other_details",
+                        "varchar"
+                    ]
+                ],
+                "foreign_key": [
+                    [
+                        "property_id",
+                        "properties",
+                        "property_id"
+                    ]
+                ]
+            }
+        },
+        {
+            "residents_services": "CREATE TABLE `residents_services` (\n  `resident_id` int(11) NOT NULL,\n  `service_id` int(11) NOT NULL,\n  `date_moved_in` datetime DEFAULT NULL,\n  `property_id` int(11) DEFAULT NULL,\n  `date_requested` datetime DEFAULT NULL,\n  `date_provided` datetime DEFAULT NULL,\n  `other_details` varchar(255) DEFAULT NULL,\n  PRIMARY KEY (`resident_id`,`service_id`),\n  KEY `service_id` (`service_id`),\n  KEY `resident_id` (`resident_id`,`property_id`,`date_moved_in`),\n  CONSTRAINT `residents_services_ibfk_1` FOREIGN KEY (`service_id`) REFERENCES `services` (`service_id`),\n  CONSTRAINT `residents_services_ibfk_2` FOREIGN KEY (`resident_id`, `property_id`, `date_moved_in`) REFERENCES `residents` (`resident_id`, `property_id`, `date_moved_in`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8",
+            "fileds": {
+                "field": [
+                    [
+                        "resident_id",
+                        "int",
+                        "PRIMARY KEY"
+                    ],
+                    [
+                        "service_id",
+                        "int",
+                        "PRIMARY KEY"
+                    ],
+                    [
+                        "date_moved_in",
+                        "datetime"
+                    ],
+                    [
+                        "property_id",
+                        "int"
+                    ],
+                    [
+                        "date_requested",
+                        "datetime"
+                    ],
+                    [
+                        "date_provided",
+                        "datetime"
+                    ],
+                    [
+                        "other_details",
+                        "varchar"
+                    ]
+                ],
+                "foreign_key": [
+                    [
+                        "service_id",
+                        "services",
+                        "service_id"
+                    ],
+                    [
+                        "resident_id",
+                        "property_id",
+                        "date_moved_in",
+                        "residents",
+                        "resident_id",
+                        "property_id",
+                        "date_moved_in"
+                    ]
+                ]
+            }
+        },
+        {
+            "services": "CREATE TABLE `services` (\n  `service_id` int(11) NOT NULL,\n  `organization_id` int(11) NOT NULL,\n  `service_type_code` char(15) NOT NULL,\n  `service_details` varchar(255) DEFAULT NULL,\n  PRIMARY KEY (`service_id`),\n  KEY `organization_id` (`organization_id`),\n  CONSTRAINT `services_ibfk_1` FOREIGN KEY (`organization_id`) REFERENCES `organizations` (`organization_id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8",
+            "fileds": {
+                "field": [
+                    [
+                        "service_id",
+                        "int",
+                        "PRIMARY KEY"
+                    ],
+                    [
+                        "organization_id",
+                        "int"
+                    ],
+                    [
+                        "service_type_code",
+                        "char"
+                    ],
+                    [
+                        "service_details",
+                        "varchar"
+                    ]
+                ],
+                "foreign_key": [
+                    [
+                        "organization_id",
+                        "organizations",
+                        "organization_id"
+                    ]
+                ]
+            }
+        },
+        {
+            "things": "CREATE TABLE `things` (\n  `thing_id` int(11) NOT NULL,\n  `organization_id` int(11) NOT NULL,\n  `type_of_thing_code` char(15) NOT NULL,\n  `service_type_code` char(10) NOT NULL,\n  `service_details` varchar(255) DEFAULT NULL,\n  PRIMARY KEY (`thing_id`),\n  KEY `organization_id` (`organization_id`),\n  CONSTRAINT `things_ibfk_1` FOREIGN KEY (`organization_id`) REFERENCES `organizations` (`organization_id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8",
+            "fileds": {
+                "field": [
+                    [
+                        "thing_id",
+                        "int",
+                        "PRIMARY KEY"
+                    ],
+                    [
+                        "organization_id",
+                        "int"
+                    ],
+                    [
+                        "type_of_thing_code",
+                        "char"
+                    ],
+                    [
+                        "service_type_code",
+                        "char"
+                    ],
+                    [
+                        "service_details",
+                        "varchar"
+                    ]
+                ],
+                "foreign_key": [
+                    [
+                        "organization_id",
+                        "organizations",
+                        "organization_id"
+                    ]
+                ]
+            }
+        },
+        {
+            "timed_locations_of_things": "CREATE TABLE `timed_locations_of_things` (\n  `thing_id` int(11) NOT NULL,\n  `date_and_time` datetime NOT NULL,\n  `location_code` char(15) NOT NULL,\n  PRIMARY KEY (`thing_id`,`date_and_time`,`location_code`),\n  CONSTRAINT `timed_locations_of_things_ibfk_1` FOREIGN KEY (`thing_id`) REFERENCES `things` (`thing_id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8",
+            "fileds": {
+                "field": [
+                    [
+                        "thing_id",
+                        "int",
+                        "PRIMARY KEY"
+                    ],
+                    [
+                        "date_and_time",
+                        "datetime",
+                        "PRIMARY KEY"
+                    ],
+                    [
+                        "location_code",
+                        "char",
+                        "PRIMARY KEY"
+                    ]
+                ],
+                "foreign_key": [
+                    [
+                        "thing_id",
+                        "things",
+                        "thing_id"
+                    ]
+                ]
+            }
+        },
+        {
+            "timed_status_of_things": "CREATE TABLE `timed_status_of_things` (\n  `thing_id` int(11) NOT NULL,\n  `date_and_date` datetime NOT NULL,\n  `status_of_thing_code` char(15) NOT NULL,\n  PRIMARY KEY (`thing_id`,`date_and_date`,`status_of_thing_code`),\n  CONSTRAINT `timed_status_of_things_ibfk_1` FOREIGN KEY (`thing_id`) REFERENCES `things` (`thing_id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8",
+            "fileds": {
+                "field": [
+                    [
+                        "thing_id",
+                        "int",
+                        "PRIMARY KEY"
+                    ],
+                    [
+                        "date_and_date",
+                        "datetime",
+                        "PRIMARY KEY"
+                    ],
+                    [
+                        "status_of_thing_code",
+                        "char",
+                        "PRIMARY KEY"
+                    ]
+                ],
+                "foreign_key": [
+                    [
+                        "thing_id",
+                        "things",
+                        "thing_id"
+                    ]
+                ]
+            }
+        }
+    ],
+    "input": "How many distinct locations have the things with service detail 'Unsatisfied' been located in?",
+    "response": "select count(distinct t2.location_code) from things as t1 join timed_locations_of_things as t2 on t1.thing_id = t2.thing_id where t1.service_details = 'unsatisfied';",
+    "insert": [
+        "INSERT INTO `customers` (`customer_id`, `customer_details`) VALUES (4, 'mr. raul prosacco');",
+        "INSERT INTO `customers` (`customer_id`, `customer_details`) VALUES (5, 'esteban senger');",
+        "INSERT INTO `customers` (`customer_id`, `customer_details`) VALUES (16, 'tyrique durgan ii');",
+        "INSERT INTO `customers` (`customer_id`, `customer_details`) VALUES (17, 'malcolm farrell');",
+        "INSERT INTO `customers` (`customer_id`, `customer_details`) VALUES (19, 'sabryna moore phd');",
+        "INSERT INTO `customers` (`customer_id`, `customer_details`) VALUES (21, 'dr. haylie hilll iii');",
+        "INSERT INTO `customers` (`customer_id`, `customer_details`) VALUES (31, 'monty sauer iii');",
+        "INSERT INTO `customers` (`customer_id`, `customer_details`) VALUES (41, 'jayme marquardt');",
+        "INSERT INTO `customers` (`customer_id`, `customer_details`) VALUES (63, 'vincenza price');",
+        "INSERT INTO `customers` (`customer_id`, `customer_details`) VALUES (69, 'elva boehm');",
+        "INSERT INTO `customers` (`customer_id`, `customer_details`) VALUES (76, 'kyleigh schuster');",
+        "INSERT INTO `customers` (`customer_id`, `customer_details`) VALUES (79, 'oma smith');",
+        "INSERT INTO `customers` (`customer_id`, `customer_details`) VALUES (82, 'bridgette nitzsche phd');",
+        "INSERT INTO `customers` (`customer_id`, `customer_details`) VALUES (87, 'jeff mccullough md');",
+        "INSERT INTO `customers` (`customer_id`, `customer_details`) VALUES (91, 'mackenzie hettinger v');",
+        "INSERT INTO `properties` (`property_id`, `property_type_code`, `property_address`, `other_details`) VALUES (24, 'apartment', '85456 annie lodge suite 449', 'usa');",
+        "INSERT INTO `properties` (`property_id`, `property_type_code`, `property_address`, `other_details`) VALUES (107, 'house', '2580 yundt plains', 'usa');",
+        "INSERT INTO `properties` (`property_id`, `property_type_code`, `property_address`, `other_details`) VALUES (108, 'house', '5983 fleta throughway', 'usa');",
+        "INSERT INTO `properties` (`property_id`, `property_type_code`, `property_address`, `other_details`) VALUES (120, 'apartment', '322 johnston parkway suite 422', 'usa');",
+        "INSERT INTO `properties` (`property_id`, `property_type_code`, `property_address`, `other_details`) VALUES (373, 'apartment', '5384 sipes land apt. 344', 'usa');",
+        "INSERT INTO `properties` (`property_id`, `property_type_code`, `property_address`, `other_details`) VALUES (445, 'flat', '04164 raul stream', 'usa');",
+        "INSERT INTO `properties` (`property_id`, `property_type_code`, `property_address`, `other_details`) VALUES (586, 'apartment', '54591 bernard ridges suite 864', 'usa');",
+        "INSERT INTO `properties` (`property_id`, `property_type_code`, `property_address`, `other_details`) VALUES (605, 'house', '7713 bode burgs apt. 113', 'usa');",
+        "INSERT INTO `properties` (`property_id`, `property_type_code`, `property_address`, `other_details`) VALUES (629, 'house', '830 jayne points suite 290', 'usa');",
+        "INSERT INTO `properties` (`property_id`, `property_type_code`, `property_address`, `other_details`) VALUES (669, 'house', '824 kiehn vista', 'usa');",
+        "INSERT INTO `properties` (`property_id`, `property_type_code`, `property_address`, `other_details`) VALUES (748, 'apartment', '3927 spinka loaf suite 347', 'usa');",
+        "INSERT INTO `properties` (`property_id`, `property_type_code`, `property_address`, `other_details`) VALUES (791, 'house', '72659 frank locks', 'usa');",
+        "INSERT INTO `properties` (`property_id`, `property_type_code`, `property_address`, `other_details`) VALUES (849, 'house', '76714 verla radial apt. 306', 'usa');",
+        "INSERT INTO `properties` (`property_id`, `property_type_code`, `property_address`, `other_details`) VALUES (879, 'flat', '129 chasity brook', 'usa');",
+        "INSERT INTO `properties` (`property_id`, `property_type_code`, `property_address`, `other_details`) VALUES (954, 'flat', '91002 melvina haven', 'usa');",
+        "INSERT INTO `residents` (`resident_id`, `property_id`, `date_moved_in`, `date_moved_out`, `other_details`) VALUES (6, 954, '2017-06-17 15:43:33', '2017-12-18 03:46:04', 'anderson batz');",
+        "INSERT INTO `residents` (`resident_id`, `property_id`, `date_moved_in`, `date_moved_out`, `other_details`) VALUES (10, 605, '2015-03-27 12:00:00', '2018-03-17 07:48:09', 'miss naomie osinski');",
+        "INSERT INTO `residents` (`resident_id`, `property_id`, `date_moved_in`, `date_moved_out`, `other_details`) VALUES (23, 879, '2015-03-27 12:00:00', '2017-11-14 06:28:48', 'jess wyman');",
+        "INSERT INTO `residents` (`resident_id`, `property_id`, `date_moved_in`, `date_moved_out`, `other_details`) VALUES (28, 629, '2015-03-27 12:00:00', '2017-10-05 02:47:31', 'miss alanis lockman');",
+        "INSERT INTO `residents` (`resident_id`, `property_id`, `date_moved_in`, `date_moved_out`, `other_details`) VALUES (37, 669, '2015-03-27 12:00:00', '2018-01-30 10:20:59', 'prof. arvel kozey');",
+        "INSERT INTO `residents` (`resident_id`, `property_id`, `date_moved_in`, `date_moved_out`, `other_details`) VALUES (38, 748, '2015-03-27 12:00:00', '2017-12-30 23:55:10', 'chaim swaniawski');",
+        "INSERT INTO `residents` (`resident_id`, `property_id`, `date_moved_in`, `date_moved_out`, `other_details`) VALUES (43, 108, '2015-03-27 12:00:00', '2018-02-22 06:24:15', 'elroy schuster');",
+        "INSERT INTO `residents` (`resident_id`, `property_id`, `date_moved_in`, `date_moved_out`, `other_details`) VALUES (45, 954, '2015-03-27 12:00:00', '2017-10-14 10:23:42', 'prof. nasir hoppe');",
+        "INSERT INTO `residents` (`resident_id`, `property_id`, `date_moved_in`, `date_moved_out`, `other_details`) VALUES (47, 669, '2015-03-27 12:00:00', '2017-10-10 02:25:53', 'tiffany jaskolski');",
+        "INSERT INTO `residents` (`resident_id`, `property_id`, `date_moved_in`, `date_moved_out`, `other_details`) VALUES (58, 107, '2015-03-27 12:00:00', '2017-11-29 21:24:08', 'tomasa hoeger');",
+        "INSERT INTO `residents` (`resident_id`, `property_id`, `date_moved_in`, `date_moved_out`, `other_details`) VALUES (67, 120, '2016-09-27 12:00:00', '2017-10-23 16:40:19', 'terrill bernhard');",
+        "INSERT INTO `residents` (`resident_id`, `property_id`, `date_moved_in`, `date_moved_out`, `other_details`) VALUES (83, 445, '2016-09-27 12:00:00', '2018-01-19 01:35:51', 'loy walter');",
+        "INSERT INTO `residents` (`resident_id`, `property_id`, `date_moved_in`, `date_moved_out`, `other_details`) VALUES (87, 748, '2016-09-27 12:00:00', '2018-01-28 13:19:54', 'mrs. raphaelle fisher');",
+        "INSERT INTO `residents` (`resident_id`, `property_id`, `date_moved_in`, `date_moved_out`, `other_details`) VALUES (88, 107, '2016-09-27 12:00:00', '2018-02-03 11:30:20', 'jacques glover ii');",
+        "INSERT INTO `residents` (`resident_id`, `property_id`, `date_moved_in`, `date_moved_out`, `other_details`) VALUES (90, 373, '2016-09-27 12:00:00', '2017-11-19 03:11:44', 'cassie johnson');",
+        "INSERT INTO `organizations` (`organization_id`, `parent_organization_id`, `organization_details`) VALUES (7, 7, 'reinger, hudson and nolan group');",
+        "INSERT INTO `organizations` (`organization_id`, `parent_organization_id`, `organization_details`) VALUES (8, 7, 'denesik and sons party');",
+        "INSERT INTO `organizations` (`organization_id`, `parent_organization_id`, `organization_details`) VALUES (10, 8, 'robel-schulist group');",
+        "INSERT INTO `services` (`service_id`, `organization_id`, `service_type_code`, `service_details`) VALUES (10, 10, 'cleanning', 'satisfied');",
+        "INSERT INTO `services` (`service_id`, `organization_id`, `service_type_code`, `service_details`) VALUES (11, 7, 'check', 'satisfied');",
+        "INSERT INTO `services` (`service_id`, `organization_id`, `service_type_code`, `service_details`) VALUES (13, 8, 'moving out', 'satisfied');",
+        "INSERT INTO `services` (`service_id`, `organization_id`, `service_type_code`, `service_details`) VALUES (22, 10, 'pay bills', 'satisfied');",
+        "INSERT INTO `services` (`service_id`, `organization_id`, `service_type_code`, `service_details`) VALUES (29, 8, 'moving out', 'satisfied');",
+        "INSERT INTO `services` (`service_id`, `organization_id`, `service_type_code`, `service_details`) VALUES (31, 7, 'pay bills', 'satisfied');",
+        "INSERT INTO `services` (`service_id`, `organization_id`, `service_type_code`, `service_details`) VALUES (36, 8, 'check', 'satisfied');",
+        "INSERT INTO `services` (`service_id`, `organization_id`, `service_type_code`, `service_details`) VALUES (41, 10, 'check', 'satisfied');",
+        "INSERT INTO `services` (`service_id`, `organization_id`, `service_type_code`, `service_details`) VALUES (47, 8, 'pay bills', 'unsatisfied');",
+        "INSERT INTO `services` (`service_id`, `organization_id`, `service_type_code`, `service_details`) VALUES (49, 8, 'moving out', 'satisfied');",
+        "INSERT INTO `services` (`service_id`, `organization_id`, `service_type_code`, `service_details`) VALUES (52, 8, 'pay bills', 'unsatisfied');",
+        "INSERT INTO `services` (`service_id`, `organization_id`, `service_type_code`, `service_details`) VALUES (65, 8, 'cleanning', 'unsatisfied');",
+        "INSERT INTO `services` (`service_id`, `organization_id`, `service_type_code`, `service_details`) VALUES (66, 8, 'pay bills', 'unsatisfied');",
+        "INSERT INTO `services` (`service_id`, `organization_id`, `service_type_code`, `service_details`) VALUES (77, 7, 'pay bills', 'unsatisfied');",
+        "INSERT INTO `services` (`service_id`, `organization_id`, `service_type_code`, `service_details`) VALUES (87, 8, 'pay bills', 'unsatisfied');",
+        "INSERT INTO `residents_services` (`resident_id`, `service_id`, `date_moved_in`, `property_id`, `date_requested`, `date_provided`, `other_details`) VALUES (6, 49, '2017-06-17 15:43:33', 954, '2016-07-25 01:32:23', '2018-02-26 00:27:11', 'satisfied');",
+        "INSERT INTO `residents_services` (`resident_id`, `service_id`, `date_moved_in`, `property_id`, `date_requested`, `date_provided`, `other_details`) VALUES (23, 41, '2015-03-27 12:00:00', 879, '2016-10-10 21:42:21', '2017-08-21 06:23:06', 'unsatisfied');",
+        "INSERT INTO `residents_services` (`resident_id`, `service_id`, `date_moved_in`, `property_id`, `date_requested`, `date_provided`, `other_details`) VALUES (28, 11, '2015-03-27 12:00:00', 629, '2017-07-14 19:03:47', '2017-08-28 03:43:56', 'unsatisfied');",
+        "INSERT INTO `residents_services` (`resident_id`, `service_id`, `date_moved_in`, `property_id`, `date_requested`, `date_provided`, `other_details`) VALUES (43, 10, '2015-03-27 12:00:00', 108, '2016-09-20 22:50:26', '2017-10-17 03:30:08', 'unsatisfied');",
+        "INSERT INTO `residents_services` (`resident_id`, `service_id`, `date_moved_in`, `property_id`, `date_requested`, `date_provided`, `other_details`) VALUES (45, 49, '2015-03-27 12:00:00', 954, '2017-06-14 14:04:50', '2017-08-14 08:06:43', 'unsatisfied');",
+        "INSERT INTO `residents_services` (`resident_id`, `service_id`, `date_moved_in`, `property_id`, `date_requested`, `date_provided`, `other_details`) VALUES (47, 65, '2015-03-27 12:00:00', 669, '2016-12-16 06:08:10', '2018-01-30 09:58:57', 'unsatisfied');",
+        "INSERT INTO `residents_services` (`resident_id`, `service_id`, `date_moved_in`, `property_id`, `date_requested`, `date_provided`, `other_details`) VALUES (67, 87, '2016-09-27 12:00:00', 120, '2016-04-27 14:51:07', '2017-11-13 10:28:34', 'unsatisfied');",
+        "INSERT INTO `residents_services` (`resident_id`, `service_id`, `date_moved_in`, `property_id`, `date_requested`, `date_provided`, `other_details`) VALUES (83, 65, '2016-09-27 12:00:00', 445, '2016-11-27 15:37:02', '2017-09-10 00:48:58', 'unsatisfied');",
+        "INSERT INTO `residents_services` (`resident_id`, `service_id`, `date_moved_in`, `property_id`, `date_requested`, `date_provided`, `other_details`) VALUES (87, 29, '2016-09-27 12:00:00', 748, '2016-10-13 04:15:54', '2017-10-29 13:12:29', 'unsatisfied');",
+        "INSERT INTO `residents_services` (`resident_id`, `service_id`, `date_moved_in`, `property_id`, `date_requested`, `date_provided`, `other_details`) VALUES (90, 36, '2016-09-27 12:00:00', 373, '2016-04-13 05:09:24', '2017-10-28 12:36:43', 'unsatisfied');",
+        "INSERT INTO `residents_services` (`resident_id`, `service_id`, `date_moved_in`, `property_id`, `date_requested`, `date_provided`, `other_details`) VALUES (88, 11, '2016-09-27 12:00:00', 107, '2016-06-18 20:09:24', '2017-08-08 11:24:50', 'unsatisfied');",
+        "INSERT INTO `things` (`thing_id`, `organization_id`, `type_of_thing_code`, `service_type_code`, `service_details`) VALUES (1, 8, 'electronics', 'check', 'unsatisfied');",
+        "INSERT INTO `things` (`thing_id`, `organization_id`, `type_of_thing_code`, `service_type_code`, `service_details`) VALUES (2, 8, 'electronics', 'cleanning', 'satisfied');",
+        "INSERT INTO `things` (`thing_id`, `organization_id`, `type_of_thing_code`, `service_type_code`, `service_details`) VALUES (10, 8, 'commen', 'check', 'satisfied');",
+        "INSERT INTO `things` (`thing_id`, `organization_id`, `type_of_thing_code`, `service_type_code`, `service_details`) VALUES (14, 10, 'furniture', 'cleanning', 'satisfied');",
+        "INSERT INTO `things` (`thing_id`, `organization_id`, `type_of_thing_code`, `service_type_code`, `service_details`) VALUES (26, 8, 'electronics', 'cleanning', 'unsatisfied');",
+        "INSERT INTO `things` (`thing_id`, `organization_id`, `type_of_thing_code`, `service_type_code`, `service_details`) VALUES (35, 7, 'electronics', 'cleanning', 'satisfied');",
+        "INSERT INTO `things` (`thing_id`, `organization_id`, `type_of_thing_code`, `service_type_code`, `service_details`) VALUES (45, 8, 'commen', 'check', 'satisfied');",
+        "INSERT INTO `things` (`thing_id`, `organization_id`, `type_of_thing_code`, `service_type_code`, `service_details`) VALUES (46, 8, 'commen', 'check', 'satisfied');",
+        "INSERT INTO `things` (`thing_id`, `organization_id`, `type_of_thing_code`, `service_type_code`, `service_details`) VALUES (47, 10, 'commen', 'cleanning', 'satisfied');",
+        "INSERT INTO `things` (`thing_id`, `organization_id`, `type_of_thing_code`, `service_type_code`, `service_details`) VALUES (58, 8, 'electronics', 'check', 'satisfied');",
+        "INSERT INTO `things` (`thing_id`, `organization_id`, `type_of_thing_code`, `service_type_code`, `service_details`) VALUES (68, 10, 'commen', 'cleanning', 'unsatisfied');",
+        "INSERT INTO `things` (`thing_id`, `organization_id`, `type_of_thing_code`, `service_type_code`, `service_details`) VALUES (80, 8, 'furniture', 'check', 'unsatisfied');",
+        "INSERT INTO `things` (`thing_id`, `organization_id`, `type_of_thing_code`, `service_type_code`, `service_details`) VALUES (84, 8, 'commen', 'check', 'unsatisfied');",
+        "INSERT INTO `things` (`thing_id`, `organization_id`, `type_of_thing_code`, `service_type_code`, `service_details`) VALUES (85, 8, 'commen', 'cleanning', 'unsatisfied');",
+        "INSERT INTO `things` (`thing_id`, `organization_id`, `type_of_thing_code`, `service_type_code`, `service_details`) VALUES (92, 7, 'commen', 'check', 'unsatisfied');",
+        "INSERT INTO `customer_events` (`customer_event_id`, `customer_id`, `date_moved_in`, `property_id`, `resident_id`, `thing_id`) VALUES (70, 19, '2015-03-27 12:00:00', 605, 10, 1);",
+        "INSERT INTO `customer_events` (`customer_event_id`, `customer_id`, `date_moved_in`, `property_id`, `resident_id`, `thing_id`) VALUES (160, 5, '2015-03-27 12:00:00', 879, 23, 80);",
+        "INSERT INTO `customer_events` (`customer_event_id`, `customer_id`, `date_moved_in`, `property_id`, `resident_id`, `thing_id`) VALUES (166, 16, '2015-03-27 12:00:00', 629, 28, 14);",
+        "INSERT INTO `customer_events` (`customer_event_id`, `customer_id`, `date_moved_in`, `property_id`, `resident_id`, `thing_id`) VALUES (216, 79, '2015-03-27 12:00:00', 669, 37, 46);",
+        "INSERT INTO `customer_events` (`customer_event_id`, `customer_id`, `date_moved_in`, `property_id`, `resident_id`, `thing_id`) VALUES (226, 19, '2015-03-27 12:00:00', 748, 38, 80);",
+        "INSERT INTO `customer_events` (`customer_event_id`, `customer_id`, `date_moved_in`, `property_id`, `resident_id`, `thing_id`) VALUES (256, 79, '2015-03-27 12:00:00', 108, 43, 2);",
+        "INSERT INTO `customer_events` (`customer_event_id`, `customer_id`, `date_moved_in`, `property_id`, `resident_id`, `thing_id`) VALUES (428, 63, '2015-03-27 12:00:00', 954, 45, 68);",
+        "INSERT INTO `customer_events` (`customer_event_id`, `customer_id`, `date_moved_in`, `property_id`, `resident_id`, `thing_id`) VALUES (530, 4, '2015-03-27 12:00:00', 669, 47, 10);",
+        "INSERT INTO `customer_events` (`customer_event_id`, `customer_id`, `date_moved_in`, `property_id`, `resident_id`, `thing_id`) VALUES (559, 19, '2015-03-27 12:00:00', 107, 58, 1);",
+        "INSERT INTO `customer_events` (`customer_event_id`, `customer_id`, `date_moved_in`, `property_id`, `resident_id`, `thing_id`) VALUES (591, 91, '2016-09-27 12:00:00', 120, 67, 10);",
+        "INSERT INTO `customer_events` (`customer_event_id`, `customer_id`, `date_moved_in`, `property_id`, `resident_id`, `thing_id`) VALUES (606, 31, '2016-09-27 12:00:00', 445, 83, 85);",
+        "INSERT INTO `customer_events` (`customer_event_id`, `customer_id`, `date_moved_in`, `property_id`, `resident_id`, `thing_id`) VALUES (627, 91, '2016-09-27 12:00:00', 748, 87, 92);",
+        "INSERT INTO `customer_events` (`customer_event_id`, `customer_id`, `date_moved_in`, `property_id`, `resident_id`, `thing_id`) VALUES (817, 19, '2016-09-27 12:00:00', 107, 88, 10);",
+        "INSERT INTO `customer_event_notes` (`customer_event_note_id`, `customer_event_id`, `service_type_code`, `resident_id`, `property_id`, `date_moved_in`) VALUES (18, 70, 'cleanning', 58, 107, '2016-08-04 01:06:05');",
+        "INSERT INTO `customer_event_notes` (`customer_event_note_id`, `customer_event_id`, `service_type_code`, `resident_id`, `property_id`, `date_moved_in`) VALUES (21, 428, 'check', 87, 445, '2016-12-11 01:05:14');",
+        "INSERT INTO `customer_event_notes` (`customer_event_note_id`, `customer_event_id`, `service_type_code`, `resident_id`, `property_id`, `date_moved_in`) VALUES (32, 70, 'check', 37, 669, '2016-07-10 04:09:56');",
+        "INSERT INTO `customer_event_notes` (`customer_event_note_id`, `customer_event_id`, `service_type_code`, `resident_id`, `property_id`, `date_moved_in`) VALUES (46, 627, 'cleanning', 87, 373, '2016-05-24 02:56:54');",
+        "INSERT INTO `customer_event_notes` (`customer_event_note_id`, `customer_event_id`, `service_type_code`, `resident_id`, `property_id`, `date_moved_in`) VALUES (49, 559, 'check', 45, 849, '2016-08-08 07:58:26');",
+        "INSERT INTO `customer_event_notes` (`customer_event_note_id`, `customer_event_id`, `service_type_code`, `resident_id`, `property_id`, `date_moved_in`) VALUES (50, 606, 'check', 45, 849, '2017-04-25 09:08:14');",
+        "INSERT INTO `customer_event_notes` (`customer_event_note_id`, `customer_event_id`, `service_type_code`, `resident_id`, `property_id`, `date_moved_in`) VALUES (55, 817, 'cleanning', 43, 120, '2017-06-26 13:24:36');",
+        "INSERT INTO `customer_event_notes` (`customer_event_note_id`, `customer_event_id`, `service_type_code`, `resident_id`, `property_id`, `date_moved_in`) VALUES (56, 216, 'check', 88, 748, '2016-11-04 12:46:21');",
+        "INSERT INTO `customer_event_notes` (`customer_event_note_id`, `customer_event_id`, `service_type_code`, `resident_id`, `property_id`, `date_moved_in`) VALUES (59, 591, 'cleanning', 28, 605, '2016-05-14 15:58:33');",
+        "INSERT INTO `customer_event_notes` (`customer_event_note_id`, `customer_event_id`, `service_type_code`, `resident_id`, `property_id`, `date_moved_in`) VALUES (65, 591, 'cleanning', 28, 879, '2017-04-12 19:47:08');",
+        "INSERT INTO `customer_event_notes` (`customer_event_note_id`, `customer_event_id`, `service_type_code`, `resident_id`, `property_id`, `date_moved_in`) VALUES (75, 70, 'check', 43, 120, '2016-10-28 01:43:42');",
+        "INSERT INTO `customer_event_notes` (`customer_event_note_id`, `customer_event_id`, `service_type_code`, `resident_id`, `property_id`, `date_moved_in`) VALUES (88, 606, 'cleanning', 67, 791, '2016-11-23 05:53:40');",
+        "INSERT INTO `customer_event_notes` (`customer_event_note_id`, `customer_event_id`, `service_type_code`, `resident_id`, `property_id`, `date_moved_in`) VALUES (91, 817, 'cleanning', 43, 120, '2017-04-28 10:17:13');",
+        "INSERT INTO `timed_locations_of_things` (`thing_id`, `date_and_time`, `location_code`) VALUES (2, '2016-10-12 12:03:07', '064 charles mou');",
+        "INSERT INTO `timed_locations_of_things` (`thing_id`, `date_and_time`, `location_code`) VALUES (10, '2016-12-29 00:39:19', '288 lang ferry');",
+        "INSERT INTO `timed_locations_of_things` (`thing_id`, `date_and_time`, `location_code`) VALUES (10, '2017-10-21 04:21:54', '854 keeling sho');",
+        "INSERT INTO `timed_locations_of_things` (`thing_id`, `date_and_time`, `location_code`) VALUES (14, '2017-03-19 19:28:13', '1316 morgan spr');",
+        "INSERT INTO `timed_locations_of_things` (`thing_id`, `date_and_time`, `location_code`) VALUES (26, '2016-04-26 16:34:09', '192 kub rapids');",
+        "INSERT INTO `timed_locations_of_things` (`thing_id`, `date_and_time`, `location_code`) VALUES (45, '2017-04-19 16:41:03', '4667 kellen fie');",
+        "INSERT INTO `timed_locations_of_things` (`thing_id`, `date_and_time`, `location_code`) VALUES (45, '2017-04-22 00:37:48', '1313 sawayn riv');",
+        "INSERT INTO `timed_locations_of_things` (`thing_id`, `date_and_time`, `location_code`) VALUES (58, '2016-08-04 00:25:55', '94425 nellie kn');",
+        "INSERT INTO `timed_locations_of_things` (`thing_id`, `date_and_time`, `location_code`) VALUES (68, '2017-03-06 01:56:27', '4223 rae fork s');",
+        "INSERT INTO `timed_locations_of_things` (`thing_id`, `date_and_time`, `location_code`) VALUES (68, '2017-08-31 13:54:13', '9628 bins islan');",
+        "INSERT INTO `timed_locations_of_things` (`thing_id`, `date_and_time`, `location_code`) VALUES (85, '2016-11-07 09:43:05', '2677 runolfsson');",
+        "INSERT INTO `timed_locations_of_things` (`thing_id`, `date_and_time`, `location_code`) VALUES (85, '2017-01-02 23:26:47', '26281 holden pa');",
+        "INSERT INTO `timed_locations_of_things` (`thing_id`, `date_and_time`, `location_code`) VALUES (85, '2017-11-26 00:13:44', '1537 schmeler g');",
+        "INSERT INTO `timed_locations_of_things` (`thing_id`, `date_and_time`, `location_code`) VALUES (92, '2017-03-19 13:57:49', '113 geo glens a');",
+        "INSERT INTO `timed_locations_of_things` (`thing_id`, `date_and_time`, `location_code`) VALUES (92, '2017-10-21 21:35:37', '9569 tanner inl');",
+        "INSERT INTO `timed_status_of_things` (`thing_id`, `date_and_date`, `status_of_thing_code`) VALUES (2, '2016-05-27 23:33:34', 'open');",
+        "INSERT INTO `timed_status_of_things` (`thing_id`, `date_and_date`, `status_of_thing_code`) VALUES (2, '2016-07-17 08:35:27', 'close');",
+        "INSERT INTO `timed_status_of_things` (`thing_id`, `date_and_date`, `status_of_thing_code`) VALUES (2, '2017-06-19 02:59:21', 'in progress');",
+        "INSERT INTO `timed_status_of_things` (`thing_id`, `date_and_date`, `status_of_thing_code`) VALUES (10, '2016-09-06 16:31:13', 'close');",
+        "INSERT INTO `timed_status_of_things` (`thing_id`, `date_and_date`, `status_of_thing_code`) VALUES (10, '2016-11-14 17:30:51', 'open');",
+        "INSERT INTO `timed_status_of_things` (`thing_id`, `date_and_date`, `status_of_thing_code`) VALUES (14, '2017-07-03 02:22:12', 'in progress');",
+        "INSERT INTO `timed_status_of_things` (`thing_id`, `date_and_date`, `status_of_thing_code`) VALUES (26, '2016-04-10 06:32:15', 'close');",
+        "INSERT INTO `timed_status_of_things` (`thing_id`, `date_and_date`, `status_of_thing_code`) VALUES (26, '2017-08-05 02:10:02', 'in progress');",
+        "INSERT INTO `timed_status_of_things` (`thing_id`, `date_and_date`, `status_of_thing_code`) VALUES (26, '2018-02-04 02:44:39', 'close');",
+        "INSERT INTO `timed_status_of_things` (`thing_id`, `date_and_date`, `status_of_thing_code`) VALUES (35, '2017-11-27 06:32:46', 'in progress');",
+        "INSERT INTO `timed_status_of_things` (`thing_id`, `date_and_date`, `status_of_thing_code`) VALUES (47, '2016-04-02 00:57:17', 'in progress');",
+        "INSERT INTO `timed_status_of_things` (`thing_id`, `date_and_date`, `status_of_thing_code`) VALUES (47, '2016-12-02 11:08:16', 'close');",
+        "INSERT INTO `timed_status_of_things` (`thing_id`, `date_and_date`, `status_of_thing_code`) VALUES (58, '2017-05-31 00:52:33', 'in progress');",
+        "INSERT INTO `timed_status_of_things` (`thing_id`, `date_and_date`, `status_of_thing_code`) VALUES (80, '2016-10-08 08:02:57', 'open');",
+        "INSERT INTO `timed_status_of_things` (`thing_id`, `date_and_date`, `status_of_thing_code`) VALUES (84, '2017-12-28 16:05:08', 'open');",
+        "INSERT INTO `timed_status_of_things` (`thing_id`, `date_and_date`, `status_of_thing_code`) VALUES (85, '2017-03-24 12:12:46', 'close');",
+        "INSERT INTO `timed_status_of_things` (`thing_id`, `date_and_date`, `status_of_thing_code`) VALUES (92, '2016-11-24 12:44:00', 'in progress');",
+        "INSERT INTO `timed_status_of_things` (`thing_id`, `date_and_date`, `status_of_thing_code`) VALUES (92, '2017-09-27 01:35:51', 'close');"
+    ],
+    "table_names": [
+        "timed_locations_of_things",
+        "things"
+    ],
+    "database": "local_govt_and_lot"
+}

@@ -1,0 +1,11 @@
+{
+    "conversations": [
+        {
+            "database": "cinema",
+            "system": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\n##Instruction:\ncinema contains tables such as cinema.\nTable cinema has columns such as cinema_id, name, openning_year, capacity, location.",
+            "query": "Show all the locations where some cinemas were opened in both year 2010 and year 2011.",
+            "answer": "select location from cinema where openning_year = 2010 intersect select location from cinema where openning_year = 2011;",
+            "insert": []
+        }
+    ]
+}

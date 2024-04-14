@@ -1,0 +1,11 @@
+{
+    "conversations": [
+        {
+            "database": "gas_company",
+            "system": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\n##Instruction:\ngas_company contains tables such as gas_station.\nTable gas_station has columns such as station_id, open_year, location, manager_name, vice_manager_name, representative_name.",
+            "query": "Show the manager name with most number of gas stations opened after 2000.",
+            "answer": "select manager_name from gas_station where open_year > 2000 group by manager_name order by count(*) desc limit 1;",
+            "insert": []
+        }
+    ]
+}

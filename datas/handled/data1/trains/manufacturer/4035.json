@@ -1,0 +1,11 @@
+{
+    "conversations": [
+        {
+            "database": "manufacturer",
+            "system": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\n##Instruction:\nmanufacturer contains tables such as furniture_manufacte, manufacturer.\nTable furniture_manufacte has columns such as manufacturer_id, furniture_id, price_in_dollar, where manufacturer_id is the primary key, furniture_id is the primary key.\nTable manufacturer has columns such as manufacturer_id, open_year, name, num_of_factories, num_of_shops.\nThe manufacturer_id of manufacturer is the foreign key of manufacturer_id of furniture_manufacte.\nThe furniture_id of furniture is the foreign key of furniture_id of furniture_manufacte.",
+            "query": "Find the id and number of shops for the company that produces the most expensive furniture.",
+            "answer": "select t1.manufacturer_id , t1.num_of_shops from manufacturer as t1 join furniture_manufacte as t2 on t1.manufacturer_id = t2.manufacturer_id order by t2.price_in_dollar desc limit 1;",
+            "insert": []
+        }
+    ]
+}

@@ -1,0 +1,28 @@
+{
+    "conversations": [
+        {
+            "role": "system",
+            "content": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\n##Instruction:\ntracking_software_problems contains tables such as product, problems.\nTable problems has columns such as problem_id, product_id, closure_authorised_by_staff_id, reported_by_staff_id, date_problem_reported, date_problem_closed, problem_description, other_problem_details, where closure_authorised_by_staff_id is the primary key, product_id is the primary key, reported_by_staff_id is the primary key.\nTable product has columns such as product_id, product_name, product_details.\nThe staff_id of staff is the foreign key of closure_authorised_by_staff_id of problems.\nThe product_id of product is the foreign key of product_id of problems.\nThe staff_id of staff is the foreign key of reported_by_staff_id of problems."
+        },
+        {
+            "role": "user",
+            "content": "Find the top 3 products which have the largest number of problems?"
+        },
+        {
+            "role": "assistant",
+            "content": "select t2.product_name from problems as t1 join product as t2 on t1.product_id = t2.product_id group by t2.product_name order by count(*) desc limit 3;"
+        },
+        {
+            "role": "result",
+            "content": "SELECT product_name, COUNT(*) AS total_problems FROM problems GROUP BY product_id HAVING total_problems >= ALL (SELECT total_problems FROM problems GROUP BY product_id LIMIT 3);"
+        },
+        {
+            "role": "exuc_assist",
+            "content": 0
+        },
+        {
+            "role": "exuc_infer",
+            "content": -1
+        }
+    ]
+}

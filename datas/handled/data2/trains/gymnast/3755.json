@@ -1,0 +1,11 @@
+{
+    "conversations": [
+        {
+            "database": "gymnast",
+            "system": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\n##Instruction:\ngymnast contains tables such as people, gymnast.\nTable gymnast has columns such as gymnast_id, floor_exercise_points, pommel_horse_points, rings_points, vault_points, parallel_bars_points, horizontal_bar_points, total_points, where gymnast_id is the primary key.\nTable people has columns such as people_id, name, age, height, hometown.\nThe people_id of people is the foreign key of gymnast_id of gymnast.",
+            "query": "What are the hometowns that are shared by at least two gymnasts?",
+            "answer": "SELECT t2.hometown\nFROM gymnast AS t1\nJOIN people AS t2 ON t1.gymnast_id = t2.people_id\nGROUP BY t2.hometown\nHAVING count(*) >= 2;",
+            "insert": []
+        }
+    ]
+}

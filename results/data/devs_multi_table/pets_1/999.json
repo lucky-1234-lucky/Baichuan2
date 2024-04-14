@@ -1,0 +1,20 @@
+{
+    "conversations": [
+        {
+            "role": "system",
+            "content": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\n##Instruction:\npets_1 contains tables such as has_pet, student.\nTable has_pet has columns such as stuid, petid, where petid is the primary key, stuid is the primary key.\nTable student has columns such as stuid, lname, fname, age, sex, major, advisor, city_code.\nThe petid of pets is the foreign key of petid of has_pet.\nThe stuid of student is the foreign key of stuid of has_pet."
+        },
+        {
+            "role": "user",
+            "content": "Find the first name and gender of student who have more than one pet."
+        },
+        {
+            "role": "assistant",
+            "content": "select t1.fname , t1.sex from student as t1 join has_pet as t2 on t1.stuid = t2.stuid group by t1.stuid having count(*) > 1;"
+        },
+        {
+            "role": "result",
+            "content": "SELECT DISTINCT fname, sex FROM student WHERE stuid IN (SELECT stuid FROM has_pet GROUP BY stuid HAVING COUNT(*) > 1);"
+        }
+    ]
+}

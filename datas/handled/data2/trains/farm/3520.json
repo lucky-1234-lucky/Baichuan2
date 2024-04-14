@@ -1,0 +1,11 @@
+{
+    "conversations": [
+        {
+            "database": "farm",
+            "system": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\n##Instruction:\nfarm contains tables such as city.\nTable city has columns such as city_id, official_name, status, area_km_2, population, census_ranking.",
+            "query": "What is the most common status across all cities?",
+            "answer": "SELECT status\nFROM city\nGROUP BY status\nORDER BY count(*) DESC\nLIMIT 1;",
+            "insert": []
+        }
+    ]
+}

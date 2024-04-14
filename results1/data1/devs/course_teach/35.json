@@ -1,0 +1,28 @@
+{
+    "conversations": [
+        {
+            "role": "system",
+            "content": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\n##Instruction:\ncourse_teach contains tables such as course_arrange, course, teacher.\nTable course has columns such as course_id, staring_date, course.\nTable course_arrange has columns such as course_id, teacher_id, grade, where course_id is the primary key, teacher_id is the primary key.\nTable teacher has columns such as teacher_id, name, age, hometown.\nThe course_id of course is the foreign key of course_id of course_arrange.\nThe teacher_id of teacher is the foreign key of teacher_id of course_arrange."
+        },
+        {
+            "role": "user",
+            "content": "What are the names of the people who teach math courses?"
+        },
+        {
+            "role": "assistant",
+            "content": "select t3.name from course_arrange as t1 join course as t2 on t1.course_id = t2.course_id join teacher as t3 on t1.teacher_id = t3.teacher_id where t2.course = 'math';"
+        },
+        {
+            "role": "result",
+            "content": "select t2.name from course as t1 join course_teach as t2 on t1.course_id = t2.course_id where t1.course = 'math';"
+        },
+        {
+            "role": "exuc_assist",
+            "content": 0
+        },
+        {
+            "role": "exuc_infer",
+            "content": -1
+        }
+    ]
+}

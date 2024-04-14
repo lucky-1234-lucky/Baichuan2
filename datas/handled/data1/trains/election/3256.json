@@ -1,0 +1,11 @@
+{
+    "conversations": [
+        {
+            "database": "election",
+            "system": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\n##Instruction:\nelection contains tables such as election.\nTable election has columns such as election_id, counties_represented, district, delegate, party, first_elected, committee, where party is the primary key, district is the primary key.\nThe party_id of party is the foreign key of party of election.\nThe county_id of county is the foreign key of district of election.",
+            "query": "Show all the information about election.",
+            "answer": "select * from election;",
+            "insert": []
+        }
+    ]
+}

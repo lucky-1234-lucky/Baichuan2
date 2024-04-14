@@ -1,0 +1,20 @@
+{
+    "conversations": [
+        {
+            "role": "system",
+            "content": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\n##Instruction:\ntracking_share_transactions contains tables such as transactions.\nTable transactions has columns such as transaction_id, investor_id, transaction_type_code, date_of_transaction, amount_of_transaction, share_count, other_details, where investor_id is the primary key, transaction_type_code is the primary key.\nThe investor_id of investors is the foreign key of investor_id of transactions.\nThe transaction_type_code of ref_transaction_types is the foreign key of transaction_type_code of transactions."
+        },
+        {
+            "role": "user",
+            "content": "Show the minimum amount of transactions whose type code is \"PUR\" and whose share count is bigger than 50."
+        },
+        {
+            "role": "assistant",
+            "content": "select min(amount_of_transaction) from transactions where transaction_type_code = 'pur' and share_count > 50;"
+        },
+        {
+            "role": "result",
+            "content": "select amount_of_transaction from transactions where transaction_type_code = 'pur' and share_count > 50;"
+        }
+    ]
+}

@@ -1,0 +1,11 @@
+{
+    "conversations": [
+        {
+            "database": "storm_record",
+            "system": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\n##Instruction:\nstorm_record contains tables such as affected_region.\nTable affected_region has columns such as region_id, storm_id, number_city_affected, where region_id is the primary key, storm_id is the primary key.\nThe region_id of region is the foreign key of region_id of affected_region.\nThe storm_id of storm is the foreign key of storm_id of affected_region.",
+            "query": "Count the number of different affected regions.",
+            "answer": "select count(distinct region_id) from affected_region;",
+            "insert": []
+        }
+    ]
+}

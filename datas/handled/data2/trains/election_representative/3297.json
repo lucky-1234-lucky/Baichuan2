@@ -1,0 +1,11 @@
+{
+    "conversations": [
+        {
+            "database": "election_representative",
+            "system": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\n##Instruction:\nelection_representative contains tables such as representative.\nTable representative has columns such as representative_id, name, state, party, lifespan.",
+            "query": "Show the parties that have both representatives in New York state and representatives in Pennsylvania state.",
+            "answer": "SELECT party\nFROM representative\nWHERE state = 'new york' INTERSECT\n  SELECT party\n  FROM representative WHERE state = 'pennsylvania';",
+            "insert": []
+        }
+    ]
+}

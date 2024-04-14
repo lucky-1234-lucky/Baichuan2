@@ -1,0 +1,11 @@
+{
+    "conversations": [
+        {
+            "database": "music_4",
+            "system": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\n##Instruction:\nmusic_4 contains tables such as volume, music_festival.\nTable music_festival has columns such as id, music_festival, date_of_ceremony, category, volume, result, where volume is the primary key.\nTable volume has columns such as volume_id, volume_issue, issue_date, weeks_on_top, song, artist_id, where artist_id is the primary key.\nThe volume_id of volume is the foreign key of volume of music_festival.\nThe artist_id of artist is the foreign key of artist_id of volume.",
+            "query": "What are the dates of ceremony at music festivals corresponding to volumes that lasted more than 2 weeks on top?",
+            "answer": "SELECT t1.date_of_ceremony\nFROM music_festival AS t1\nJOIN volume AS t2 ON t1.volume = t2.volume_id\nWHERE t2.weeks_on_top > 2;",
+            "insert": []
+        }
+    ]
+}

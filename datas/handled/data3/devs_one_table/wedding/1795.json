@@ -1,0 +1,11 @@
+{
+    "conversations": [
+        {
+            "database": "wedding",
+            "system": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\n##Instruction:\nwedding contains tables such as people.\nTable people has columns such as people_id, name, country, is_male, age.",
+            "query": "How many female people are older than 30 in our record?",
+            "answer": "SELECT count(*)\nFROM people\nWHERE is_male = 'f'\n  AND age > 30;",
+            "insert": []
+        }
+    ]
+}

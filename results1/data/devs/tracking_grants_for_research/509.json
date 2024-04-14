@@ -1,0 +1,28 @@
+{
+    "conversations": [
+        {
+            "role": "system",
+            "content": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\n##Instruction:\ntracking_grants_for_research contains tables such as tasks, projects.\nTable projects has columns such as project_id, organisation_id, project_details, where organisation_id is the primary key.\nTable tasks has columns such as task_id, project_id, task_details, eg, where project_id is the primary key.\nThe organisation_id of organisations is the foreign key of organisation_id of projects.\nThe project_id of projects is the foreign key of project_id of tasks."
+        },
+        {
+            "role": "user",
+            "content": "For each project id, how many tasks are there?"
+        },
+        {
+            "role": "assistant",
+            "content": "select count(*) , t1.project_details from projects as t1 join tasks as t2 on t1.project_id = t2.project_id group by t1.project_id;"
+        },
+        {
+            "role": "result",
+            "content": "SELECT COUNT(*) FROM tasks WHERE project_id = 'your_project_id';"
+        },
+        {
+            "role": "exuc_assist",
+            "content": 15
+        },
+        {
+            "role": "exuc_infer",
+            "content": 1
+        }
+    ]
+}

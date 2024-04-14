@@ -1,0 +1,11 @@
+{
+    "conversations": [
+        {
+            "database": "news_report",
+            "system": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\n##Instruction:\nnews_report contains tables such as journalist, news_report.\nTable journalist has columns such as journalist_id, name, nationality, age, years_working.\nTable news_report has columns such as journalist_id, event_id, work_type, where journalist_id is the primary key, event_id is the primary key.\nThe journalist_id of journalist is the foreign key of journalist_id of news_report.\nThe event_id of event is the foreign key of event_id of news_report.",
+            "query": "Find the average age and experience working length of journalists working on different role type.",
+            "answer": "select avg(t1.age) , avg(years_working) , t2.work_type from journalist as t1 join news_report as t2 on t1.journalist_id = t2.journalist_id group by t2.work_type;",
+            "insert": []
+        }
+    ]
+}

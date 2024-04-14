@@ -1,0 +1,11 @@
+{
+    "conversations": [
+        {
+            "database": "debate",
+            "system": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\n##Instruction:\ndebate contains tables such as debate.\nTable debate has columns such as debate_id, date, venue, num_of_audience.",
+            "query": "List the dates of debates with number of audience bigger than 150",
+            "answer": "select date from debate where num_of_audience > 150;",
+            "insert": []
+        }
+    ]
+}

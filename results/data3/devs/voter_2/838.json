@@ -1,0 +1,20 @@
+{
+    "conversations": [
+        {
+            "role": "system",
+            "content": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\n##Instruction:\nvoter_2 contains tables such as voting_record.\nTable voting_record has columns such as stuid, registration_date, election_cycle, president_vote, vice_president_vote, secretary_vote, treasurer_vote, class_president_vote, class_senator_vote, where stuid is the primary key, president_vote is the primary key, vice_president_vote is the primary key, secretary_vote is the primary key, treasurer_vote is the primary key, class_president_vote is the primary key, class_senator_vote is the primary key.\nThe stuid of student is the foreign key of stuid of voting_record.\nThe stuid of student is the foreign key of president_vote of voting_record.\nThe stuid of student is the foreign key of vice_president_vote of voting_record.\nThe stuid of student is the foreign key of secretary_vote of voting_record.\nThe stuid of student is the foreign key of treasurer_vote of voting_record.\nThe stuid of student is the foreign key of class_president_vote of voting_record.\nThe stuid of student is the foreign key of class_senator_vote of voting_record."
+        },
+        {
+            "role": "user",
+            "content": "How many distinct president votes are recorded?"
+        },
+        {
+            "role": "assistant",
+            "content": "SELECT count(DISTINCT president_vote)\nFROM voting_record;"
+        },
+        {
+            "role": "result",
+            "content": "SELECT count(DISTINCT president_vote)\nFROM voting_record;"
+        }
+    ]
+}

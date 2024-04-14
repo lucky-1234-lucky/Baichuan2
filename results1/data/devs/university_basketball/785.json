@@ -1,0 +1,28 @@
+{
+    "conversations": [
+        {
+            "role": "system",
+            "content": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\n##Instruction:\nuniversity_basketball contains tables such as basketball_match.\nTable basketball_match has columns such as team_id, school_id, team_name, acc_regular_season, acc_percent, acc_home, acc_road, all_games, all_games_percent, all_home, all_road, all_neutral, where school_id is the primary key.\nThe school_id of university is the foreign key of school_id of basketball_match."
+        },
+        {
+            "role": "user",
+            "content": "Count the number of schools that have had basketball matches."
+        },
+        {
+            "role": "assistant",
+            "content": "select count(distinct school_id) from basketball_match;"
+        },
+        {
+            "role": "result",
+            "content": "SELECT COUNT(DISTINCT school_id) FROM university_basketball;"
+        },
+        {
+            "role": "exuc_assist",
+            "content": 1
+        },
+        {
+            "role": "exuc_infer",
+            "content": -1
+        }
+    ]
+}

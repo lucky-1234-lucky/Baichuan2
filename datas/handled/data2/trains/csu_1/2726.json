@@ -1,0 +1,11 @@
+{
+    "conversations": [
+        {
+            "database": "csu_1",
+            "system": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\n##Instruction:\ncsu_1 contains tables such as faculty, campuses, degrees.\nTable campuses has columns such as id, campus, location, county, year.\nTable degrees has columns such as year, campus, degrees, where campus is the primary key.\nTable faculty has columns such as campus, year, faculty, where campus is the primary key.\nThe id of campuses is the foreign key of campus of degrees.\nThe id of campuses is the foreign key of campus of faculty.",
+            "query": "How many faculty members are at the university that gave the least number of degrees in 2001?",
+            "answer": "SELECT t2.faculty\nFROM campuses AS t1\nJOIN faculty AS t2 ON t1.id = t2.campus\nJOIN degrees AS t3 ON t1.id = t3.campus\nAND t2.year = t3.year\nWHERE t2.year = 2001\nORDER BY t3.degrees\nLIMIT 1;",
+            "insert": []
+        }
+    ]
+}

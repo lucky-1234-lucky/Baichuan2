@@ -1,0 +1,84 @@
+{
+    "sql": [
+        {
+            "mission": "CREATE TABLE `mission` (\n  `mission_id` int(11) NOT NULL,\n  `ship_id` int(11) DEFAULT NULL,\n  `code` text,\n  `launched_year` int(11) DEFAULT NULL,\n  `location` text,\n  `speed_knots` int(11) DEFAULT NULL,\n  `fate` text,\n  PRIMARY KEY (`mission_id`),\n  KEY `ship_id` (`ship_id`),\n  CONSTRAINT `mission_ibfk_1` FOREIGN KEY (`ship_id`) REFERENCES `ship` (`ship_id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8",
+            "fileds": {
+                "field": [
+                    [
+                        "mission_id",
+                        "int",
+                        "PRIMARY KEY"
+                    ],
+                    [
+                        "ship_id",
+                        "int"
+                    ],
+                    [
+                        "code",
+                        "text,"
+                    ],
+                    [
+                        "launched_year",
+                        "int"
+                    ],
+                    [
+                        "location",
+                        "text,"
+                    ],
+                    [
+                        "speed_knots",
+                        "int"
+                    ],
+                    [
+                        "fate",
+                        "text,"
+                    ]
+                ],
+                "foreign_key": [
+                    [
+                        "ship_id",
+                        "ship",
+                        "ship_id"
+                    ]
+                ]
+            }
+        },
+        {
+            "ship": "CREATE TABLE `ship` (\n  `ship_id` int(11) NOT NULL,\n  `name` text,\n  `type` text,\n  `nationality` text,\n  `tonnage` int(11) DEFAULT NULL,\n  PRIMARY KEY (`ship_id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8",
+            "fileds": {
+                "field": [
+                    [
+                        "ship_id",
+                        "int",
+                        "PRIMARY KEY"
+                    ],
+                    [
+                        "name",
+                        "text,"
+                    ],
+                    [
+                        "type",
+                        "text,"
+                    ],
+                    [
+                        "nationality",
+                        "text,"
+                    ],
+                    [
+                        "tonnage",
+                        "int"
+                    ]
+                ],
+                "foreign_key": []
+            }
+        }
+    ],
+    "input": "Show codes and fates of missions, and names of ships involved.",
+    "response": "select t1.code , t1.fate , t2.name from mission as t1 join ship as t2 on t1.ship_id = t2.ship_id;",
+    "insert": [],
+    "table_names": [
+        "mission",
+        "ship"
+    ],
+    "database": "ship_mission"
+}

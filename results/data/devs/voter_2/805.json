@@ -1,0 +1,20 @@
+{
+    "conversations": [
+        {
+            "role": "system",
+            "content": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\n##Instruction:\nvoter_2 contains tables such as student.\nTable student has columns such as stuid, lname, fname, age, sex, major, advisor, city_code."
+        },
+        {
+            "role": "user",
+            "content": "Report all majors that have less than 3 students."
+        },
+        {
+            "role": "assistant",
+            "content": "select major from student group by major having count(*) < 3;"
+        },
+        {
+            "role": "result",
+            "content": "```sql\nSELECT DISTINCT major\nFROM student\nWHERE major IS NOT NULL AND\n      COUNT(*) < 3;\n```"
+        }
+    ]
+}

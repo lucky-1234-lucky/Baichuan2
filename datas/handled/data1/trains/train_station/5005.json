@@ -1,0 +1,11 @@
+{
+    "conversations": [
+        {
+            "database": "train_station",
+            "system": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\n##Instruction:\ntrain_station contains tables such as train, station, train_station.\nTable station has columns such as station_id, name, annual_entry_exit, annual_interchanges, total_passengers, location, main_services, number_of_platforms.\nTable train has columns such as train_id, name, time, service.\nTable train_station has columns such as train_id, station_id, where train_id is the primary key, station_id is the primary key.\nThe train_id of train is the foreign key of train_id of train_station.\nThe station_id of station is the foreign key of station_id of train_station.",
+            "query": "Show all train names and times in stations in London in descending order by train time.",
+            "answer": "select t3.name , t3.time from train_station as t1 join station as t2 on t1.station_id = t2.station_id join train as t3 on t3.train_id = t1.train_id where t2.location = 'london' order by t3.time desc;",
+            "insert": []
+        }
+    ]
+}

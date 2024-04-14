@@ -1,0 +1,42 @@
+{
+    "conversations": [
+        {
+            "database": "movie_1",
+            "system": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\n##Instruction:\nmovie_1 contains tables such as reviewer.\nTable reviewer has columns such as rid, name.",
+            "query": "What is the reviewer id of Daniel Lewis?",
+            "answer": "SELECT rid\nFROM reviewer\nWHERE name = 'daniel lewis';",
+            "insert": [
+                "INSERT INTO movie VALUES (101, 'gone with the wind', 1939, 'victor fleming');",
+                "INSERT INTO movie VALUES (102, 'star wars', 1977, 'george lucas');",
+                "INSERT INTO movie VALUES (103, 'the sound of music', 1965, 'robert wise');",
+                "INSERT INTO movie VALUES (104, 'e.t.', 1982, 'steven spielberg');",
+                "INSERT INTO movie VALUES (105, 'titanic', 1997, 'james cameron');",
+                "INSERT INTO movie VALUES (106, 'snow white', 1937, null);",
+                "INSERT INTO movie VALUES (107, 'avatar', 2009, 'james cameron');",
+                "INSERT INTO movie VALUES (108, 'raiders of the lost ark', 1981, 'steven spielberg');",
+                "INSERT INTO reviewer VALUES (201, 'sarah martinez');",
+                "INSERT INTO reviewer VALUES (202, 'daniel lewis');",
+                "INSERT INTO reviewer VALUES (203, 'brittany harris');",
+                "INSERT INTO reviewer VALUES (204, 'mike anderson');",
+                "INSERT INTO reviewer VALUES (205, 'chris jackson');",
+                "INSERT INTO reviewer VALUES (206, 'elizabeth thomas');",
+                "INSERT INTO reviewer VALUES (207, 'james cameron');",
+                "INSERT INTO reviewer VALUES (208, 'ashley white');",
+                "INSERT INTO rating VALUES (201, 101, 2, '2011-01-22');",
+                "INSERT INTO rating VALUES (201, 101, 4, '2011-01-27');",
+                "INSERT INTO rating VALUES (202, 106, 4, null);",
+                "INSERT INTO rating VALUES (203, 103, 2, '2011-01-20');",
+                "INSERT INTO rating VALUES (203, 108, 4, '2011-01-12');",
+                "INSERT INTO rating VALUES (203, 108, 2, '2011-01-30');",
+                "INSERT INTO rating VALUES (204, 101, 3, '2011-01-09');",
+                "INSERT INTO rating VALUES (205, 103, 3, '2011-01-27');",
+                "INSERT INTO rating VALUES (205, 104, 2, '2011-01-22');",
+                "INSERT INTO rating VALUES (205, 108, 4, null);",
+                "INSERT INTO rating VALUES (206, 107, 3, '2011-01-15');",
+                "INSERT INTO rating VALUES (206, 106, 5, '2011-01-19');",
+                "INSERT INTO rating VALUES (207, 107, 5, '2011-01-20');",
+                "INSERT INTO rating VALUES (208, 104, 3, '2011-01-02');"
+            ]
+        }
+    ]
+}

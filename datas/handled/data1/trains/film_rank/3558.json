@@ -1,0 +1,11 @@
+{
+    "conversations": [
+        {
+            "database": "film_rank",
+            "system": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\n##Instruction:\nfilm_rank contains tables such as film.\nTable film has columns such as film_id, title, studio, director, gross_in_dollar.",
+            "query": "What are the names of studios that have produced films with both Nicholas Meyer and Walter Hill?",
+            "answer": "select studio from film where director = 'nicholas meyer' intersect select studio from film where director = 'walter hill';",
+            "insert": []
+        }
+    ]
+}

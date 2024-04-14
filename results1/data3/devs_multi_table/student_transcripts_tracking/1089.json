@@ -1,0 +1,28 @@
+{
+    "conversations": [
+        {
+            "role": "system",
+            "content": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\n##Instruction:\nstudent_transcripts_tracking contains tables such as transcript_contents, transcripts.\nTable transcript_contents has columns such as student_course_id, transcript_id, where student_course_id is the primary key, transcript_id is the primary key.\nTable transcripts has columns such as transcript_id, transcript_date, other_details.\nThe student_course_id of student_enrolment_courses is the foreign key of student_course_id of transcript_contents.\nThe transcript_id of transcripts is the foreign key of transcript_id of transcript_contents."
+        },
+        {
+            "role": "user",
+            "content": "What is the date and id of the transcript with the least number of results?"
+        },
+        {
+            "role": "assistant",
+            "content": "SELECT t2.transcript_date,\n       t1.transcript_id\nFROM transcript_contents AS t1\nJOIN transcripts AS t2 ON t1.transcript_id = t2.transcript_id\nGROUP BY t1.transcript_id\nORDER BY count(*) ASC\nLIMIT 1;"
+        },
+        {
+            "role": "result",
+            "content": "SELECT t1.transcript_date,\n       t1.transcript_id\nFROM transcripts AS t1\nJOIN transcript_contents AS t2 ON t1.transcript_id = t2.transcript_id\nGROUP BY t1.transcript_id\nORDER BY count(*) ASC\nLIMIT 1;"
+        },
+        {
+            "role": "exuc_assist",
+            "content": 1
+        },
+        {
+            "role": "exuc_infer",
+            "content": 1
+        }
+    ]
+}

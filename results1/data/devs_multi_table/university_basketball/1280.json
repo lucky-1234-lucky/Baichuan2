@@ -1,0 +1,28 @@
+{
+    "conversations": [
+        {
+            "role": "system",
+            "content": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\n##Instruction:\nuniversity_basketball contains tables such as university, basketball_match.\nTable basketball_match has columns such as team_id, school_id, team_name, acc_regular_season, acc_percent, acc_home, acc_road, all_games, all_games_percent, all_home, all_road, all_neutral, where school_id is the primary key.\nTable university has columns such as school_id, school, location, founded, affiliation, enrollment, nickname, primary_conference.\nThe school_id of university is the foreign key of school_id of basketball_match."
+        },
+        {
+            "role": "user",
+            "content": "Find the location and all games score of the school that has Clemson as its team name."
+        },
+        {
+            "role": "assistant",
+            "content": "select t2.all_games , t1.location from university as t1 join basketball_match as t2 on t1.school_id = t2.school_id where team_name = 'clemson';"
+        },
+        {
+            "role": "result",
+            "content": "```sql\nSELECT university.location, basketball_match.all_games_percent\nFROM university\nJOIN basketball_match ON university.school_id = basketball_match.school_id\nWHERE basketball_match.team_name LIKE 'Clemson%';\n```"
+        },
+        {
+            "role": "exuc_assist",
+            "content": 0
+        },
+        {
+            "role": "exuc_infer",
+            "content": -1
+        }
+    ]
+}

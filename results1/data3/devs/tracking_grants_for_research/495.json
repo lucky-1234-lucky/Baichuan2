@@ -1,0 +1,28 @@
+{
+    "conversations": [
+        {
+            "role": "system",
+            "content": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\n##Instruction:\ntracking_grants_for_research contains tables such as project_staff.\nTable project_staff has columns such as staff_id, project_id, role_code, date_from, date_to, other_details, where project_id is the primary key, role_code is the primary key.\nThe project_id of projects is the foreign key of project_id of project_staff.\nThe role_code of staff_roles is the foreign key of role_code of project_staff."
+        },
+        {
+            "role": "user",
+            "content": "What roles did staff members play between '2003-04-19 15:06:20' and '2016-03-15 00:33:18'?"
+        },
+        {
+            "role": "assistant",
+            "content": "SELECT role_code\nFROM project_staff\nWHERE date_from > '2003-04-19 15:06:20'\n  AND date_to < '2016-03-15 00:33:18';"
+        },
+        {
+            "role": "result",
+            "content": "SELECT DISTINCT t1.role_code\nFROM project_staff AS t1\nJOIN project_staff AS t2 ON t1.project_id = t2.project_id\nWHERE t1.date_from >= '2003-04-19 15:06:20'\n  AND t1.date_to <= '2016-03-15 00:33:18';"
+        },
+        {
+            "role": "exuc_assist",
+            "content": 2
+        },
+        {
+            "role": "exuc_infer",
+            "content": 2
+        }
+    ]
+}

@@ -1,0 +1,28 @@
+{
+    "conversations": [
+        {
+            "role": "system",
+            "content": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\n##Instruction:\nuniversity_basketball contains tables such as university.\nTable university has columns such as school_id, school, location, founded, affiliation, enrollment, nickname, primary_conference."
+        },
+        {
+            "role": "user",
+            "content": "Find the total number of students enrolled in the colleges that were founded after the year of 1850 for each affiliation type."
+        },
+        {
+            "role": "assistant",
+            "content": "select sum(enrollment) , affiliation from university where founded > 1850 group by affiliation;"
+        },
+        {
+            "role": "result",
+            "content": "SELECT affiliation, COUNT(enrollment) AS total_enrollment FROM university WHERE founded >= 1850 GROUP BY affiliation;"
+        },
+        {
+            "role": "exuc_assist",
+            "content": 0
+        },
+        {
+            "role": "exuc_infer",
+            "content": 0
+        }
+    ]
+}

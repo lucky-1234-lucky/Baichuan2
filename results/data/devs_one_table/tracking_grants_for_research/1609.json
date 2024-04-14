@@ -1,0 +1,20 @@
+{
+    "conversations": [
+        {
+            "role": "system",
+            "content": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\n##Instruction:\ntracking_grants_for_research contains tables such as project_staff.\nTable project_staff has columns such as staff_id, project_id, role_code, date_from, date_to, other_details, where project_id is the primary key, role_code is the primary key.\nThe project_id of projects is the foreign key of project_id of project_staff.\nThe role_code of staff_roles is the foreign key of role_code of project_staff."
+        },
+        {
+            "role": "user",
+            "content": "How many project staff worked as leaders or started working before '1989-04-24 23:51:54'?"
+        },
+        {
+            "role": "assistant",
+            "content": "select count(*) from project_staff where role_code = 'leader' or date_from < '1989-04-24 23:51:54';"
+        },
+        {
+            "role": "result",
+            "content": "SELECT COUNT(*) FROM project_staff WHERE role_code IN ('leader', 'start') AND date_from < '1989-04-24 23:51:54';"
+        }
+    ]
+}

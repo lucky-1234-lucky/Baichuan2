@@ -1,0 +1,11 @@
+{
+    "conversations": [
+        {
+            "database": "election_representative",
+            "system": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\n##Instruction:\nelection_representative contains tables such as election, party.\nTable election has columns such as election_id, representative_id, date, votes, vote_percent, seats, place, where representative_id is the primary key.\nThe representative_id of representative is the foreign key of representative_id of election.",
+            "query": "Which committees have delegates from both democratic party and liberal party?",
+            "answer": "select t1.committee from election as t1 join party as t2 on t1.party = t2.party_id where t2.party = 'democratic' intersect select t1.committee from election as t1 join party as t2 on t1.party = t2.party_id where t2.party = 'liberal';",
+            "insert": []
+        }
+    ]
+}

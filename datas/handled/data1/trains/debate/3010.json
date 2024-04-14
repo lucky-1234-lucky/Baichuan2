@@ -1,0 +1,11 @@
+{
+    "conversations": [
+        {
+            "database": "debate",
+            "system": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\n##Instruction:\ndebate contains tables such as people, debate_people.\nTable debate_people has columns such as debate_id, affirmative, negative, if_affirmative_win, where debate_id is the primary key, affirmative is the primary key, negative is the primary key.\nTable people has columns such as people_id, district, name, party, age.\nThe debate_id of debate is the foreign key of debate_id of debate_people.\nThe people_id of people is the foreign key of affirmative of debate_people.\nThe people_id of people is the foreign key of negative of debate_people.",
+            "query": "List the names of people that have not been on the affirmative side of debates.",
+            "answer": "select name from people where people_id not in (select affirmative from debate_people);",
+            "insert": []
+        }
+    ]
+}

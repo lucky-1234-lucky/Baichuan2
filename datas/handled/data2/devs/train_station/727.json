@@ -1,0 +1,11 @@
+{
+    "conversations": [
+        {
+            "database": "train_station",
+            "system": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\n##Instruction:\ntrain_station contains tables such as station.\nTable station has columns such as station_id, name, annual_entry_exit, annual_interchanges, total_passengers, location, main_services, number_of_platforms.",
+            "query": "What is the average and maximum number of total passengers for train stations in London or Glasgow?",
+            "answer": "SELECT avg(total_passengers),\n       max(total_passengers)\nFROM station\nWHERE LOCATION = 'london'\n  OR LOCATION = 'glasgow';",
+            "insert": []
+        }
+    ]
+}

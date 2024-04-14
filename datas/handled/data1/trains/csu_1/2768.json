@@ -1,0 +1,11 @@
+{
+    "conversations": [
+        {
+            "database": "csu_1",
+            "system": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\n##Instruction:\ncsu_1 contains tables such as faculty, campuses.\nTable campuses has columns such as id, campus, location, county, year.\nTable faculty has columns such as campus, year, faculty, where campus is the primary key.\nThe id of campuses is the foreign key of campus of faculty.",
+            "query": "Find the names of the campus which has more faculties in 2002 than every campus in Orange county.",
+            "answer": "select t1.campus from campuses as t1 join faculty as t2 on t1.id = t2.campus where t2.year = 2002 and faculty > (select max(faculty) from campuses as t1 join faculty as t2 on t1.id = t2.campus where t2.year = 2002 and t1.county = 'orange');",
+            "insert": []
+        }
+    ]
+}

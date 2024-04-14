@@ -1,0 +1,20 @@
+{
+    "conversations": [
+        {
+            "role": "system",
+            "content": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\n##Instruction:\ntracking_share_transactions contains tables such as transactions, lots, investors, transactions_lots.\nTable investors has columns such as investor_id, investor_details.\nTable lots has columns such as lot_id, investor_id, lot_details, where investor_id is the primary key.\nTable transactions has columns such as transaction_id, investor_id, transaction_type_code, date_of_transaction, amount_of_transaction, share_count, other_details, where investor_id is the primary key, transaction_type_code is the primary key.\nTable transactions_lots has columns such as transaction_id, lot_id, where lot_id is the primary key, transaction_id is the primary key.\nThe investor_id of investors is the foreign key of investor_id of lots.\nThe investor_id of investors is the foreign key of investor_id of transactions.\nThe transaction_type_code of ref_transaction_types is the foreign key of transaction_type_code of transactions.\nThe lot_id of lots is the foreign key of lot_id of transactions_lots.\nThe transaction_id of transactions is the foreign key of transaction_id of transactions_lots."
+        },
+        {
+            "role": "user",
+            "content": "Show the ids of the investors who have at least two transactions."
+        },
+        {
+            "role": "assistant",
+            "content": "select t2.investor_id from investors as t1 join transactions as t2 on t1.investor_id = t2.investor_id group by t2.investor_id having count(*) >= 2;"
+        },
+        {
+            "role": "result",
+            "content": "SELECT DISTINCT investor_id FROM transactions WHERE investor_id IN (SELECT investor_id FROM transactions GROUP BY investor_id HAVING COUNT(transaction_id) >= 2);"
+        }
+    ]
+}

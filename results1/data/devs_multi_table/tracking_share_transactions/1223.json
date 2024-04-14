@@ -1,0 +1,28 @@
+{
+    "conversations": [
+        {
+            "role": "system",
+            "content": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\n##Instruction:\ntracking_share_transactions contains tables such as transactions, lots, investors, transactions_lots.\nTable investors has columns such as investor_id, investor_details.\nTable lots has columns such as lot_id, investor_id, lot_details, where investor_id is the primary key.\nTable transactions has columns such as transaction_id, investor_id, transaction_type_code, date_of_transaction, amount_of_transaction, share_count, other_details, where investor_id is the primary key, transaction_type_code is the primary key.\nTable transactions_lots has columns such as transaction_id, lot_id, where lot_id is the primary key, transaction_id is the primary key.\nThe investor_id of investors is the foreign key of investor_id of lots.\nThe investor_id of investors is the foreign key of investor_id of transactions.\nThe transaction_type_code of ref_transaction_types is the foreign key of transaction_type_code of transactions.\nThe lot_id of lots is the foreign key of lot_id of transactions_lots.\nThe transaction_id of transactions is the foreign key of transaction_id of transactions_lots."
+        },
+        {
+            "role": "user",
+            "content": "Show details of all investors if they make any transaction with share count greater than 100."
+        },
+        {
+            "role": "assistant",
+            "content": "select t1.investor_details from investors as t1 join transactions as t2 on t1.investor_id = t2.investor_id where t2.share_count > 100;"
+        },
+        {
+            "role": "result",
+            "content": "SELECT * FROM investors WHERE investor_id IN (SELECT investor_id FROM transactions WHERE share_count > 100);"
+        },
+        {
+            "role": "exuc_assist",
+            "content": 0
+        },
+        {
+            "role": "exuc_infer",
+            "content": 0
+        }
+    ]
+}

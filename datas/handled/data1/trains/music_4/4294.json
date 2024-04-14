@@ -1,0 +1,11 @@
+{
+    "conversations": [
+        {
+            "database": "music_4",
+            "system": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\n##Instruction:\nmusic_4 contains tables such as music_festival.\nTable music_festival has columns such as id, music_festival, date_of_ceremony, category, volume, result, where volume is the primary key.\nThe volume_id of volume is the foreign key of volume of music_festival.",
+            "query": "Return the number of music festivals of each category.",
+            "answer": "select category , count(*) from music_festival group by category;",
+            "insert": []
+        }
+    ]
+}

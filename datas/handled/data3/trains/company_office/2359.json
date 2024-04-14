@@ -1,0 +1,11 @@
+{
+    "conversations": [
+        {
+            "database": "company_office",
+            "system": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\n##Instruction:\ncompany_office contains tables such as companies.\nTable companies has columns such as id, name, headquarters, industry, sales_billion, profits_billion, assets_billion, market_value_billion.",
+            "query": "How many different industries are the companies in?",
+            "answer": "SELECT count(DISTINCT industry)\nFROM companies;",
+            "insert": []
+        }
+    ]
+}

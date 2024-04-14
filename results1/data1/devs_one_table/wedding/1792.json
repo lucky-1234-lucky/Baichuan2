@@ -1,0 +1,28 @@
+{
+    "conversations": [
+        {
+            "role": "system",
+            "content": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\n##Instruction:\nwedding contains tables such as church.\nTable church has columns such as church_id, name, organized_by, open_date, continuation_of."
+        },
+        {
+            "role": "user",
+            "content": "Show the opening year in whcih at least two churches opened."
+        },
+        {
+            "role": "assistant",
+            "content": "select open_date from church group by open_date having count(*) >= 2;"
+        },
+        {
+            "role": "result",
+            "content": "select open_date from church group by open_date having count(*) >= 2;"
+        },
+        {
+            "role": "exuc_assist",
+            "content": 0
+        },
+        {
+            "role": "exuc_infer",
+            "content": 0
+        }
+    ]
+}

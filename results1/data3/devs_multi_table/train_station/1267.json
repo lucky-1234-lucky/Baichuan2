@@ -1,0 +1,28 @@
+{
+    "conversations": [
+        {
+            "role": "system",
+            "content": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\n##Instruction:\ntrain_station contains tables such as station, train_station.\nTable station has columns such as station_id, name, annual_entry_exit, annual_interchanges, total_passengers, location, main_services, number_of_platforms.\nTable train_station has columns such as train_id, station_id, where train_id is the primary key, station_id is the primary key.\nThe train_id of train is the foreign key of train_id of train_station.\nThe station_id of station is the foreign key of station_id of train_station."
+        },
+        {
+            "role": "user",
+            "content": "Show the station name with greatest number of trains."
+        },
+        {
+            "role": "assistant",
+            "content": "SELECT t2.name\nFROM train_station AS t1\nJOIN station AS t2 ON t1.station_id = t2.station_id\nGROUP BY t1.station_id\nORDER BY count(*) DESC\nLIMIT 1;"
+        },
+        {
+            "role": "result",
+            "content": "SELECT t1.name\nFROM station AS t1\nJOIN train_station AS t2 ON t1.station_id = t2.station_id\nGROUP BY t1.name\nORDER BY count(*) DESC\nLIMIT 1;"
+        },
+        {
+            "role": "exuc_assist",
+            "content": 0
+        },
+        {
+            "role": "exuc_infer",
+            "content": 0
+        }
+    ]
+}

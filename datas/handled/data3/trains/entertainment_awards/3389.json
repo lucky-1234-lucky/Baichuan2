@@ -1,0 +1,21 @@
+{
+    "conversations": [
+        {
+            "database": "entertainment_awards",
+            "system": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\n##Instruction:\nentertainment_awards contains tables such as festival_detail, artwork, nomination.\nTable artwork has columns such as artwork_id, type, name.\nTable festival_detail has columns such as festival_id, festival_name, chair_name, location, year, num_of_audience.\nTable nomination has columns such as artwork_id, festival_id, result, where artwork_id is the primary key, festival_id is the primary key.\nThe artwork_id of artwork is the foreign key of artwork_id of nomination.\nThe festival_id of festival_detail is the foreign key of festival_id of nomination.",
+            "query": "Show distinct types of artworks that are nominated in festivals in 2007.",
+            "answer": "SELECT DISTINCT t2.type\nFROM nomination AS t1\nJOIN artwork AS t2 ON t1.artwork_id = t2.artwork_id\nJOIN festival_detail AS t3 ON t1.festival_id = t3.festival_id\nWHERE t3.year = 2007;",
+            "insert": [
+                "INSERT INTO artwork VALUES (1, \"program music/variety show\", \"indonesian idol\");",
+                "INSERT INTO artwork VALUES (2, \"program music/variety show\", \"i know\");",
+                "INSERT INTO artwork VALUES (3, \"presenter music/variety show\", \"loving you\");",
+                "INSERT INTO artwork VALUES (4, \"program music/variety show\", \"why\");",
+                "INSERT INTO artwork VALUES (5, \"presenter music/variety show\", \"boys\");",
+                "INSERT INTO artwork VALUES (6, \"program talent show\", \"cats\");",
+                "INSERT INTO artwork VALUES (7, \"presenter talent show\", \"daniel mananta\");",
+                "INSERT INTO artwork VALUES (8, \"program talent show\", \"martin\");",
+                "INSERT INTO artwork VALUES (9, \"presenter talent show\", \"back home\");"
+            ]
+        }
+    ]
+}

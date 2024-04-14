@@ -1,0 +1,20 @@
+{
+    "conversations": [
+        {
+            "role": "system",
+            "content": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\n##Instruction:\nstudent_transcripts_tracking contains tables such as student_enrolment_courses, courses.\nTable courses has columns such as course_id, course_name, course_description, other_details.\nTable student_enrolment_courses has columns such as student_course_id, course_id, student_enrolment_id, where course_id is the primary key, student_enrolment_id is the primary key.\nThe course_id of courses is the foreign key of course_id of student_enrolment_courses.\nThe student_enrolment_id of student_enrolment is the foreign key of student_enrolment_id of student_enrolment_courses."
+        },
+        {
+            "role": "user",
+            "content": "What are all the course names of the courses which ever have students enrolled in?"
+        },
+        {
+            "role": "assistant",
+            "content": "select distinct t1.course_name from courses as t1 join student_enrolment_courses as t2 on t1.course_id = t2.course_id;"
+        },
+        {
+            "role": "result",
+            "content": "SELECT DISTINCT course_name FROM courses;"
+        }
+    ]
+}

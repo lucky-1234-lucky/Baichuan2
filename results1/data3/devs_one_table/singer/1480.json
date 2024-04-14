@@ -1,0 +1,28 @@
+{
+    "conversations": [
+        {
+            "role": "system",
+            "content": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\n##Instruction:\nsinger contains tables such as singer.\nTable singer has columns such as singer_id, name, birth_year, net_worth_millions, citizenship."
+        },
+        {
+            "role": "user",
+            "content": "For each citizenship, what is the maximum net worth?"
+        },
+        {
+            "role": "assistant",
+            "content": "SELECT citizenship,\n       max(net_worth_millions)\nFROM singer\nGROUP BY citizenship;"
+        },
+        {
+            "role": "result",
+            "content": "SELECT max(net_worth_millions),\n       citizenship\nFROM singer\nGROUP BY citizenship;"
+        },
+        {
+            "role": "exuc_assist",
+            "content": 0
+        },
+        {
+            "role": "exuc_infer",
+            "content": 0
+        }
+    ]
+}

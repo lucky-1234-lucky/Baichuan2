@@ -1,0 +1,11 @@
+{
+    "conversations": [
+        {
+            "database": "election",
+            "system": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\n##Instruction:\nelection contains tables such as party.\nTable party has columns such as party_id, year, party, governor, lieutenant_governor, comptroller, attorney_general, us_senate.",
+            "query": "Which party has two or more records?",
+            "answer": "select party from party group by party having count(*) >= 2;",
+            "insert": []
+        }
+    ]
+}

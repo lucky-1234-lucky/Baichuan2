@@ -1,0 +1,11 @@
+{
+    "conversations": [
+        {
+            "database": "train_station",
+            "system": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\n##Instruction:\ntrain_station contains tables such as station.\nTable station has columns such as station_id, name, annual_entry_exit, annual_interchanges, total_passengers, location, main_services, number_of_platforms.",
+            "query": "Show all locations which don't have a train station with at least 15 platforms.",
+            "answer": "select location from station except select location from station where number_of_platforms >= 15;",
+            "insert": []
+        }
+    ]
+}

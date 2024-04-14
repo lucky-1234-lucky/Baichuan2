@@ -1,0 +1,11 @@
+{
+    "conversations": [
+        {
+            "database": "cinema",
+            "system": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\n##Instruction:\ncinema contains tables such as film.\nTable film has columns such as film_id, rank_in_series, number_in_season, title, directed_by, original_air_date, production_code.",
+            "query": "What are the title and director of each film?",
+            "answer": "select title , directed_by from film;",
+            "insert": []
+        }
+    ]
+}

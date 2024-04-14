@@ -1,0 +1,28 @@
+{
+    "conversations": [
+        {
+            "role": "system",
+            "content": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\n##Instruction:\ntracking_grants_for_research contains tables such as projects, project_outcomes.\nTable project_outcomes has columns such as project_id, outcome_code, outcome_details, where project_id is the primary key, outcome_code is the primary key.\nTable projects has columns such as project_id, organisation_id, project_details, where organisation_id is the primary key.\nThe project_id of projects is the foreign key of project_id of project_outcomes.\nThe outcome_code of research_outcomes is the foreign key of outcome_code of project_outcomes.\nThe organisation_id of organisations is the foreign key of organisation_id of projects."
+        },
+        {
+            "role": "user",
+            "content": "What are the details of the project that is producing both patents and papers as outcomes?"
+        },
+        {
+            "role": "assistant",
+            "content": "select t1.project_details from projects as t1 join project_outcomes as t2 on t1.project_id = t2.project_id where t2.outcome_code = 'paper' intersect select t1.project_details from projects as t1 join project_outcomes as t2 on t1.project_id = t2.project_id where t2.outcome_code = 'patent';"
+        },
+        {
+            "role": "result",
+            "content": "select t1.project_details from projects as t1 join project_outcomes as t2 on t1.project_id = t2.project_id where t2.outcome_code = 'patent' intersect select t1.project_details from projects as t1 join project_outcomes as t2 on t1.project_id = t2.project_id where t2.outcome_code = 'paper';"
+        },
+        {
+            "role": "exuc_assist",
+            "content": -1
+        },
+        {
+            "role": "exuc_infer",
+            "content": -1
+        }
+    ]
+}

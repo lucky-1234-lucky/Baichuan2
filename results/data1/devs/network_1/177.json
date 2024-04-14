@@ -1,0 +1,20 @@
+{
+    "conversations": [
+        {
+            "role": "system",
+            "content": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\n##Instruction:\nnetwork_1 contains tables such as highschooler.\nTable highschooler has columns such as id, name, grade."
+        },
+        {
+            "role": "user",
+            "content": "Return the grade that has the greatest number of high schoolers."
+        },
+        {
+            "role": "assistant",
+            "content": "select grade from highschooler group by grade order by count(*) desc limit 1;"
+        },
+        {
+            "role": "result",
+            "content": "select grade from highschooler group by grade order by count(*) desc limit 1;"
+        }
+    ]
+}

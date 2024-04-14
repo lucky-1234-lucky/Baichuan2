@@ -1,0 +1,11 @@
+{
+    "conversations": [
+        {
+            "database": "roller_coaster",
+            "system": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\n##Instruction:\nroller_coaster contains tables such as roller_coaster.\nTable roller_coaster has columns such as roller_coaster_id, name, park, country_id, length, height, speed, opened, status, where country_id is the primary key.\nThe country_id of country is the foreign key of country_id of roller_coaster.",
+            "query": "What is the average speed of roller coasters?",
+            "answer": "SELECT avg(speed)\nFROM roller_coaster;",
+            "insert": []
+        }
+    ]
+}

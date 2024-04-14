@@ -1,0 +1,28 @@
+{
+    "conversations": [
+        {
+            "role": "system",
+            "content": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\n##Instruction:\ntracking_orders contains tables such as invoices.\nTable invoices has columns such as invoice_number, invoice_date, invoice_details."
+        },
+        {
+            "role": "user",
+            "content": "Find the distinct details of invoices which are created before 1989-09-03 or after 2007-12-25."
+        },
+        {
+            "role": "assistant",
+            "content": "SELECT DISTINCT invoice_details\nFROM invoices\nWHERE invoice_date < '1989-09-03'\n  OR invoice_date > '2007-12-25';"
+        },
+        {
+            "role": "result",
+            "content": "SELECT DISTINCT(invoice_details)\nFROM invoices\nWHERE invoice_date < '1989-09-03'\n  OR invoice_date > '2007-12-25';"
+        },
+        {
+            "role": "exuc_assist",
+            "content": 8
+        },
+        {
+            "role": "exuc_infer",
+            "content": 8
+        }
+    ]
+}

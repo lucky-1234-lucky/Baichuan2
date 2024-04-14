@@ -1,0 +1,11 @@
+{
+    "conversations": [
+        {
+            "database": "book_2",
+            "system": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\n##Instruction:\nbook_2 contains tables such as publication.\nTable publication has columns such as publication_id, book_id, publisher, publication_date, price, where book_id is the primary key.\nThe book_id of book is the foreign key of book_id of publication.",
+            "query": "What is the number of distinct publication dates?",
+            "answer": "select count (distinct publication_date) from publication;",
+            "insert": []
+        }
+    ]
+}

@@ -1,0 +1,108 @@
+{
+    "sql": [
+        {
+            "city": "CREATE TABLE `city` (\n  `city_id` int(11) NOT NULL,\n  `county_id` int(11) DEFAULT NULL,\n  `name` text,\n  `white` double DEFAULT NULL,\n  `black` double DEFAULT NULL,\n  `amerindian` double DEFAULT NULL,\n  `asian` double DEFAULT NULL,\n  `multiracial` double DEFAULT NULL,\n  `hispanic` double DEFAULT NULL,\n  PRIMARY KEY (`city_id`),\n  KEY `county_id` (`county_id`),\n  CONSTRAINT `city_ibfk_1` FOREIGN KEY (`county_id`) REFERENCES `county_public_safety` (`county_id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8",
+            "fileds": {
+                "field": [
+                    [
+                        "city_id",
+                        "int",
+                        "PRIMARY KEY"
+                    ],
+                    [
+                        "county_id",
+                        "int"
+                    ],
+                    [
+                        "name",
+                        "text,"
+                    ],
+                    [
+                        "white",
+                        "double"
+                    ],
+                    [
+                        "black",
+                        "double"
+                    ],
+                    [
+                        "amerindian",
+                        "double"
+                    ],
+                    [
+                        "asian",
+                        "double"
+                    ],
+                    [
+                        "multiracial",
+                        "double"
+                    ],
+                    [
+                        "hispanic",
+                        "double"
+                    ]
+                ],
+                "foreign_key": [
+                    [
+                        "county_id",
+                        "county_public_safety",
+                        "county_id"
+                    ]
+                ]
+            }
+        },
+        {
+            "county_public_safety": "CREATE TABLE `county_public_safety` (\n  `county_id` int(11) NOT NULL,\n  `name` text,\n  `population` int(11) DEFAULT NULL,\n  `police_officers` int(11) DEFAULT NULL,\n  `residents_per_officer` int(11) DEFAULT NULL,\n  `case_burden` int(11) DEFAULT NULL,\n  `crime_rate` double DEFAULT NULL,\n  `police_force` text,\n  `location` text,\n  PRIMARY KEY (`county_id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8",
+            "fileds": {
+                "field": [
+                    [
+                        "county_id",
+                        "int",
+                        "PRIMARY KEY"
+                    ],
+                    [
+                        "name",
+                        "text,"
+                    ],
+                    [
+                        "population",
+                        "int"
+                    ],
+                    [
+                        "police_officers",
+                        "int"
+                    ],
+                    [
+                        "residents_per_officer",
+                        "int"
+                    ],
+                    [
+                        "case_burden",
+                        "int"
+                    ],
+                    [
+                        "crime_rate",
+                        "double"
+                    ],
+                    [
+                        "police_force",
+                        "text,"
+                    ],
+                    [
+                        "location",
+                        "text,"
+                    ]
+                ],
+                "foreign_key": []
+            }
+        }
+    ],
+    "input": "What are the names of cities that are in the county with the most police officers?",
+    "response": "select name from city where county_id = (select county_id from county_public_safety order by police_officers desc limit 1);",
+    "insert": [],
+    "table_names": [
+        "county_public_safety",
+        "city"
+    ],
+    "database": "county_public_safety"
+}

@@ -1,0 +1,20 @@
+{
+    "conversations": [
+        {
+            "role": "system",
+            "content": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\n##Instruction:\ntracking_share_transactions contains tables such as transactions, sales.\nTable sales has columns such as sales_transaction_id, sales_details, where sales_transaction_id is the primary key.\nTable transactions has columns such as transaction_id, investor_id, transaction_type_code, date_of_transaction, amount_of_transaction, share_count, other_details, where investor_id is the primary key, transaction_type_code is the primary key.\nThe transaction_id of transactions is the foreign key of sales_transaction_id of sales.\nThe investor_id of investors is the foreign key of investor_id of transactions.\nThe transaction_type_code of ref_transaction_types is the foreign key of transaction_type_code of transactions."
+        },
+        {
+            "role": "user",
+            "content": "What are the sale details and dates of transactions with amount smaller than 3000?"
+        },
+        {
+            "role": "assistant",
+            "content": "SELECT t1.sales_details,\n       t2.date_of_transaction\nFROM sales AS t1\nJOIN transactions AS t2 ON t1.sales_transaction_id = t2.transaction_id\nWHERE t2.amount_of_transaction < 3000;"
+        },
+        {
+            "role": "result",
+            "content": "SELECT t1.sales_details,\n       t1.date_of_transaction\nFROM sales AS t1\nJOIN transactions AS t2 ON t1.sales_transaction_id = t2.transaction_id\nWHERE t2.amount_of_transaction < 3000;"
+        }
+    ]
+}

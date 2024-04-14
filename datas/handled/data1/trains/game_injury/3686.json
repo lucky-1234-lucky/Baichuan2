@@ -1,0 +1,11 @@
+{
+    "conversations": [
+        {
+            "database": "game_injury",
+            "system": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\n##Instruction:\ngame_injury contains tables such as stadium.\nTable stadium has columns such as id, name, home_games, average_attendance, total_attendance, capacity_percentage.",
+            "query": "What are the maximum, minimum and average home games each stadium held?",
+            "answer": "select max(home_games) , min(home_games) , avg(home_games) from stadium;",
+            "insert": []
+        }
+    ]
+}

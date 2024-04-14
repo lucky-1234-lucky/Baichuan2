@@ -1,0 +1,336 @@
+{
+    "sql": [
+        {
+            "addresses": "CREATE TABLE `addresses` (\n  `address_id` int(11) NOT NULL,\n  `line_1_number_building` varchar(80) DEFAULT NULL,\n  `city` varchar(50) DEFAULT NULL,\n  `zip_postcode` varchar(20) DEFAULT NULL,\n  `state_province_county` varchar(50) DEFAULT NULL,\n  `country` varchar(50) DEFAULT NULL,\n  PRIMARY KEY (`address_id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8",
+            "fileds": {
+                "field": [
+                    [
+                        "address_id",
+                        "int",
+                        "PRIMARY KEY"
+                    ],
+                    [
+                        "line_1_number_building",
+                        "varchar"
+                    ],
+                    [
+                        "city",
+                        "varchar"
+                    ],
+                    [
+                        "zip_postcode",
+                        "varchar"
+                    ],
+                    [
+                        "state_province_county",
+                        "varchar"
+                    ],
+                    [
+                        "country",
+                        "varchar"
+                    ]
+                ],
+                "foreign_key": []
+            }
+        },
+        {
+            "contacts": "CREATE TABLE `contacts` (\n  `contact_id` int(11) NOT NULL,\n  `customer_id` int(11) NOT NULL,\n  `gender` varchar(1) DEFAULT NULL,\n  `first_name` varchar(80) DEFAULT NULL,\n  `last_name` varchar(50) DEFAULT NULL,\n  `contact_phone` varchar(80) DEFAULT NULL,\n  PRIMARY KEY (`contact_id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8",
+            "fileds": {
+                "field": [
+                    [
+                        "contact_id",
+                        "int",
+                        "PRIMARY KEY"
+                    ],
+                    [
+                        "customer_id",
+                        "int"
+                    ],
+                    [
+                        "gender",
+                        "varchar"
+                    ],
+                    [
+                        "first_name",
+                        "varchar"
+                    ],
+                    [
+                        "last_name",
+                        "varchar"
+                    ],
+                    [
+                        "contact_phone",
+                        "varchar"
+                    ]
+                ],
+                "foreign_key": []
+            }
+        },
+        {
+            "customer_address_history": "CREATE TABLE `customer_address_history` (\n  `customer_id` int(11) NOT NULL,\n  `address_id` int(11) NOT NULL,\n  `date_from` datetime NOT NULL,\n  `date_to` datetime DEFAULT NULL,\n  KEY `customer_id` (`customer_id`),\n  KEY `address_id` (`address_id`),\n  CONSTRAINT `customer_address_history_ibfk_1` FOREIGN KEY (`customer_id`) REFERENCES `customers` (`customer_id`),\n  CONSTRAINT `customer_address_history_ibfk_2` FOREIGN KEY (`address_id`) REFERENCES `addresses` (`address_id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8",
+            "fileds": {
+                "field": [
+                    [
+                        "customer_id",
+                        "int"
+                    ],
+                    [
+                        "address_id",
+                        "int"
+                    ],
+                    [
+                        "date_from",
+                        "datetime"
+                    ],
+                    [
+                        "date_to",
+                        "datetime"
+                    ]
+                ],
+                "foreign_key": [
+                    [
+                        "customer_id",
+                        "customers",
+                        "customer_id"
+                    ],
+                    [
+                        "address_id",
+                        "addresses",
+                        "address_id"
+                    ]
+                ]
+            }
+        },
+        {
+            "customer_orders": "CREATE TABLE `customer_orders` (\n  `order_id` int(11) NOT NULL,\n  `customer_id` int(11) NOT NULL,\n  `order_date` datetime NOT NULL,\n  `order_status_code` varchar(15) DEFAULT NULL,\n  PRIMARY KEY (`order_id`),\n  KEY `customer_id` (`customer_id`),\n  CONSTRAINT `customer_orders_ibfk_1` FOREIGN KEY (`customer_id`) REFERENCES `customers` (`customer_id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8",
+            "fileds": {
+                "field": [
+                    [
+                        "order_id",
+                        "int",
+                        "PRIMARY KEY"
+                    ],
+                    [
+                        "customer_id",
+                        "int"
+                    ],
+                    [
+                        "order_date",
+                        "datetime"
+                    ],
+                    [
+                        "order_status_code",
+                        "varchar"
+                    ]
+                ],
+                "foreign_key": [
+                    [
+                        "customer_id",
+                        "customers",
+                        "customer_id"
+                    ]
+                ]
+            }
+        },
+        {
+            "customers": "CREATE TABLE `customers` (\n  `customer_id` int(11) NOT NULL,\n  `payment_method_code` varchar(15) DEFAULT NULL,\n  `customer_number` varchar(20) DEFAULT NULL,\n  `customer_name` varchar(80) DEFAULT NULL,\n  `customer_address` varchar(255) DEFAULT NULL,\n  `customer_phone` varchar(80) DEFAULT NULL,\n  `customer_email` varchar(80) DEFAULT NULL,\n  PRIMARY KEY (`customer_id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8",
+            "fileds": {
+                "field": [
+                    [
+                        "customer_id",
+                        "int",
+                        "PRIMARY KEY"
+                    ],
+                    [
+                        "payment_method_code",
+                        "varchar"
+                    ],
+                    [
+                        "customer_number",
+                        "varchar"
+                    ],
+                    [
+                        "customer_name",
+                        "varchar"
+                    ],
+                    [
+                        "customer_address",
+                        "varchar"
+                    ],
+                    [
+                        "customer_phone",
+                        "varchar"
+                    ],
+                    [
+                        "customer_email",
+                        "varchar"
+                    ]
+                ],
+                "foreign_key": []
+            }
+        },
+        {
+            "order_items": "CREATE TABLE `order_items` (\n  `order_item_id` int(11) NOT NULL,\n  `order_id` int(11) NOT NULL,\n  `product_id` int(11) NOT NULL,\n  `order_quantity` varchar(80) DEFAULT NULL,\n  KEY `product_id` (`product_id`),\n  KEY `order_id` (`order_id`),\n  CONSTRAINT `order_items_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `products` (`product_id`),\n  CONSTRAINT `order_items_ibfk_2` FOREIGN KEY (`order_id`) REFERENCES `customer_orders` (`order_id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8",
+            "fileds": {
+                "field": [
+                    [
+                        "order_item_id",
+                        "int"
+                    ],
+                    [
+                        "order_id",
+                        "int"
+                    ],
+                    [
+                        "product_id",
+                        "int"
+                    ],
+                    [
+                        "order_quantity",
+                        "varchar"
+                    ]
+                ],
+                "foreign_key": [
+                    [
+                        "product_id",
+                        "products",
+                        "product_id"
+                    ],
+                    [
+                        "order_id",
+                        "customer_orders",
+                        "order_id"
+                    ]
+                ]
+            }
+        },
+        {
+            "products": "CREATE TABLE `products` (\n  `product_id` int(11) NOT NULL,\n  `product_type_code` varchar(15) DEFAULT NULL,\n  `product_name` varchar(80) DEFAULT NULL,\n  `product_price` double DEFAULT NULL,\n  PRIMARY KEY (`product_id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8",
+            "fileds": {
+                "field": [
+                    [
+                        "product_id",
+                        "int",
+                        "PRIMARY KEY"
+                    ],
+                    [
+                        "product_type_code",
+                        "varchar"
+                    ],
+                    [
+                        "product_name",
+                        "varchar"
+                    ],
+                    [
+                        "product_price",
+                        "double"
+                    ]
+                ],
+                "foreign_key": []
+            }
+        }
+    ],
+    "input": "Show the product type codes which have at least two products.",
+    "response": "select product_type_code from products group by product_type_code having count(*) >= 2;",
+    "insert": [
+        "INSERT INTO addresses (`address_id`, `line_1_number_building`, `city`, `zip_postcode`, `state_province_county`, `country`) VALUES (1, '4315 kerluke canyon apt. 800', 'hertafurt', '740', 'nevada', 'usa');",
+        "INSERT INTO addresses (`address_id`, `line_1_number_building`, `city`, `zip_postcode`, `state_province_county`, `country`) VALUES (2, '319 kozey highway suite 973', 'edgardoberg', '282', 'colorado', 'usa');",
+        "INSERT INTO addresses (`address_id`, `line_1_number_building`, `city`, `zip_postcode`, `state_province_county`, `country`) VALUES (3, '592 frederique ridge', 'gilbertmouth', '167', 'virginia', 'usa');",
+        "INSERT INTO addresses (`address_id`, `line_1_number_building`, `city`, `zip_postcode`, `state_province_county`, `country`) VALUES (4, '01868 laverna green', 'lake floyd', '041', 'oklahoma', 'usa');",
+        "INSERT INTO addresses (`address_id`, `line_1_number_building`, `city`, `zip_postcode`, `state_province_county`, `country`) VALUES (5, '6017 price greens', 'gibsonfurt', '873', 'district of columbia', 'usa');",
+        "INSERT INTO addresses (`address_id`, `line_1_number_building`, `city`, `zip_postcode`, `state_province_county`, `country`) VALUES (6, '037 luella path', 'north jairo', '126', 'maryland', 'usa');",
+        "INSERT INTO addresses (`address_id`, `line_1_number_building`, `city`, `zip_postcode`, `state_province_county`, `country`) VALUES (7, '044 greenfelder fort', 'east rickey', '564', 'louisiana', 'usa');",
+        "INSERT INTO addresses (`address_id`, `line_1_number_building`, `city`, `zip_postcode`, `state_province_county`, `country`) VALUES (8, '2676 connelly islands apt. 199', 'west kaiatown', '770', 'oregon', 'usa');",
+        "INSERT INTO addresses (`address_id`, `line_1_number_building`, `city`, `zip_postcode`, `state_province_county`, `country`) VALUES (9, '6830 alexanne forks apt. 925', 'agustinstad', '248', 'illinois', 'usa');",
+        "INSERT INTO addresses (`address_id`, `line_1_number_building`, `city`, `zip_postcode`, `state_province_county`, `country`) VALUES (10, '918 lauren drive', 'gleasonland', '116', 'kentucky', 'usa');",
+        "INSERT INTO addresses (`address_id`, `line_1_number_building`, `city`, `zip_postcode`, `state_province_county`, `country`) VALUES (11, '70345 marvin glens apt. 669', 'lake katheryn', '505', 'kentucky', 'usa');",
+        "INSERT INTO addresses (`address_id`, `line_1_number_building`, `city`, `zip_postcode`, `state_province_county`, `country`) VALUES (12, '65854 mckenzie tunnel', 'north lisandroport', '202', 'maine', 'usa');",
+        "INSERT INTO addresses (`address_id`, `line_1_number_building`, `city`, `zip_postcode`, `state_province_county`, `country`) VALUES (13, '494 bruen radial apt. 723', 'estaland', '381', 'idaho', 'usa');",
+        "INSERT INTO addresses (`address_id`, `line_1_number_building`, `city`, `zip_postcode`, `state_province_county`, `country`) VALUES (14, '794 doyle lake apt. 531', 'west muriel', '571', 'vermont', 'usa');",
+        "INSERT INTO addresses (`address_id`, `line_1_number_building`, `city`, `zip_postcode`, `state_province_county`, `country`) VALUES (15, '9590 rogahn point apt. 466', 'port montytown', '037', 'southdakota', 'usa');",
+        "INSERT INTO products (`product_id`, `product_type_code`, `product_name`, `product_price`) VALUES (1, 'hardware', 'apple', '54753982.574522');",
+        "INSERT INTO products (`product_id`, `product_type_code`, `product_name`, `product_price`) VALUES (2, 'clothes', 'jcrew', '30590929.528306');",
+        "INSERT INTO products (`product_id`, `product_type_code`, `product_name`, `product_price`) VALUES (3, 'hardware', 'apple', '10268.85297069');",
+        "INSERT INTO products (`product_id`, `product_type_code`, `product_name`, `product_price`) VALUES (4, 'hardware', 'apple', '22956668.699482');",
+        "INSERT INTO products (`product_id`, `product_type_code`, `product_name`, `product_price`) VALUES (5, 'clothes', 'jcrew', '5927021.8748021');",
+        "INSERT INTO products (`product_id`, `product_type_code`, `product_name`, `product_price`) VALUES (6, 'hardware', 'apple', '77.109961147471');",
+        "INSERT INTO products (`product_id`, `product_type_code`, `product_name`, `product_price`) VALUES (7, 'hardware', 'apple', '450.39232520498');",
+        "INSERT INTO products (`product_id`, `product_type_code`, `product_name`, `product_price`) VALUES (8, 'hardware', 'sony', '4446237.9177554');",
+        "INSERT INTO products (`product_id`, `product_type_code`, `product_name`, `product_price`) VALUES (9, 'clothes', 'jcrew', '622.79275984494');",
+        "INSERT INTO products (`product_id`, `product_type_code`, `product_name`, `product_price`) VALUES (10, 'hardware', 'sony', '7171.5933353284');",
+        "INSERT INTO products (`product_id`, `product_type_code`, `product_name`, `product_price`) VALUES (11, 'clothes', 'jcrew', '149.95519076938');",
+        "INSERT INTO products (`product_id`, `product_type_code`, `product_name`, `product_price`) VALUES (12, 'clothes', 'gucci', '593.80519929985');",
+        "INSERT INTO products (`product_id`, `product_type_code`, `product_name`, `product_price`) VALUES (13, 'clothes', 'gucci', '11388.26282462');",
+        "INSERT INTO products (`product_id`, `product_type_code`, `product_name`, `product_price`) VALUES (14, 'hardware', 'sony', '389.91542644329');",
+        "INSERT INTO products (`product_id`, `product_type_code`, `product_name`, `product_price`) VALUES (15, 'clothes', 'gucci', '310488248.48788');",
+        "INSERT INTO customers (`customer_id`, `payment_method_code`, `customer_number`, `customer_name`, `customer_address`, `customer_phone`, `customer_email`) VALUES (1, 'credit card', '456', 'kayley', '636 chanelle isle apt. 846', '+87 (9) 5279161988', 'antonette73@example.com');",
+        "INSERT INTO customers (`customer_id`, `payment_method_code`, `customer_number`, `customer_name`, `customer_address`, `customer_phone`, `customer_email`) VALUES (2, 'credit card', '553', 'sterling', '12174 boyer crossroad', '896.685.8228x2786', 'stroman.chadd@example.net');",
+        "INSERT INTO customers (`customer_id`, `payment_method_code`, `customer_number`, `customer_name`, `customer_address`, `customer_phone`, `customer_email`) VALUES (3, 'credit card', '951', 'buford', '650 spencer way apt. 584', ' (192) 144-4687', 'pattie.mayer@example.net');",
+        "INSERT INTO customers (`customer_id`, `payment_method_code`, `customer_number`, `customer_name`, `customer_address`, `customer_phone`, `customer_email`) VALUES (4, 'direct debit', '497', 'caterina', '075 skiles expressway', '387.053.1225', 'dbeahan@example.net');",
+        "INSERT INTO customers (`customer_id`, `payment_method_code`, `customer_number`, `customer_name`, `customer_address`, `customer_phone`, `customer_email`) VALUES (5, 'direct debit', '752', 'raymond', '8497 huel stravenue', '1-513-427-0125', 'bergnaum.ashton@example.com');",
+        "INSERT INTO customers (`customer_id`, `payment_method_code`, `customer_number`, `customer_name`, `customer_address`, `customer_phone`, `customer_email`) VALUES (6, 'direct debit', '838', 'cheyenne', '058 ben street apt. 034', '009-136-4509x19635', 'rhayes@example.org');",
+        "INSERT INTO customers (`customer_id`, `payment_method_code`, `customer_number`, `customer_name`, `customer_address`, `customer_phone`, `customer_email`) VALUES (7, 'direct debit', '429', 'cecelia', '4065 forest vista apt. 103', '672-559-0630x7875', 'caesar.lemke@example.net');",
+        "INSERT INTO customers (`customer_id`, `payment_method_code`, `customer_number`, `customer_name`, `customer_address`, `customer_phone`, `customer_email`) VALUES (8, 'credit card', '564', 'brenna', '440 aiden ports', '1-271-345-4681x1131', 'macy.huel@example.org');",
+        "INSERT INTO customers (`customer_id`, `payment_method_code`, `customer_number`, `customer_name`, `customer_address`, `customer_phone`, `customer_email`) VALUES (9, 'credit card', '525', 'lela', '13256 valentina valleys suite 292', '838.718.8618x23239', 'vandervort.helena@example.org');",
+        "INSERT INTO customers (`customer_id`, `payment_method_code`, `customer_number`, `customer_name`, `customer_address`, `customer_phone`, `customer_email`) VALUES (10, 'credit card', '795', 'cleo', '91702 hilpert pines suite 177', '1-202-928-5395', 'xrosenbaum@example.org');",
+        "INSERT INTO customers (`customer_id`, `payment_method_code`, `customer_number`, `customer_name`, `customer_address`, `customer_phone`, `customer_email`) VALUES (11, 'direct debit', '233', 'shany', '55270 carter street apt. 214', '936.929.9929', 'kling.jesus@example.com');",
+        "INSERT INTO customers (`customer_id`, `payment_method_code`, `customer_number`, `customer_name`, `customer_address`, `customer_phone`, `customer_email`) VALUES (12, 'credit card', '586', 'madaline', '8428 cecile land apt. 192', '097-514-4641', 'brady.ernser@example.net');",
+        "INSERT INTO customers (`customer_id`, `payment_method_code`, `customer_number`, `customer_name`, `customer_address`, `customer_phone`, `customer_email`) VALUES (13, 'direct debit', '445', 'melissa', '251 botsford harbors suite 399', '529.148.1926', 'howard27@example.com');",
+        "INSERT INTO customers (`customer_id`, `payment_method_code`, `customer_number`, `customer_name`, `customer_address`, `customer_phone`, `customer_email`) VALUES (14, 'direct debit', '735', 'orion', '10823 rollin spur', '479-171-6355x66065', 'kip.abernathy@example.com');",
+        "INSERT INTO customers (`customer_id`, `payment_method_code`, `customer_number`, `customer_name`, `customer_address`, `customer_phone`, `customer_email`) VALUES (15, 'direct debit', '523', 'ottilie', '4098 kreiger knoll suite 758', '393-750-2077x72779', 'morton06@example.net');",
+        "INSERT INTO customer_address_history (`customer_id`, `address_id`, `date_from`, `date_to`) VALUES (12, 7, '2015-07-23 14:37:18', '2018-03-07 12:04:20');",
+        "INSERT INTO customer_address_history (`customer_id`, `address_id`, `date_from`, `date_to`) VALUES (12, 2, '2016-11-06 14:33:12', '2018-03-14 21:36:28');",
+        "INSERT INTO customer_address_history (`customer_id`, `address_id`, `date_from`, `date_to`) VALUES (3, 9, '2011-11-19 12:17:36', '2018-03-22 10:20:16');",
+        "INSERT INTO customer_address_history (`customer_id`, `address_id`, `date_from`, `date_to`) VALUES (13, 15, '2009-02-16 23:04:20', '2018-03-07 17:47:47');",
+        "INSERT INTO customer_address_history (`customer_id`, `address_id`, `date_from`, `date_to`) VALUES (3, 12, '2008-06-22 21:50:44', '2018-03-13 00:08:29');",
+        "INSERT INTO customer_address_history (`customer_id`, `address_id`, `date_from`, `date_to`) VALUES (11, 10, '2012-04-09 18:10:36', '2018-03-11 20:16:56');",
+        "INSERT INTO customer_address_history (`customer_id`, `address_id`, `date_from`, `date_to`) VALUES (11, 10, '2014-11-17 15:11:26', '2018-03-08 23:31:30');",
+        "INSERT INTO customer_address_history (`customer_id`, `address_id`, `date_from`, `date_to`) VALUES (2, 13, '2011-01-02 21:42:29', '2018-02-25 19:55:00');",
+        "INSERT INTO customer_address_history (`customer_id`, `address_id`, `date_from`, `date_to`) VALUES (13, 11, '2015-05-01 12:44:46', '2018-03-24 06:20:36');",
+        "INSERT INTO customer_address_history (`customer_id`, `address_id`, `date_from`, `date_to`) VALUES (12, 3, '2011-06-02 02:53:28', '2018-03-10 00:47:18');",
+        "INSERT INTO customer_address_history (`customer_id`, `address_id`, `date_from`, `date_to`) VALUES (6, 1, '2013-06-14 23:07:04', '2018-03-16 14:49:28');",
+        "INSERT INTO customer_address_history (`customer_id`, `address_id`, `date_from`, `date_to`) VALUES (14, 12, '2008-10-13 04:37:27', '2018-03-19 10:10:53');",
+        "INSERT INTO customer_address_history (`customer_id`, `address_id`, `date_from`, `date_to`) VALUES (13, 5, '2012-03-16 17:42:30', '2018-02-27 07:31:19');",
+        "INSERT INTO customer_address_history (`customer_id`, `address_id`, `date_from`, `date_to`) VALUES (7, 13, '2012-11-19 09:20:49', '2018-03-11 20:11:21');",
+        "INSERT INTO customer_address_history (`customer_id`, `address_id`, `date_from`, `date_to`) VALUES (7, 3, '2012-11-09 07:15:16', '2018-03-09 12:03:31');",
+        "INSERT INTO customer_address_history (`customer_id`, `address_id`, `date_from`, `date_to`) VALUES (2, 4, '2011-11-02 17:31:41', '2018-03-07 05:29:10');",
+        "INSERT INTO customer_address_history (`customer_id`, `address_id`, `date_from`, `date_to`) VALUES (9, 13, '2010-03-25 08:23:20', '2018-03-09 16:41:55');",
+        "INSERT INTO customer_address_history (`customer_id`, `address_id`, `date_from`, `date_to`) VALUES (6, 12, '2017-10-25 07:35:59', '2018-03-11 21:40:52');",
+        "INSERT INTO customer_address_history (`customer_id`, `address_id`, `date_from`, `date_to`) VALUES (7, 3, '2009-05-22 04:42:28', '2018-03-18 11:13:27');",
+        "INSERT INTO customer_address_history (`customer_id`, `address_id`, `date_from`, `date_to`) VALUES (12, 9, '2016-12-23 04:42:07', '2018-03-20 01:13:38');",
+        "INSERT INTO customer_orders (`order_id`, `customer_id`, `order_date`, `order_status_code`) VALUES (1, 2, '2009-07-19 13:40:49', 'completed');",
+        "INSERT INTO customer_orders (`order_id`, `customer_id`, `order_date`, `order_status_code`) VALUES (2, 2, '1976-05-28 15:02:44', 'part');",
+        "INSERT INTO customer_orders (`order_id`, `customer_id`, `order_date`, `order_status_code`) VALUES (3, 6, '1979-03-29 02:47:13', 'completed');",
+        "INSERT INTO customer_orders (`order_id`, `customer_id`, `order_date`, `order_status_code`) VALUES (4, 4, '2003-01-17 00:06:12', 'part');",
+        "INSERT INTO customer_orders (`order_id`, `customer_id`, `order_date`, `order_status_code`) VALUES (5, 13, '1992-04-19 21:42:58', 'completed');",
+        "INSERT INTO customer_orders (`order_id`, `customer_id`, `order_date`, `order_status_code`) VALUES (6, 4, '1972-03-17 21:42:29', 'part');",
+        "INSERT INTO customer_orders (`order_id`, `customer_id`, `order_date`, `order_status_code`) VALUES (7, 10, '2002-01-20 01:52:53', 'part');",
+        "INSERT INTO customer_orders (`order_id`, `customer_id`, `order_date`, `order_status_code`) VALUES (8, 2, '1985-01-03 05:22:09', 'part');",
+        "INSERT INTO customer_orders (`order_id`, `customer_id`, `order_date`, `order_status_code`) VALUES (9, 9, '2016-09-17 03:00:47', 'completed');",
+        "INSERT INTO customer_orders (`order_id`, `customer_id`, `order_date`, `order_status_code`) VALUES (10, 5, '1971-12-04 19:14:18', 'completed');",
+        "INSERT INTO customer_orders (`order_id`, `customer_id`, `order_date`, `order_status_code`) VALUES (11, 10, '1993-05-08 14:12:06', 'completed');",
+        "INSERT INTO customer_orders (`order_id`, `customer_id`, `order_date`, `order_status_code`) VALUES (12, 10, '1998-06-14 21:22:53', 'completed');",
+        "INSERT INTO customer_orders (`order_id`, `customer_id`, `order_date`, `order_status_code`) VALUES (13, 9, '1997-08-02 09:44:57', 'part');",
+        "INSERT INTO customer_orders (`order_id`, `customer_id`, `order_date`, `order_status_code`) VALUES (14, 3, '1979-07-13 17:19:40', 'part');",
+        "INSERT INTO customer_orders (`order_id`, `customer_id`, `order_date`, `order_status_code`) VALUES (15, 1, '2007-01-19 07:54:50', 'completed');",
+        "INSERT INTO order_items (`order_item_id`, `order_id`, `product_id`, `order_quantity`) VALUES (1, 9, 15, '3');",
+        "INSERT INTO order_items (`order_item_id`, `order_id`, `product_id`, `order_quantity`) VALUES (2, 8, 12, '7');",
+        "INSERT INTO order_items (`order_item_id`, `order_id`, `product_id`, `order_quantity`) VALUES (3, 11, 9, '9');",
+        "INSERT INTO order_items (`order_item_id`, `order_id`, `product_id`, `order_quantity`) VALUES (4, 15, 2, 'male');",
+        "INSERT INTO order_items (`order_item_id`, `order_id`, `product_id`, `order_quantity`) VALUES (5, 13, 3, '3');",
+        "INSERT INTO order_items (`order_item_id`, `order_id`, `product_id`, `order_quantity`) VALUES (6, 3, 6, '4');",
+        "INSERT INTO order_items (`order_item_id`, `order_id`, `product_id`, `order_quantity`) VALUES (7, 7, 4, '8');",
+        "INSERT INTO order_items (`order_item_id`, `order_id`, `product_id`, `order_quantity`) VALUES (8, 6, 2, '7');",
+        "INSERT INTO order_items (`order_item_id`, `order_id`, `product_id`, `order_quantity`) VALUES (9, 3, 15, '2');",
+        "INSERT INTO order_items (`order_item_id`, `order_id`, `product_id`, `order_quantity`) VALUES (10, 4, 12, '5');",
+        "INSERT INTO order_items (`order_item_id`, `order_id`, `product_id`, `order_quantity`) VALUES (11, 14, 11, '8');",
+        "INSERT INTO order_items (`order_item_id`, `order_id`, `product_id`, `order_quantity`) VALUES (12, 6, 2, '7');",
+        "INSERT INTO order_items (`order_item_id`, `order_id`, `product_id`, `order_quantity`) VALUES (13, 7, 5, '9');",
+        "INSERT INTO order_items (`order_item_id`, `order_id`, `product_id`, `order_quantity`) VALUES (14, 5, 13, '4');",
+        "INSERT INTO order_items (`order_item_id`, `order_id`, `product_id`, `order_quantity`) VALUES (15, 7, 3, '8');"
+    ],
+    "table_names": [
+        "products"
+    ],
+    "database": "customers_and_products_contacts"
+}
